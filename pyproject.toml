@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "demilich"
+version = "0.1.0"
+description = "Demilich, the MTG skeleton wizard"
+authors = ["Matt Cooper <vtbassmatt@gmail.com>"]
+readme = "README.md"
+packages = [{include = "demilich", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
