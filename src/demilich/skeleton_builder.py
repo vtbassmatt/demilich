@@ -1,4 +1,6 @@
-from dataclasses import dataclass
+import csv
+from dataclasses import dataclass, asdict, field
+import sys
 
 from demilich.data import COMMON
 
@@ -9,19 +11,23 @@ class Slot:
     color: str
     number: int
     instruction: str
+    id: str = field(init=False)
 
-    @property
-    def name(self) -> str:
-        return f"{self.rarity}{self.color}{self.number:02}"
+    def __post_init__(self):
+        self.id = f"{self.rarity}{self.color}{self.number:02}"
 
 
 if __name__ == '__main__':
+    fieldnames = ['id', 'instruction']
+    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
+    writer.writeheader()
+
     for color in "WUBRG":
         for index, mv in enumerate(COMMON[color].creature_mana_values):
-            slot = Slot('C', color, index+1, str(mv) if mv == int(mv) else f"{int(mv-.5)} or {int(mv+.5)}")
-            print(f"{slot.name}. {slot.instruction}")
+            slot = Slot('C', color, index+1, f'{mv} MV' if mv == int(mv) else f"{int(mv-.5)} or {int(mv+.5)} MV")
+            writer.writerow(asdict(slot))
 
         spell_index = index + 2
         for index, spell in enumerate(COMMON[color].spells):
             slot = Slot('C', color, index+spell_index, spell)
-            print(f"{slot.name}. {slot.instruction}")
+            writer.writerow(asdict(slot))
