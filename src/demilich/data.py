@@ -36,11 +36,53 @@ _COMMON_CREATURE_MV = {
     'G': [1.5, 2, 2, 3, 3, 3.5, 4.5, 5, 6, 6.5],
 }
 
+_COMMON_SPELLS = {
+    'W': [
+        "Combat-related removal",
+        "Banishing Light",
+        "Combat trick",
+        "Disenchant/removal",
+    ],
+    'U': [
+        "Protective instant",
+        "Counterspell",
+        "Cantrip",
+        "Draw 2 or 3",
+        "Witness Protection (aura)",
+        "Top or bottom spell",
+        "Modal spell",
+    ],
+    'B': [
+        "Small conditional removal",
+        "Combat trick",
+        "Card draw at a cost",
+        "Coercion+",
+        "Unconditional removal",
+        "Slightly overcosted removal",
+    ],
+    'R': [
+        "Direct damage for 2",
+        "Combat trick",
+        "Rummage/impulse draw",
+        "Modal Shatter",
+        "Direct damage for 4 (efficient)",
+        "Direct damage (5 mana, 6 damage)",
+    ],
+    'G': [
+        "Fight spell",
+        "Bite spell",
+        "Combat trick (power pump)",
+        "Mana acceleration",
+        "Dig for lands and/or creatures",
+    ],
+}
+
 
 @dataclass
 class ColorData:
     keywords: dict[str, float]
-    mana_values: list[float]
+    creature_mana_values: list[float]
+    spells: list[str]
 
 
 COMMON = {
@@ -50,6 +92,7 @@ COMMON = {
             if values[index] > 0
         },
         _COMMON_CREATURE_MV[color],
+        _COMMON_SPELLS[color],
     ) for index, color in enumerate('WUBRG')
 }
 
