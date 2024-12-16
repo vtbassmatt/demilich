@@ -1,15 +1,27 @@
+from dataclasses import dataclass
+
 from demilich.data import COMMON
 
 
-for color in "WUBRG":
-    for index, mv in enumerate(COMMON[color].creature_mana_values):
-        slot = f"C{color}{index+1:02}"
-        if mv == int(mv):
-            print(f"{slot}. {mv}")
-        else:
-            mv_range = f"{int(mv-.5)} or {int(mv+.5)}"
-            print(f"{slot}. {mv_range}")
-    spell_index = index + 1
-    for index, spell in enumerate(COMMON[color].spells):
-        slot = f"C{color}{index+spell_index+1:02}"
-        print(f"{slot}. {spell}")
+@dataclass
+class Slot:
+    rarity: str
+    color: str
+    number: int
+    instruction: str
+
+    @property
+    def name(self) -> str:
+        return f"{self.rarity}{self.color}{self.number:02}"
+
+
+if __name__ == '__main__':
+    for color in "WUBRG":
+        for index, mv in enumerate(COMMON[color].creature_mana_values):
+            slot = Slot('C', color, index+1, str(mv) if mv == int(mv) else f"{int(mv-.5)} or {int(mv+.5)}")
+            print(f"{slot.name}. {slot.instruction}")
+
+        spell_index = index + 2
+        for index, spell in enumerate(COMMON[color].spells):
+            slot = Slot('C', color, index+spell_index, spell)
+            print(f"{slot.name}. {slot.instruction}")
