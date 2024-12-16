@@ -1,3 +1,6 @@
+from dataclasses import dataclass
+
+
 _COMMON_CREATURE_COUNTS = [
     # W U  B  R  G
     11, 8, 9, 9, 10
@@ -31,6 +34,23 @@ _COMMON_CREATURE_MV = {
     'B': [1.5, 2, 2, 3, 3, 4, 4.5, 5.5, 6.5],
     'R': [1.5, 2, 2, 3, 3, 3.5, 4.5, 5, 6],
     'G': [1.5, 2, 2, 3, 3, 3.5, 4.5, 5, 6, 6.5],
+}
+
+
+@dataclass
+class ColorData:
+    keywords: dict[str, float]
+    mana_values: list[float]
+
+
+COMMON = {
+    color: ColorData({
+            kw: values[index]
+            for kw, values in _COMMON_KEYWORDS.items()
+            if values[index] > 0
+        },
+        _COMMON_CREATURE_MV[color],
+    ) for index, color in enumerate('WUBRG')
 }
 
 
