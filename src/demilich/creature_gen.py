@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from math import floor
 from random import uniform, sample
 
 
@@ -13,8 +12,19 @@ class Creature:
 def creatures(mana_values, types, keywords):
     musts, maybes = _compute_keywords(keywords)
 
-    batch = [[] for _ in mana_values]
-    must_targets = sample(batch, len(musts))
+    keywords_batch = _generate_keywords(mana_values, musts, maybes)
+    
+    for slot_keywords in keywords_batch:
+        yield Creature(
+            name='TODO',
+            typeline='TODO',
+            text=", ".join(slot_keywords),
+        )
+
+
+def _generate_keywords(mana_values, musts, maybes):
+    keywords_batch = [[] for _ in mana_values]
+    must_targets = sample(keywords_batch, len(musts))
     for target in must_targets:
         keyword = musts.pop()
         target.append(keyword)
@@ -22,7 +32,7 @@ def creatures(mana_values, types, keywords):
     selected_maybes = [
         m[0] for m in maybes if uniform(0.0, 1.0) < m[1]
     ]
-    maybe_targets = sample(batch, len(selected_maybes))
+    maybe_targets = sample(keywords_batch, len(selected_maybes))
     for target in maybe_targets:
         # note: this could assign incompatible keywords (trample +
         # deathtouch), or non-optimal placement (trample on a 1/1).
@@ -32,13 +42,7 @@ def creatures(mana_values, types, keywords):
         # however, we do want to avoid doubling keywords
         if keyword not in target:
             target.append(keyword)
-    
-    for slot_keywords in batch:
-        yield Creature(
-            name='TODO',
-            typeline='TODO',
-            text=", ".join(slot_keywords),
-        )
+    return keywords_batch
 
 
 def _compute_keywords(keywords):
