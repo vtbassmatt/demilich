@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from random import uniform, sample
+from random import uniform, sample, choice
 
 
 @dataclass
@@ -9,17 +9,31 @@ class Creature:
     text: str
 
 
-def creatures(mana_values, types, keywords):
+def creatures(mana_values, races, classes, keywords):
     musts, maybes = _compute_keywords(keywords)
 
     keywords_batch = _generate_keywords(mana_values, musts, maybes)
+    types_batch = _generate_typelines(mana_values, races, classes)
     
-    for slot_keywords in keywords_batch:
+    for kw_text, type_ in zip(keywords_batch, types_batch, strict=True):
         yield Creature(
             name='TODO',
-            typeline='TODO',
-            text=", ".join(slot_keywords),
+            typeline=type_,
+            text=", ".join(kw_text),
         )
+
+
+def _generate_typelines(mana_values, races, classes):
+    races_batch = [choice(races) for _ in mana_values]
+    classes_batch = [
+        choice(classes) if uniform(0.0, 1.0) < .75 else ""
+        for _ in mana_values
+    ]
+    types_batch = [
+        "Creature — {0} {1}".format(race, class_).strip()
+        for race, class_ in zip(races_batch, classes_batch)
+    ]
+    return types_batch
 
 
 def _generate_keywords(mana_values, musts, maybes):

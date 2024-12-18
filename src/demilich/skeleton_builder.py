@@ -22,12 +22,17 @@ class Slot:
 
 
 if __name__ == '__main__':
-    fieldnames = ['id', 'instruction', 'text']
+    fieldnames = ['id', 'instruction', 'typeline', 'text']
     writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
     writer.writeheader()
 
     for color in "WUBRG":
-        c = creatures(COMMON[color].creature_mana_values, [], COMMON[color].keywords)
+        c = creatures(
+            COMMON[color].creature_mana_values,
+            COMMON[color].creature_races,
+            COMMON[color].creature_classes,
+            COMMON[color].keywords,
+        )
         for index, mv in enumerate(COMMON[color].creature_mana_values):
             card = next(c)
             slot = Slot(

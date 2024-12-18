@@ -36,6 +36,23 @@ _COMMON_CREATURE_MV = {
     'G': [1.5, 2, 2, 3, 3, 3.5, 4.5, 5, 6, 6.5],
 }
 
+_WUBRG_RACES = ['Bird', 'Dinosaur', 'Dog', 'Spirit']
+_COMMON_RACES = {
+    'W': ['Human', 'Angel', 'Cat',] + _WUBRG_RACES,
+    'U': ['Sphinx', 'Merfolk', 'Otter', 'Bird', 'Sphinx'] + _WUBRG_RACES,
+    'B': ['Demon', 'Vampire', 'Zombie', 'Bat', 'Horror', 'Skeleton'] + _WUBRG_RACES,
+    'R': ['Dragon', 'Goblin', 'Devil', 'Ogre'] + _WUBRG_RACES,
+    'G': ['Hydra', 'Elf', 'Bear', 'Beast', 'Spider', 'Treefolk'] + _WUBRG_RACES,
+}
+
+_COMMON_CLASSES = {
+    'W': ['Cleric', 'Knight', 'Monk', 'Mystic', 'Soldier', 'Nomad', 'Samurai', 'Scout'],
+    'U': ['Wziard', 'Ninja', 'Pirate', 'Advisor', 'Rogue', 'Artificer'],
+    'B': ['Warlock', 'Assassin', 'Knight', 'Minion', 'Rogue'],
+    'R': ['Shaman', 'Artificer', 'Barbarian', 'Bard', 'Berserker', 'Pirate', 'Samurai', 'Warrior'],
+    'G': ['Druid', 'Archer', 'Bard', 'Monk', 'Mystic', 'Ranger', 'Scout', 'Warrior'],
+}
+
 _COMMON_SPELLS = {
     'W': [
         "Combat-related removal",
@@ -82,6 +99,8 @@ _COMMON_SPELLS = {
 class ColorData:
     keywords: dict[str, float]
     creature_mana_values: list[float]
+    creature_races: list[str]
+    creature_classes: list[str]
     spells: list[str]
 
 
@@ -92,6 +111,8 @@ COMMON = {
             if values[index] > 0
         },
         _COMMON_CREATURE_MV[color],
+        _COMMON_RACES[color],
+        _COMMON_CLASSES[color],
         _COMMON_SPELLS[color],
     ) for index, color in enumerate('WUBRG')
 }
