@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from random import uniform, sample, choice
 
-from demilich.data import FLYING_RACES
+from demilich.data import FLYING_RACES, ADJECTIVES
 
 
 @dataclass
@@ -16,13 +16,26 @@ def creatures(mana_values, races, classes, keywords):
 
     keywords_batch = _generate_keywords(mana_values, musts, maybes)
     types_batch = _generate_typelines(keywords_batch, races, classes)
+    names_batch = _generate_names(types_batch, ADJECTIVES)
     
-    for kw_text, type_ in zip(keywords_batch, types_batch, strict=True):
+    for kw_text, types, name in zip(keywords_batch, types_batch, names_batch, strict=True):
         yield Creature(
-            name='TODO',
-            typeline=type_,
+            name=f"{name[0]} {name[1]}",
+            typeline=" ".join(["Creature", "—", "{0} {1}".format(types[0], types[1]).strip()]),
             text=", ".join(kw_text),
         )
+
+
+def _generate_names(types_batch, adjectives):
+    options = [
+        choice([0, 1]) if t[1] is not "" else 0
+        for t in types_batch
+    ]
+    names = [
+        (choice(adjectives), t[o])
+        for t, o in zip(types_batch, options)
+    ]
+    return names
 
 
 def _choose_race(races, keywords):
@@ -43,7 +56,7 @@ def _generate_typelines(keywords_batch, races, classes):
         for _ in keywords_batch
     ]
     types_batch = [
-        "Creature — {0} {1}".format(race, class_).strip()
+        (race, class_)
         for race, class_ in zip(races_batch, classes_batch)
     ]
     return types_batch

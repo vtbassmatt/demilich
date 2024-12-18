@@ -54,6 +54,16 @@ _COMMON_CLASSES = {
     'G': ['Druid', 'Archer', 'Bard', 'Monk', 'Mystic', 'Ranger', 'Scout', 'Warrior'],
 }
 
+_ADJECTIVES = [
+    'Ancient', 'Anointed', 'Brazen', 'Desperate', 'Frenzied', 'Gilded',
+    'Looming', 'Prosperous', 'Apprentice', 'Shining', 'Territorial',
+    'Ambush', 'Armored', 'Doomed', 'Elder', 'Feral', 'Grizzled',
+    'Makeshift', 'Night', 'Day', 'One-Eyed', 'Selfless', 'Selfish',
+    'Tormented', 'Unruly', 'Interloping', 'Village', 'Woodland',
+    'Undead', 'Bellowing', 'Brave', 'Frilled', 'Intrepid', 'Rough',
+    'Thieving', 'Guarded', 'Assistant', 'Tragic', 'Conscripted',
+]
+
 _COMMON_SPELLS = {
     'W': [
         "Combat-related removal",
@@ -118,6 +128,7 @@ COMMON = {
     ) for index, color in enumerate('WUBRG')
 }
 FLYING_RACES = set(_FLYING_RACES)
+ADJECTIVES = _ADJECTIVES
 
 
 class DesignSkeletonConfigError(ValueError): pass

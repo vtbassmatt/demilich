@@ -22,7 +22,7 @@ class Slot:
 
 
 if __name__ == '__main__':
-    fieldnames = ['id', 'instruction', 'typeline', 'text']
+    fieldnames = ['id', 'instruction', 'name', 'typeline', 'text']
     writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
     writer.writeheader()
 
