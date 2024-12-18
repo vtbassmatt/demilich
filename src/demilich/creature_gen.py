@@ -24,15 +24,21 @@ def creatures(mana_values, types, keywords):
     ]
     maybe_targets = sample(batch, len(selected_maybes))
     for target in maybe_targets:
-        # note: this could assign duplicates of a keyword to a creature,
-        # or incompatible keywords (trample + deathtouch), or non-optimal
-        # placement (trample on a 1/1). since we're only generating
-        # a starter skeleton, we'll live with that.
+        # note: this could assign incompatible keywords (trample +
+        # deathtouch), or non-optimal placement (trample on a 1/1).
+        # since we're only generating a starter skeleton, we'll live
+        # with that for now.
         keyword = selected_maybes.pop()
-        target.append(keyword)
+        # however, we do want to avoid doubling keywords
+        if keyword not in target:
+            target.append(keyword)
     
     for slot_keywords in batch:
-        yield Creature(name='TODO', typeline='TODO', text=", ".join(slot_keywords))
+        yield Creature(
+            name='TODO',
+            typeline='TODO',
+            text=", ".join(slot_keywords),
+        )
 
 
 def _compute_keywords(keywords):
