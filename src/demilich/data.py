@@ -36,18 +36,19 @@ _COMMON_CREATURE_MV = {
     'G': [1.5, 2, 2, 3, 3, 3.5, 4.5, 5, 6, 6.5],
 }
 
-_WUBRG_RACES = ['Bird', 'Dinosaur', 'Dog', 'Spirit']
+_WUBRG_RACES = ['Dinosaur', 'Dog', 'Spirit']
 _COMMON_RACES = {
-    'W': ['Human', 'Angel', 'Cat',] + _WUBRG_RACES,
-    'U': ['Sphinx', 'Merfolk', 'Otter', 'Bird', 'Sphinx'] + _WUBRG_RACES,
+    'W': ['Human', 'Angel', 'Cat', 'Bird'] + _WUBRG_RACES,
+    'U': ['Sphinx', 'Merfolk', 'Otter', 'Bird'] + _WUBRG_RACES,
     'B': ['Demon', 'Vampire', 'Zombie', 'Bat', 'Horror', 'Skeleton'] + _WUBRG_RACES,
     'R': ['Dragon', 'Goblin', 'Devil', 'Ogre'] + _WUBRG_RACES,
     'G': ['Hydra', 'Elf', 'Bear', 'Beast', 'Spider', 'Treefolk'] + _WUBRG_RACES,
 }
+_FLYING_RACES = ['Angel', 'Spirit', 'Bird', 'Dinosaur', 'Demon', 'Vampire', 'Dragon']
 
 _COMMON_CLASSES = {
     'W': ['Cleric', 'Knight', 'Monk', 'Mystic', 'Soldier', 'Nomad', 'Samurai', 'Scout'],
-    'U': ['Wziard', 'Ninja', 'Pirate', 'Advisor', 'Rogue', 'Artificer'],
+    'U': ['Wizard', 'Ninja', 'Pirate', 'Advisor', 'Rogue', 'Artificer'],
     'B': ['Warlock', 'Assassin', 'Knight', 'Minion', 'Rogue'],
     'R': ['Shaman', 'Artificer', 'Barbarian', 'Bard', 'Berserker', 'Pirate', 'Samurai', 'Warrior'],
     'G': ['Druid', 'Archer', 'Bard', 'Monk', 'Mystic', 'Ranger', 'Scout', 'Warrior'],
@@ -116,6 +117,7 @@ COMMON = {
         _COMMON_SPELLS[color],
     ) for index, color in enumerate('WUBRG')
 }
+FLYING_RACES = set(_FLYING_RACES)
 
 
 class DesignSkeletonConfigError(ValueError): pass

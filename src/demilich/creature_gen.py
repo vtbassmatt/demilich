@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from random import uniform, sample, choice
 
+from demilich.data import FLYING_RACES
+
 
 @dataclass
 class Creature:
@@ -13,7 +15,7 @@ def creatures(mana_values, races, classes, keywords):
     musts, maybes = _compute_keywords(keywords)
 
     keywords_batch = _generate_keywords(mana_values, musts, maybes)
-    types_batch = _generate_typelines(mana_values, races, classes)
+    types_batch = _generate_typelines(keywords_batch, races, classes)
     
     for kw_text, type_ in zip(keywords_batch, types_batch, strict=True):
         yield Creature(
@@ -23,11 +25,22 @@ def creatures(mana_values, races, classes, keywords):
         )
 
 
-def _generate_typelines(mana_values, races, classes):
-    races_batch = [choice(races) for _ in mana_values]
+def _choose_race(races, keywords):
+    if 'flying' in keywords:
+        return choice(list(races & FLYING_RACES))
+    # awkwardly hardcode Bird as an obligate flyer
+    return choice(list(races - {'Bird'}))
+
+
+def _generate_typelines(keywords_batch, races, classes):
+    races_set = set(races)
+    races_batch = [
+        _choose_race(races_set, kw)
+        for kw in keywords_batch
+    ]
     classes_batch = [
         choice(classes) if uniform(0.0, 1.0) < .75 else ""
-        for _ in mana_values
+        for _ in keywords_batch
     ]
     types_batch = [
         "Creature — {0} {1}".format(race, class_).strip()
