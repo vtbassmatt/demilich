@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from random import uniform, sample, choice
 
-from demilich.data import FLYING_RACES, ADJECTIVES
+from demilich.data import FLYING_RACES, ADJECTIVES, KEYWORD_BOOSTS
 
 
 @dataclass
@@ -9,26 +9,46 @@ class Creature:
     name: str
     typeline: str
     text: str
+    stats: str
 
 
-def creatures(mana_values, races, classes, keywords):
+def creatures(mana_values, races, classes, keywords, sizes):
     musts, maybes = _compute_keywords(keywords)
 
     keywords_batch = _generate_keywords(mana_values, musts, maybes)
     types_batch = _generate_typelines(keywords_batch, races, classes)
     names_batch = _generate_names(types_batch, ADJECTIVES)
+    stats_batch = _generate_stats(keywords_batch, sizes)
     
-    for kw_text, types, name in zip(keywords_batch, types_batch, names_batch, strict=True):
+    for kw_text, types, name, stats in zip(keywords_batch, types_batch, names_batch, stats_batch, strict=True):
         yield Creature(
             name=f"{name[0]} {name[1]}",
             typeline=" ".join(["Creature", "—", "{0} {1}".format(types[0], types[1]).strip()]),
             text=", ".join(kw_text),
+            stats=f"{stats[0]}/{stats[1]}"
         )
+
+
+def _pick_stats(keywords, default_size):
+    size = list(default_size)
+    for keyword in keywords:
+        if keyword in KEYWORD_BOOSTS:
+            size[0] = max(0, size[0] + KEYWORD_BOOSTS[keyword][0])
+            size[1] = max(1, size[1] + KEYWORD_BOOSTS[keyword][1])
+    return tuple(size)
+
+
+def _generate_stats(keywords_batch, sizes):
+    stats_batch = [
+        _pick_stats(keywords, default_size)
+        for keywords, default_size in zip(keywords_batch, sizes)
+    ]
+    return stats_batch
 
 
 def _generate_names(types_batch, adjectives):
     options = [
-        choice([0, 1]) if t[1] is not "" else 0
+        choice([0, 1]) if t[1] != "" else 0
         for t in types_batch
     ]
     names = [

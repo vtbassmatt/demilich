@@ -16,13 +16,14 @@ class Slot:
     name: str = ''
     typeline: str = ''
     text: str = ''
+    stats: str | None = None
 
     def __post_init__(self):
         self.id = f"{self.rarity}{self.color}{self.number:02}"
 
 
 if __name__ == '__main__':
-    fieldnames = ['id', 'instruction', 'name', 'typeline', 'text']
+    fieldnames = ['id', 'instruction', 'name', 'typeline', 'text', 'stats']
     writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
     writer.writeheader()
 
@@ -32,6 +33,7 @@ if __name__ == '__main__':
             COMMON[color].creature_races,
             COMMON[color].creature_classes,
             COMMON[color].keywords,
+            COMMON[color].creature_sizes,
         )
         for index, mv in enumerate(COMMON[color].creature_mana_values):
             card = next(c)
@@ -41,6 +43,7 @@ if __name__ == '__main__':
                 name=card.name,
                 typeline=card.typeline,
                 text=card.text,
+                stats=card.stats,
             )
             writer.writerow(asdict(slot))
 

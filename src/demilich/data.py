@@ -27,6 +27,12 @@ _COMMON_KEYWORDS = {
     "haste":         [0,   0,   0,    1.5, .2],
     "reach":         [0,   0,   0,    1,   1.5],
 }
+_KEYWORD_BOOSTS = {
+    'flying': (-1, -1),
+    'trample': (1, 0),
+    'defender': (-3, 0),
+    'double strike': (-1, 0),
+}
 
 _COMMON_CREATURE_MV = {
     'W': [1, 2, 2, 2, 3, 3, 3, 4, 4, 5.5, 6.5],
@@ -34,6 +40,14 @@ _COMMON_CREATURE_MV = {
     'B': [1.5, 2, 2, 3, 3, 4, 4.5, 5.5, 6.5],
     'R': [1.5, 2, 2, 3, 3, 3.5, 4.5, 5, 6],
     'G': [1.5, 2, 2, 3, 3, 3.5, 4.5, 5, 6, 6.5],
+}
+
+_COMMON_CREATURE_SIZES = {
+    'W': [(1, 1), (2, 2), (1, 2), (2, 2), (3, 3), (3, 3), (3, 3), (4, 4), (4, 4), (5, 6), (6, 6)],
+    'U': [(2, 2), (2, 2), (3, 3), (3, 3), (3, 3), (4, 4), (5, 5), (5, 6)],
+    'B': [(1, 1), (2, 1), (2, 2), (3, 3), (3, 3), (4, 4), (4, 4), (5, 5), (6, 6)],
+    'R': [(2, 1), (2, 2), (2, 2), (3, 3), (3, 3), (4, 3), (4, 4), (5, 5), (6, 6)],
+    'G': [(1, 1), (2, 2), (2, 2), (3, 3), (3, 3), (4, 4), (4, 5), (5, 5), (6, 6), (6, 6)],
 }
 
 _WUBRG_RACES = ['Dinosaur', 'Dog', 'Spirit']
@@ -112,6 +126,7 @@ class ColorData:
     creature_mana_values: list[float]
     creature_races: list[str]
     creature_classes: list[str]
+    creature_sizes: list[tuple[int,int]]
     spells: list[str]
 
 
@@ -124,11 +139,13 @@ COMMON = {
         _COMMON_CREATURE_MV[color],
         _COMMON_RACES[color],
         _COMMON_CLASSES[color],
+        _COMMON_CREATURE_SIZES[color],
         _COMMON_SPELLS[color],
     ) for index, color in enumerate('WUBRG')
 }
 FLYING_RACES = set(_FLYING_RACES)
 ADJECTIVES = _ADJECTIVES
+KEYWORD_BOOSTS = _KEYWORD_BOOSTS
 
 
 class DesignSkeletonConfigError(ValueError): pass
