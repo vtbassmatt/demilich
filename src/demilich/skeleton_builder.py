@@ -8,7 +8,8 @@ import sys
 from demilich.data import (
     COMMON, UNCOMMON, UNCOMMON_MULTICOLOR,
     COMMON_ARTIFACT, UNCOMMON_ARTIFACT, UNCOMMON_LANDS,
-    ARTIFACT_RACES, ARTIFACT_NONRACES,
+    ARTIFACT_RACES, ARTIFACT_NONRACES, RARE_COLORED,
+    RARE_ARTIFACTS, MYTHIC_COUNT,
 )
 from demilich.creature_gen import creatures
 
@@ -150,12 +151,43 @@ def _generate_artifacts(writer):
         )
         writer.writerow(asdict(slot))
 
+
 def _generate_uncommon_lands(writer):
     for index in range(UNCOMMON_LANDS):
         slot = Slot(
             rarity='U', color='L', number=index+1,
             instruction='Utility land',
             typeline='Land',
+        )
+        writer.writerow(asdict(slot))
+
+
+def _write_rare_mythic_slots(writer):
+    slots = (
+        ['W'] * RARE_COLORED +
+        ['U'] * RARE_COLORED +
+        ['B'] * RARE_COLORED +
+        ['R'] * RARE_COLORED +
+        ['G'] * RARE_COLORED +
+        ['A'] * RARE_ARTIFACTS
+    )
+    for color in "WUBRG":
+        for index in range(RARE_COLORED):
+            slot = Slot(
+                rarity='R', color=color, number=index+1,
+                instruction='Rare',
+            )
+            writer.writerow(asdict(slot))
+    for index in range(RARE_ARTIFACTS):
+        slot = Slot(
+            rarity='R', color='A', number=index+1,
+            instruction='Rare artifact',
+        )
+        writer.writerow(asdict(slot))
+    for index in range(MYTHIC_COUNT):
+        slot = Slot(
+            rarity='M', color='?', number=index+1,
+            instruction='Mythic',
         )
         writer.writerow(asdict(slot))
 
@@ -172,3 +204,5 @@ if __name__ == '__main__':
     _generate_gold_uncommons(writer)
     _generate_artifacts(writer)
     _generate_uncommon_lands(writer)
+
+    _write_rare_mythic_slots(writer)
