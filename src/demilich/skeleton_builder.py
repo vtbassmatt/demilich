@@ -90,18 +90,8 @@ def _generate_uncommons(writer, color):
             )
         writer.writerow(asdict(slot))
 
-if __name__ == '__main__':
-    fieldnames = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
-    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
-    writer.writeheader()
 
-    for color in "WUBRG":
-        # commons
-        _generate_commons(writer, color)
-
-        # uncommons
-        _generate_uncommons(writer, color)
-
+def _generate_gold_uncommons(writer):
     for offset, multicolor_instruction in enumerate(UNCOMMON_MULTICOLOR):
         for index, (first, second) in enumerate(zip(cycle("WUBRG"), "UBRGWBRGWU")):
             slot = Slot(
@@ -110,7 +100,9 @@ if __name__ == '__main__':
                 typeline='Creature — TODO',
             )
             writer.writerow(asdict(slot))
-    
+
+
+def _generate_artifacts(writer):
     # hardcode the artifact slots for now
     c_artifact_instructions = [
         'Two-mana creature (variance buster)',
@@ -154,3 +146,17 @@ if __name__ == '__main__':
             typeline=typ,
         )
         writer.writerow(asdict(slot))
+
+
+if __name__ == '__main__':
+    fieldnames = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
+    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
+    writer.writeheader()
+
+    for color in "WUBRG":
+        _generate_commons(writer, color)
+        _generate_uncommons(writer, color)
+
+    _generate_gold_uncommons(writer)
+    
+    _generate_artifacts(writer)
