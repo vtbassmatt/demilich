@@ -76,3 +76,63 @@ if __name__ == '__main__':
                 typeline=choice(['Instant', 'Sorcery', 'Enchantment', 'Enchantment — Aura']),
             )
             writer.writerow(asdict(slot))
+
+    # hardcode the multicolor and artifact slots for now
+    for index, (first, second) in enumerate(zip("WUBRGWUBRG", "UBRGWBRGWU")):
+        slot = Slot(
+            rarity='U', color='Z', number=index+1,
+            instruction=f'{first}{second} creature (enabler)',
+            typeline='Creature — TODO',
+        )
+        writer.writerow(asdict(slot))
+    
+    for index, (first, second) in enumerate(zip("WUBRGWUBRG", "UBRGWBRGWU")):
+        slot = Slot(
+            rarity='U', color='Z', number=index+11,
+            instruction=f'{first}{second} creature (payoff)',
+            typeline='Creature — TODO',
+        )
+        writer.writerow(asdict(slot))
+    
+    c_artifact_instructions = [
+        'Two-mana creature (variance buster)',
+        'Three-mana creature',
+        'Four-mana creature',
+        'Removal',
+        'Manalith+ ability',
+        'Land fixing',
+    ]
+    c_artifact_typelines = [
+        'Artifact Creature — TODO',
+        'Artifact Creature — TODO',
+        'Artifact Creature — TODO',
+        'Artifact',
+        'Artifact',
+        'Artifact',
+    ]
+
+    u_artifact_instructions = (
+        ['Creature'] * 4 + 
+        ['Artifact'] * 3 + 
+        ['Land'] * 3
+    )
+    u_artifact_typelines = (
+        ['Artifact Creature — TODO'] * 4 +
+        ['Artifact'] * 3 +
+        ['Land'] * 3
+    )
+
+    for index, (ins, typ) in enumerate(zip(c_artifact_instructions, c_artifact_typelines)):
+        slot = Slot(
+            rarity='C', color='A', number=index+1,
+            instruction=ins,
+            typeline=typ,
+        )
+        writer.writerow(asdict(slot))
+    for index, (ins, typ) in enumerate(zip(u_artifact_instructions, u_artifact_typelines)):
+        slot = Slot(
+            rarity='U', color='A', number=index+1,
+            instruction=ins,
+            typeline=typ,
+        )
+        writer.writerow(asdict(slot))
