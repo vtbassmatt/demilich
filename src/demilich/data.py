@@ -11,6 +11,8 @@ _UNCOMMON_CREATURE_COUNTS = [
     10, 6.5, 7.5, 7.5, 9
 ]
 
+_UNCOMMON_SLOTS_PER_COLOR = 14
+
 _COMMON_KEYWORDS = {
     #                 W    U    B     R    G
     "flying":        [3,   3,   2,    0,   0],
@@ -52,13 +54,13 @@ _COMMON_CREATURE_SIZES = {
 
 _WUBRG_RACES = ['Dinosaur', 'Dog', 'Spirit']
 _COMMON_RACES = {
-    'W': ['Human', 'Angel', 'Cat', 'Bird'] + _WUBRG_RACES,
-    'U': ['Sphinx', 'Merfolk', 'Otter', 'Bird'] + _WUBRG_RACES,
-    'B': ['Demon', 'Vampire', 'Zombie', 'Bat', 'Horror', 'Skeleton'] + _WUBRG_RACES,
-    'R': ['Dragon', 'Goblin', 'Devil', 'Ogre'] + _WUBRG_RACES,
-    'G': ['Hydra', 'Elf', 'Bear', 'Beast', 'Spider', 'Treefolk'] + _WUBRG_RACES,
+    'W': ['Human', 'Cat', 'Bird'] + _WUBRG_RACES,
+    'U': ['Merfolk', 'Otter', 'Bird'] + _WUBRG_RACES,
+    'B': ['Vampire', 'Zombie', 'Bat', 'Horror', 'Skeleton'] + _WUBRG_RACES,
+    'R': ['Goblin', 'Devil', 'Ogre'] + _WUBRG_RACES,
+    'G': ['Elf', 'Bear', 'Beast', 'Spider', 'Treefolk'] + _WUBRG_RACES,
 }
-_FLYING_RACES = ['Angel', 'Spirit', 'Bird', 'Dinosaur', 'Demon', 'Vampire', 'Dragon']
+_FLYING_RACES = ['Spirit', 'Bird', 'Dinosaur', 'Vampire']
 
 _COMMON_CLASSES = {
     'W': ['Cleric', 'Knight', 'Monk', 'Mystic', 'Soldier', 'Nomad', 'Samurai', 'Scout'],
@@ -67,6 +69,9 @@ _COMMON_CLASSES = {
     'R': ['Shaman', 'Artificer', 'Barbarian', 'Bard', 'Berserker', 'Pirate', 'Samurai', 'Warrior'],
     'G': ['Druid', 'Archer', 'Bard', 'Monk', 'Mystic', 'Ranger', 'Scout', 'Warrior'],
 }
+
+_UNCOMMON_RACES = _COMMON_RACES
+_UNCOMMON_CLASSES = _COMMON_CLASSES
 
 _ADJECTIVES = [
     'Ancient', 'Anointed', 'Brazen', 'Desperate', 'Frenzied', 'Gilded',
@@ -121,7 +126,7 @@ _COMMON_SPELLS = {
 
 
 @dataclass
-class ColorData:
+class CommonsData:
     keywords: dict[str, float]
     creature_mana_values: list[float]
     creature_races: list[str]
@@ -130,8 +135,16 @@ class ColorData:
     spells: list[str]
 
 
+@dataclass
+class UncommonsData:
+    creature_count: float | int
+    creature_races: list[str]
+    creature_classes: list[str]
+    total_slots: int
+
+
 COMMON = {
-    color: ColorData({
+    color: CommonsData({
             kw: values[index]
             for kw, values in _COMMON_KEYWORDS.items()
             if values[index] > 0
@@ -141,6 +154,14 @@ COMMON = {
         _COMMON_CLASSES[color],
         _COMMON_CREATURE_SIZES[color],
         _COMMON_SPELLS[color],
+    ) for index, color in enumerate('WUBRG')
+}
+UNCOMMON = {
+    color: UncommonsData(
+        _UNCOMMON_CREATURE_COUNTS[index],
+        _UNCOMMON_RACES,
+        _UNCOMMON_CLASSES,
+        _UNCOMMON_SLOTS_PER_COLOR,
     ) for index, color in enumerate('WUBRG')
 }
 FLYING_RACES = set(_FLYING_RACES)

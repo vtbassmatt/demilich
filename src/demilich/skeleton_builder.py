@@ -1,9 +1,9 @@
 import csv
 from dataclasses import dataclass, asdict, field
-from random import choice
+from random import choice, uniform
 import sys
 
-from demilich.data import COMMON
+from demilich.data import COMMON, UNCOMMON
 from demilich.creature_gen import creatures
 
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     writer.writeheader()
 
     for color in "WUBRG":
-        c = creatures(
+        commons = creatures(
             COMMON[color].creature_mana_values,
             COMMON[color].creature_races,
             COMMON[color].creature_classes,
@@ -38,7 +38,7 @@ if __name__ == '__main__':
             COMMON[color].creature_sizes,
         )
         for index, mv in enumerate(COMMON[color].creature_mana_values):
-            card = next(c)
+            card = next(commons)
             slot = Slot(
                 rarity='C', color=color, number=index+1,
                 instruction=f'{mv} MV' if mv == int(mv) else f"{int(mv-.5)} or {int(mv+.5)} MV",
@@ -55,5 +55,24 @@ if __name__ == '__main__':
             slot = Slot(
                 rarity='C', color=color, number=index+spell_index,
                 instruction=spell,
+            )
+            writer.writerow(asdict(slot))
+
+        creature_remainder = UNCOMMON[color].creature_count - int(UNCOMMON[color].creature_count)
+        extra_creature = 1 if uniform(0.0, 1.0) < creature_remainder else 0
+        uncommon_creatures = int(UNCOMMON[color].creature_count) + extra_creature
+        for index in range(uncommon_creatures):
+            slot = Slot(
+                rarity='U', color=color, number=index+1,
+                instruction='Creature',
+                typeline='Creature — TODO',
+            )
+            writer.writerow(asdict(slot))
+        
+        for index in range(UNCOMMON[color].total_slots - uncommon_creatures):
+            slot = Slot(
+                rarity='U', color=color, number=uncommon_creatures+index+1,
+                instruction='Spell',
+                typeline=choice(['Instant', 'Sorcery', 'Enchantment', 'Enchantment — Aura']),
             )
             writer.writerow(asdict(slot))
