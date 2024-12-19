@@ -1,9 +1,10 @@
 import csv
 from dataclasses import dataclass, asdict, field
+from itertools import cycle
 from random import choice, uniform
 import sys
 
-from demilich.data import COMMON, UNCOMMON
+from demilich.data import COMMON, UNCOMMON, UNCOMMON_MULTICOLOR
 from demilich.creature_gen import creatures
 
 
@@ -77,23 +78,16 @@ if __name__ == '__main__':
             )
             writer.writerow(asdict(slot))
 
-    # hardcode the multicolor and artifact slots for now
-    for index, (first, second) in enumerate(zip("WUBRGWUBRG", "UBRGWBRGWU")):
-        slot = Slot(
-            rarity='U', color='Z', number=index+1,
-            instruction=f'{first}{second} creature (enabler)',
-            typeline='Creature — TODO',
-        )
-        writer.writerow(asdict(slot))
+    for offset, multicolor_instruction in enumerate(UNCOMMON_MULTICOLOR):
+        for index, (first, second) in enumerate(zip(cycle("WUBRG"), "UBRGWBRGWU")):
+            slot = Slot(
+                rarity='U', color='Z', number=(offset*10)+index+1,
+                instruction=f'{first}{second} creature ({multicolor_instruction})',
+                typeline='Creature — TODO',
+            )
+            writer.writerow(asdict(slot))
     
-    for index, (first, second) in enumerate(zip("WUBRGWUBRG", "UBRGWBRGWU")):
-        slot = Slot(
-            rarity='U', color='Z', number=index+11,
-            instruction=f'{first}{second} creature (payoff)',
-            typeline='Creature — TODO',
-        )
-        writer.writerow(asdict(slot))
-    
+    # hardcode the artifact slots for now
     c_artifact_instructions = [
         'Two-mana creature (variance buster)',
         'Three-mana creature',

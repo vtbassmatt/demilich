@@ -164,6 +164,7 @@ UNCOMMON = {
         _UNCOMMON_SLOTS_PER_COLOR,
     ) for index, color in enumerate('WUBRG')
 }
+UNCOMMON_MULTICOLOR = ["enabler", "payoff"]
 FLYING_RACES = set(_FLYING_RACES)
 ADJECTIVES = _ADJECTIVES
 KEYWORD_BOOSTS = _KEYWORD_BOOSTS
