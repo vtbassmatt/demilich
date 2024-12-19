@@ -159,8 +159,8 @@ COMMON = {
 UNCOMMON = {
     color: UncommonsData(
         _UNCOMMON_CREATURE_COUNTS[index],
-        _UNCOMMON_RACES,
-        _UNCOMMON_CLASSES,
+        _UNCOMMON_RACES[color],
+        _UNCOMMON_CLASSES[color],
         _UNCOMMON_SLOTS_PER_COLOR,
     ) for index, color in enumerate('WUBRG')
 }
