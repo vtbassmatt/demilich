@@ -94,11 +94,24 @@ def _generate_uncommons(writer, color):
 def _generate_gold_uncommons(writer):
     cards_per_pair = len(UNCOMMON_MULTICOLOR)
     for offset, (first, second) in enumerate(zip(cycle("WUBRG"), "UBRGWBRGWU")):
+        # generate cards to use partial information from
+        gold_uncommons = creatures(
+            range(10 * cards_per_pair),
+            UNCOMMON[first].creature_races + UNCOMMON[second].creature_races,
+            UNCOMMON[first].creature_classes + UNCOMMON[second].creature_classes,
+            {},
+            ((2, 2) for _ in range(10 * cards_per_pair)),
+        )
+
         for index, multicolor_instruction in enumerate(UNCOMMON_MULTICOLOR):
+            card = next(gold_uncommons)
             slot = Slot(
                 rarity='U', color='Z', number=(offset*cards_per_pair)+index+1,
                 instruction=f'{first}{second} creature ({multicolor_instruction})',
-                typeline='Creature — TODO',
+                name=card.name,
+                typeline=card.typeline,
+                stats=card.stats,
+                cost=f"{{{first}}}{{{second}}}",
             )
             writer.writerow(asdict(slot))
 
@@ -154,10 +167,10 @@ if __name__ == '__main__':
     writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
     writer.writeheader()
 
-    # for color in "WUBRG":
-    #     _generate_commons(writer, color)
-    #     _generate_uncommons(writer, color)
+    for color in "WUBRG":
+        _generate_commons(writer, color)
+        _generate_uncommons(writer, color)
 
     _generate_gold_uncommons(writer)
     
-    # _generate_artifacts(writer)
+    _generate_artifacts(writer)
