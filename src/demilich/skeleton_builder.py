@@ -50,7 +50,10 @@ if __name__ == '__main__':
             )
             writer.writerow(asdict(slot))
 
-        # spell_index = index + 2
-        # for index, spell in enumerate(COMMON[color].spells):
-        #     slot = Slot('C', color, index+spell_index, spell)
-        #     writer.writerow(asdict(slot))
+        spell_index = index + 2
+        for index, spell in enumerate(COMMON[color].spells):
+            slot = Slot(
+                rarity='C', color=color, number=index+spell_index,
+                instruction=spell,
+            )
+            writer.writerow(asdict(slot))
