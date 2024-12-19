@@ -150,20 +150,55 @@ KEYWORD_BOOSTS = _KEYWORD_BOOSTS
 
 class DesignSkeletonConfigError(ValueError): pass
 
-def _validate_commons_data(creature_counts, keywords, creature_mv):
+def _validate_commons_data(
+        creature_counts,
+        keywords,
+        creature_mv,
+        creature_sizes,
+        races,
+        classes,
+        spells,
+):
     if len(creature_counts) != 5:
         raise DesignSkeletonConfigError(f"[common] {len(creature_counts)=}")
     if len(creature_mv.keys()) != 5:
         raise DesignSkeletonConfigError(f"[common] {len(creature_mv.keys())=}")
+    
+    color_count = {}
+
     for index, color in enumerate("WUBRG"):
         if color not in creature_mv.keys():
             raise DesignSkeletonConfigError(f"[common] expected {color} common creature MV list")
         if len(creature_mv[color]) != creature_counts[index]:
-            raise DesignSkeletonConfigError(f"[common] {color} creature count expected to be {creature_counts[index]} but was {len(creature_mv[color])}")
+            raise DesignSkeletonConfigError(f"[common] {color} creature MV count expected to be {creature_counts[index]} but was {len(creature_mv[color])}")
+
+        if color not in creature_sizes.keys():
+            raise DesignSkeletonConfigError(f"[common] expected {color} common creature sizes list")
+        if len(creature_sizes[color]) != creature_counts[index]:
+            raise DesignSkeletonConfigError(f"[common] {color} creature sizes count expected to be {creature_counts[index]} but was {len(creature_mv[color])}")
+
+        if color not in races.keys():
+            raise DesignSkeletonConfigError(f"[common] expected {color} races list")
+        if color not in classes.keys():
+            raise DesignSkeletonConfigError(f"[common] expected {color} classes list")
+        
+        color_count[color] = len(creature_mv[color]) + len(spells[color])
+
+    if not (color_count['W'] == color_count['U'] == color_count['B'] == color_count['R'] == color_count['G']):
+        raise DesignSkeletonConfigError(f"[common] color counts are uneven: {color_count=}")
+
     for keyword, counts in keywords.items():
         if len(counts) != 5:
             raise DesignSkeletonConfigError(f"[common] {keyword} has {len(counts)} entries")
 
 
 if __name__ == '__main__':
-    _validate_commons_data(_COMMON_CREATURE_COUNTS, _COMMON_KEYWORDS, _COMMON_CREATURE_MV)
+    _validate_commons_data(
+        _COMMON_CREATURE_COUNTS,
+        _COMMON_KEYWORDS,
+        _COMMON_CREATURE_MV,
+        _COMMON_CREATURE_SIZES,
+        _COMMON_RACES,
+        _COMMON_CLASSES,
+        _COMMON_SPELLS,
+    )
