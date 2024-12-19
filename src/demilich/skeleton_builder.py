@@ -1,5 +1,6 @@
 import csv
 from dataclasses import dataclass, asdict, field
+from random import choice
 import sys
 
 from demilich.data import COMMON
@@ -14,6 +15,7 @@ class Slot:
     instruction: str
     id: str = field(init=False)
     name: str = ''
+    cost: str = ''
     typeline: str = ''
     text: str = ''
     stats: str | None = None
@@ -23,7 +25,7 @@ class Slot:
 
 
 if __name__ == '__main__':
-    fieldnames = ['id', 'instruction', 'name', 'typeline', 'text', 'stats']
+    fieldnames = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
     writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
     writer.writeheader()
 
@@ -41,6 +43,7 @@ if __name__ == '__main__':
                 rarity='C', color=color, number=index+1,
                 instruction=f'{mv} MV' if mv == int(mv) else f"{int(mv-.5)} or {int(mv+.5)} MV",
                 name=card.name,
+                cost=f"{{{mv-1}}}{{{color}}}" if int(mv) == mv else f"{{{int(mv+choice([-1.5, -.5]))}}}{{{color}}}",
                 typeline=card.typeline,
                 text=card.text,
                 stats=card.stats,
