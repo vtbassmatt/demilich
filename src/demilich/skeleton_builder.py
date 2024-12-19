@@ -5,7 +5,11 @@ from math import ceil
 from random import choice, uniform
 import sys
 
-from demilich.data import COMMON, UNCOMMON, UNCOMMON_MULTICOLOR
+from demilich.data import (
+    COMMON, UNCOMMON, UNCOMMON_MULTICOLOR,
+    COMMON_ARTIFACT, UNCOMMON_ARTIFACT, UNCOMMON_LANDS,
+    ARTIFACT_RACES, ARTIFACT_NONRACES,
+)
 from demilich.creature_gen import creatures
 
 
@@ -116,48 +120,42 @@ def _generate_gold_uncommons(writer):
             writer.writerow(asdict(slot))
 
 
+def _pick_artifact_typeline(is_creature):
+    if is_creature:
+        typeline = f"Artifact Creature — {choice(ARTIFACT_RACES)}"
+    elif uniform(0.0, 1.0) < .33:
+        typeline = f"Artifact — {choice(ARTIFACT_NONRACES)}"
+    else:
+        typeline = "Artifact"
+    return typeline
+
+
 def _generate_artifacts(writer):
-    # hardcode the artifact slots for now
-    c_artifact_instructions = [
-        'Two-mana creature (variance buster)',
-        'Three-mana creature',
-        'Four-mana creature',
-        'Removal',
-        'Manalith+ ability',
-        'Land fixing',
-    ]
-    c_artifact_typelines = [
-        'Artifact Creature — TODO',
-        'Artifact Creature — TODO',
-        'Artifact Creature — TODO',
-        'Artifact',
-        'Artifact',
-        'Artifact',
-    ]
-
-    u_artifact_instructions = (
-        ['Creature'] * 4 + 
-        ['Artifact'] * 3 + 
-        ['Land'] * 3
-    )
-    u_artifact_typelines = (
-        ['Artifact Creature — TODO'] * 4 +
-        ['Artifact'] * 3 +
-        ['Land'] * 3
-    )
-
-    for index, (ins, typ) in enumerate(zip(c_artifact_instructions, c_artifact_typelines)):
+    for index, (instruction, is_creature, mv) in enumerate(COMMON_ARTIFACT):
+        typeline = _pick_artifact_typeline(is_creature)
         slot = Slot(
             rarity='C', color='A', number=index+1,
-            instruction=ins,
-            typeline=typ,
+            instruction=instruction,
+            typeline=typeline,
+            cost=f"{{{mv}}}" if mv is not None else "",
         )
         writer.writerow(asdict(slot))
-    for index, (ins, typ) in enumerate(zip(u_artifact_instructions, u_artifact_typelines)):
+    for index, (instruction, is_creature, mv) in enumerate(UNCOMMON_ARTIFACT):
+        typeline = _pick_artifact_typeline(is_creature)
         slot = Slot(
             rarity='U', color='A', number=index+1,
-            instruction=ins,
-            typeline=typ,
+            instruction=instruction,
+            typeline=typeline,
+            cost=f"{{{mv}}}" if mv is not None else "",
+        )
+        writer.writerow(asdict(slot))
+
+def _generate_uncommon_lands(writer):
+    for index in range(UNCOMMON_LANDS):
+        slot = Slot(
+            rarity='U', color='L', number=index+1,
+            instruction='Utility land',
+            typeline='Land',
         )
         writer.writerow(asdict(slot))
 
@@ -172,5 +170,5 @@ if __name__ == '__main__':
         _generate_uncommons(writer, color)
 
     _generate_gold_uncommons(writer)
-    
     _generate_artifacts(writer)
+    _generate_uncommon_lands(writer)

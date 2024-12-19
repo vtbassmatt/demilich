@@ -165,6 +165,23 @@ UNCOMMON = {
     ) for index, color in enumerate('WUBRG')
 }
 UNCOMMON_MULTICOLOR = ["enabler", "payoff"]
+COMMON_ARTIFACT = [
+    ('Two-mana creature (variance buster)', True, 2),
+    ('Three-mana creature', True, 3),
+    ('Four-mana creature', True, 4),
+    ('Removal', False, None),
+    ('Manalith+ ability', False, None),
+    ('Land fixing', False, None),
+]
+UNCOMMON_ARTIFACT = (
+    [('Creature', True, None)] * 4 + 
+    [('Artifact', False, None)] * 3 + 
+    [('Land', False, None)] * 3
+)
+UNCOMMON_LANDS = 3
+ARTIFACT_RACES = ["Construct", "Toy", "Gnome", "Golem", "Gargoyle"]
+ARTIFACT_NONRACES = ["Equipment", "Vehicle"]
+
 FLYING_RACES = set(_FLYING_RACES)
 ADJECTIVES = _ADJECTIVES
 KEYWORD_BOOSTS = _KEYWORD_BOOSTS
