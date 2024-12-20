@@ -1,7 +1,7 @@
 from demilich.builder import SkeletonBuilder
 from demilich.restrictions import to_races, to_power#, to_toughness
 
-skeleton = (
+sb = (
     SkeletonBuilder()
     .create_keywords(
         flying="flying",
@@ -84,3 +84,5 @@ skeleton = (
         .creatures()
         .mana_values(2, 3, 4)
 )
+
+print(sb)
