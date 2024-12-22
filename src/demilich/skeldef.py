@@ -39,8 +39,9 @@ sb = (
     .common()
     .white(slots=15)
         .creatures()
-        .restrict(flying=to_races(bird=True, spirit=True, dinosaur=False))
-        .restrict(double_strike=to_power(under=3))
+        # not implemented yet
+        # .restrict(flying=to_races(bird=True, spirit=True, dinosaur=False))
+        # .restrict(double_strike=to_power(under=3))
         # these are more examples, though they don't apply in white
         # .restrict(deathtouch=to_power(under=3))
         # .restrict(trample=to_power(over=3))
