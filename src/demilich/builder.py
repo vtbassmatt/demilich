@@ -23,6 +23,7 @@ class Frame(Enum):
 
 
 class DataTypes(Enum):
+    COUNT = 'ct'
     MANA_VALUES = 'mv'
     SIZES = 'sz'
     KEYWORDS = 'kw'
@@ -33,6 +34,7 @@ class DataTypes(Enum):
 
 def make_blank_data():
     return {
+        DataTypes.COUNT: 0,
         DataTypes.MANA_VALUES: [],
         DataTypes.SIZES: [],
         DataTypes.KEYWORDS: {},
@@ -86,7 +88,7 @@ class SkeletonBuilder():
 
         match self._working_rarity:
             case Rarity.COMMON:
-                self._common_slot_counts[frame] = slots
+                self._common_slots[frame][DataTypes.COUNT] = slots
             case _:
                 raise NotImplementedError()
 
@@ -127,11 +129,11 @@ class SkeletonBuilder():
 
         match self._working_rarity:
             case Rarity.COMMON:
-                slots = self._common_slot_counts
+                slots = self._current()[DataTypes.COUNT]
             case _:
                 raise NotImplementedError()
         
-        if length > slots[self._working_frame]:
+        if length > slots:
             raise ValueError(f"error in {self._working_rarity.name} {self._working_frame.value} {source}: more creatures specified than slots available")
 
     def mana_values(self, *args: list[int|tuple[int, ...]]):
@@ -249,7 +251,7 @@ class SkeletonBuilder():
 
         for rarity in (self._common_slots, ):
             for frame in Frame:
-                for index in range(self._common_slot_counts[frame]):
+                for index in range(self._common_slots[frame][DataTypes.COUNT]):
                     if index < len(self._common_slots[frame][DataTypes.MANA_VALUES]):
                         yield Slot('C', frame.name, index+1, f'{self._common_slots[frame][DataTypes.MANA_VALUES][index]}')
                     else:
@@ -265,14 +267,14 @@ Races: {[v for v in self._races.values()]}
 Classes: {[v for v in self._classes.values()]}
 
 Common slots:
-  W: {self._common_slot_counts[Frame.W]}
-  U: {self._common_slot_counts[Frame.U]}
-  B: {self._common_slot_counts[Frame.B]}
-  R: {self._common_slot_counts[Frame.R]}
-  G: {self._common_slot_counts[Frame.G]}
-  A: {self._common_slot_counts[Frame.A]}
-  Z: {self._common_slot_counts[Frame.Z]}
-Total: {sum(self._common_slot_counts.values())}
+  W: {self._common_slots[Frame.W][DataTypes.COUNT]}
+  U: {self._common_slots[Frame.U][DataTypes.COUNT]}
+  B: {self._common_slots[Frame.B][DataTypes.COUNT]}
+  R: {self._common_slots[Frame.R][DataTypes.COUNT]}
+  G: {self._common_slots[Frame.G][DataTypes.COUNT]}
+  A: {self._common_slots[Frame.A][DataTypes.COUNT]}
+  Z: {self._common_slots[Frame.Z][DataTypes.COUNT]}
+Total: {sum([x[DataTypes.COUNT] for x in self._common_slots.values()])}
 """
 
     _keywords = {}
@@ -290,15 +292,6 @@ Total: {sum(self._common_slot_counts.values())}
         Frame.G: make_blank_data(),
         Frame.A: make_blank_data(),
         Frame.Z: make_blank_data(),
-    }
-    _common_slot_counts = {
-        Frame.W: 0,
-        Frame.U: 0,
-        Frame.B: 0,
-        Frame.R: 0,
-        Frame.G: 0,
-        Frame.A: 0,
-        Frame.Z: 0,
     }
     # creature mode enables things like sizes, keywords, races, and classes
     # outside of creature mode (spell mode), these concepts don't make sense
