@@ -1,3 +1,7 @@
+import csv
+from dataclasses import asdict
+import sys
+
 from demilich.builder import SkeletonBuilder
 from demilich.restrictions import to_races, to_power#, to_toughness
 
@@ -74,16 +78,24 @@ sb = (
         .mana_values(2, 2, 3, 3, 3, 4, (5,6), (6,7))
     .black(slots=15)
         .creatures()
-        .mana_values(1.5, 2, 2, 3, 3, 4, (4,5), (5,5), (6,7))
+        .mana_values((1, 2), 2, 2, 3, 3, 4, (4,5), (5,5), (6,7))
     .red(slots=15)
         .creatures()
-        .mana_values(1.5, 2, 2, 3, 3, (3,4), (4,5), 5, 6)
+        .mana_values((1, 2), 2, 2, 3, 3, (3,4), (4,5), 5, 6)
     .green(slots=15)
         .creatures()
-        .mana_values(1.5, 2, 2, 3, 3, (3,4), (4,5), 5, 6, (6,7))
+        .mana_values((1, 2), 2, 2, 3, 3, (3,4), (4,5), 5, 6, (6,7))
     .artifact(slots=6)
         .creatures()
         .mana_values(2, 3, 4)
 )
 
-print(sb)
+if __name__ == '__main__':
+    print(sb)
+
+    fieldnames = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
+    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
+    writer.writeheader()
+
+    for slot in sb.build():
+        writer.writerow(asdict(slot))

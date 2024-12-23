@@ -1,6 +1,8 @@
 from enum import Enum
+from typing import Iterable
 
 from demilich.restrictions import Restriction
+from demilich.skeleton_builder import Slot
 
 
 class Rarity(Enum):
@@ -18,6 +20,26 @@ class Frame(Enum):
     G = 'green'
     A = 'artifact'
     Z = 'multicolor'
+
+
+class DataTypes(Enum):
+    MANA_VALUES = 'mv'
+    SIZES = 'sz'
+    KEYWORDS = 'kw'
+    RACES = 'ra'
+    CLASSES = 'cl'
+    SPELLS = 'sp'
+
+
+def make_blank_data():
+    return {
+        DataTypes.MANA_VALUES: [],
+        DataTypes.SIZES: [],
+        DataTypes.KEYWORDS: {},
+        DataTypes.RACES: {},
+        DataTypes.CLASSES: {},
+        DataTypes.SPELLS: [],
+    }
 
 
 def slotcode(rarity: Rarity, frame: Frame, number: int):
@@ -69,6 +91,16 @@ class SkeletonBuilder():
                 raise NotImplementedError()
 
         return self
+    
+    def _current(self) -> dict:
+        if not self._working_frame:
+            raise ModeError('no frame is selected')
+
+        match self._working_rarity:
+            case Rarity.COMMON:
+                return self._common_slots[self._working_frame]
+            case _:
+                raise NotImplementedError()
 
     def white(self, slots: int):
         return self._set_color_and_slots(slots, Frame.W)
@@ -107,8 +139,18 @@ class SkeletonBuilder():
             raise ModeError("must be in creature mode to define mana values")
         self._check_creature_length(len(args), "mana values")
 
-        # TODO: check these are sensible
-        self._working_mana_values = args
+        # check these are sensible
+        for mv in args:
+            if isinstance(mv, int):
+                continue
+            elif isinstance(mv, (tuple, list)):
+                for sub_mv in mv:
+                    if not isinstance(sub_mv, int):
+                        raise ValueError(f"mana values {mv} - everything in the tuple must be an int")
+            else:
+                raise TypeError(f"mana values expected int or tuple of int, got {type(mv)} for {mv}")
+
+        self._current()[DataTypes.MANA_VALUES] = args
         
         return self
 
@@ -117,8 +159,15 @@ class SkeletonBuilder():
             raise ModeError("must be in creature mode to define sizes")
         self._check_creature_length(len(args), "sizes")
 
-        # TODO: check these are sensible
-        self._working_sizes = args
+        # check these are sensible
+        for size in args:
+            match size:
+                case (int(), int()):
+                    pass
+                case _:
+                    raise ValueError(f"sizes {size} must be a tuple of pow/tou values")
+
+        self._current()[DataTypes.SIZES] = args
 
         return self
 
@@ -126,8 +175,18 @@ class SkeletonBuilder():
         if not self._in_creature_mode:
             raise ModeError("must be in creature mode to select keywords")
         
-        # TODO: check these are sensible
-        self._working_keywords = kwargs
+        # check these are sensible
+        for keyword, frequency in kwargs.items():
+            if keyword not in self._keywords:
+                raise ValueError(f"{keyword} is not a known keyword; define it first using .{self.create_keywords.__name__}()")
+
+            match frequency:
+                case int() | float():
+                    pass
+                case _:
+                    raise ValueError(f"keywords: {keyword} must specify an int or float frequency")
+
+        self._current()[DataTypes.KEYWORDS] = kwargs
 
         return self
 
@@ -135,8 +194,18 @@ class SkeletonBuilder():
         if not self._in_creature_mode:
             raise ModeError("must be in creature mode to select races")
         
-        # TODO: check these are sensible
-        self._working_races = kwargs
+        # check these are sensible
+        for race, frequency in kwargs.items():
+            if race not in self._races:
+                raise ValueError(f"{race} is not a known race; define it first using .{self.create_races.__name__}()")
+
+            match frequency:
+                case int() | float():
+                    pass
+                case _:
+                    raise ValueError(f"races: {race} must specify an int or float frequency")
+
+        self._current()[DataTypes.RACES] = kwargs
 
         return self
 
@@ -144,8 +213,18 @@ class SkeletonBuilder():
         if not self._in_creature_mode:
             raise ModeError("must be in creature mode to select classes")
         
-        # TODO: check these are sensible
-        self._working_classes = kwargs
+        # check these are sensible
+        for class_, frequency in kwargs.items():
+            if class_ not in self._classes:
+                raise ValueError(f"{class_} is not a known class; define it first using .{self.create_classes.__name__}()")
+
+            match frequency:
+                case int() | float():
+                    pass
+                case _:
+                    raise ValueError(f"classes: {class_} must specify an int or float frequency")
+
+        self._current()[DataTypes.CLASSES] = kwargs
 
         return self
 
@@ -162,6 +241,19 @@ class SkeletonBuilder():
 
     def instruction(self, text: str, mana: str|None = None): return self
     def card(self, name: str, text: str, mana: str): return self
+
+    # build a skeleton
+    def build(self) -> Iterable[Slot]:
+        # TODO: if there are no slots, raise
+        # raise ValueError("no slots defined")
+
+        for rarity in (self._common_slots, ):
+            for frame in Frame:
+                for index in range(self._common_slot_counts[frame]):
+                    if index < len(self._common_slots[frame][DataTypes.MANA_VALUES]):
+                        yield Slot('C', frame.name, index+1, f'{self._common_slots[frame][DataTypes.MANA_VALUES][index]}')
+                    else:
+                        yield Slot('C', frame.name, index+1, 'spell')
 
     # inspection helpers
     def __str__(self):
@@ -190,7 +282,15 @@ Total: {sum(self._common_slot_counts.values())}
     _working_rarity: Rarity = Rarity.COMMON
     # it's not clear what a default frame would mean, so we'll handle
     _working_frame: Frame|None = None
-    _common_slots = {}
+    _common_slots = {
+        Frame.W: make_blank_data(),
+        Frame.U: make_blank_data(),
+        Frame.B: make_blank_data(),
+        Frame.R: make_blank_data(),
+        Frame.G: make_blank_data(),
+        Frame.A: make_blank_data(),
+        Frame.Z: make_blank_data(),
+    }
     _common_slot_counts = {
         Frame.W: 0,
         Frame.U: 0,
@@ -203,8 +303,3 @@ Total: {sum(self._common_slot_counts.values())}
     # creature mode enables things like sizes, keywords, races, and classes
     # outside of creature mode (spell mode), these concepts don't make sense
     _in_creature_mode = False
-    _working_mana_values = []
-    _working_sizes = []
-    _working_races = {}
-    _working_classes = {}
-    _working_keywords = {}
