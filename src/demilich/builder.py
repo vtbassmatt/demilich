@@ -85,12 +85,7 @@ class SkeletonBuilder():
     # work on a particular color/frame
     def _set_color_and_slots(self, slots: int, frame: Frame):
         self._working_frame = frame
-
-        match self._working_rarity:
-            case Rarity.COMMON:
-                self._common_slots[frame][DataTypes.COUNT] = slots
-            case _:
-                raise NotImplementedError()
+        self._slots[self._working_rarity][frame][DataTypes.COUNT] = slots
 
         return self
     
@@ -98,11 +93,7 @@ class SkeletonBuilder():
         if not self._working_frame:
             raise ModeError('no frame is selected')
 
-        match self._working_rarity:
-            case Rarity.COMMON:
-                return self._common_slots[self._working_frame]
-            case _:
-                raise NotImplementedError()
+        return self._slots[self._working_rarity][self._working_frame]
 
     def white(self, slots: int):
         return self._set_color_and_slots(slots, Frame.W)
@@ -125,14 +116,8 @@ class SkeletonBuilder():
         return self
 
     def _check_creature_length(self, length: int, source: str):
-        slots = None
+        slots = self._current()[DataTypes.COUNT]
 
-        match self._working_rarity:
-            case Rarity.COMMON:
-                slots = self._current()[DataTypes.COUNT]
-            case _:
-                raise NotImplementedError()
-        
         if length > slots:
             raise ValueError(f"error in {self._working_rarity.name} {self._working_frame.value} {source}: more creatures specified than slots available")
 
@@ -249,13 +234,13 @@ class SkeletonBuilder():
         # TODO: if there are no slots, raise
         # raise ValueError("no slots defined")
 
-        for rarity in (self._common_slots, ):
+        for rarity in Rarity:
             for frame in Frame:
-                for index in range(self._common_slots[frame][DataTypes.COUNT]):
-                    if index < len(self._common_slots[frame][DataTypes.MANA_VALUES]):
-                        yield Slot('C', frame.name, index+1, f'{self._common_slots[frame][DataTypes.MANA_VALUES][index]}')
+                for index in range(self._slots[rarity][frame][DataTypes.COUNT]):
+                    if index < len(self._slots[rarity][frame][DataTypes.MANA_VALUES]):
+                        yield Slot(rarity.value, frame.name, index+1, f'{self._slots[rarity][frame][DataTypes.MANA_VALUES][index]}')
                     else:
-                        yield Slot('C', frame.name, index+1, 'spell')
+                        yield Slot(rarity.value, frame.name, index+1, 'spell')
 
     # inspection helpers
     def __str__(self):
@@ -267,14 +252,44 @@ Races: {[v for v in self._races.values()]}
 Classes: {[v for v in self._classes.values()]}
 
 Common slots:
-  W: {self._common_slots[Frame.W][DataTypes.COUNT]}
-  U: {self._common_slots[Frame.U][DataTypes.COUNT]}
-  B: {self._common_slots[Frame.B][DataTypes.COUNT]}
-  R: {self._common_slots[Frame.R][DataTypes.COUNT]}
-  G: {self._common_slots[Frame.G][DataTypes.COUNT]}
-  A: {self._common_slots[Frame.A][DataTypes.COUNT]}
-  Z: {self._common_slots[Frame.Z][DataTypes.COUNT]}
-Total: {sum([x[DataTypes.COUNT] for x in self._common_slots.values()])}
+  W: {self._slots[Rarity.COMMON][Frame.W][DataTypes.COUNT]}
+  U: {self._slots[Rarity.COMMON][Frame.U][DataTypes.COUNT]}
+  B: {self._slots[Rarity.COMMON][Frame.B][DataTypes.COUNT]}
+  R: {self._slots[Rarity.COMMON][Frame.R][DataTypes.COUNT]}
+  G: {self._slots[Rarity.COMMON][Frame.G][DataTypes.COUNT]}
+  A: {self._slots[Rarity.COMMON][Frame.A][DataTypes.COUNT]}
+  Z: {self._slots[Rarity.COMMON][Frame.Z][DataTypes.COUNT]}
+Total: {sum([x[DataTypes.COUNT] for x in self._slots[Rarity.COMMON].values()])}
+
+Uncommon slots:
+  W: {self._slots[Rarity.UNCOMMON][Frame.W][DataTypes.COUNT]}
+  U: {self._slots[Rarity.UNCOMMON][Frame.U][DataTypes.COUNT]}
+  B: {self._slots[Rarity.UNCOMMON][Frame.B][DataTypes.COUNT]}
+  R: {self._slots[Rarity.UNCOMMON][Frame.R][DataTypes.COUNT]}
+  G: {self._slots[Rarity.UNCOMMON][Frame.G][DataTypes.COUNT]}
+  A: {self._slots[Rarity.UNCOMMON][Frame.A][DataTypes.COUNT]}
+  Z: {self._slots[Rarity.UNCOMMON][Frame.Z][DataTypes.COUNT]}
+Total: {sum([x[DataTypes.COUNT] for x in self._slots[Rarity.UNCOMMON].values()])}
+
+Rare slots:
+  W: {self._slots[Rarity.RARE][Frame.W][DataTypes.COUNT]}
+  U: {self._slots[Rarity.RARE][Frame.U][DataTypes.COUNT]}
+  B: {self._slots[Rarity.RARE][Frame.B][DataTypes.COUNT]}
+  R: {self._slots[Rarity.RARE][Frame.R][DataTypes.COUNT]}
+  G: {self._slots[Rarity.RARE][Frame.G][DataTypes.COUNT]}
+  A: {self._slots[Rarity.RARE][Frame.A][DataTypes.COUNT]}
+  Z: {self._slots[Rarity.RARE][Frame.Z][DataTypes.COUNT]}
+Total: {sum([x[DataTypes.COUNT] for x in self._slots[Rarity.RARE].values()])}
+
+Mythic slots:
+  W: {self._slots[Rarity.MYTHIC][Frame.W][DataTypes.COUNT]}
+  U: {self._slots[Rarity.MYTHIC][Frame.U][DataTypes.COUNT]}
+  B: {self._slots[Rarity.MYTHIC][Frame.B][DataTypes.COUNT]}
+  R: {self._slots[Rarity.MYTHIC][Frame.R][DataTypes.COUNT]}
+  G: {self._slots[Rarity.MYTHIC][Frame.G][DataTypes.COUNT]}
+  A: {self._slots[Rarity.MYTHIC][Frame.A][DataTypes.COUNT]}
+  Z: {self._slots[Rarity.MYTHIC][Frame.Z][DataTypes.COUNT]}
+Total: {sum([x[DataTypes.COUNT] for x in self._slots[Rarity.MYTHIC].values()])}
 """
 
     _keywords = {}
@@ -284,14 +299,43 @@ Total: {sum([x[DataTypes.COUNT] for x in self._common_slots.values()])}
     _working_rarity: Rarity = Rarity.COMMON
     # it's not clear what a default frame would mean, so we'll handle
     _working_frame: Frame|None = None
-    _common_slots = {
-        Frame.W: make_blank_data(),
-        Frame.U: make_blank_data(),
-        Frame.B: make_blank_data(),
-        Frame.R: make_blank_data(),
-        Frame.G: make_blank_data(),
-        Frame.A: make_blank_data(),
-        Frame.Z: make_blank_data(),
+    _slots = {
+        Rarity.COMMON: {
+            Frame.W: make_blank_data(),
+            Frame.U: make_blank_data(),
+            Frame.B: make_blank_data(),
+            Frame.R: make_blank_data(),
+            Frame.G: make_blank_data(),
+            Frame.A: make_blank_data(),
+            Frame.Z: make_blank_data(),
+        },
+        Rarity.UNCOMMON: {
+            Frame.W: make_blank_data(),
+            Frame.U: make_blank_data(),
+            Frame.B: make_blank_data(),
+            Frame.R: make_blank_data(),
+            Frame.G: make_blank_data(),
+            Frame.A: make_blank_data(),
+            Frame.Z: make_blank_data(),
+        },
+        Rarity.RARE: {
+            Frame.W: make_blank_data(),
+            Frame.U: make_blank_data(),
+            Frame.B: make_blank_data(),
+            Frame.R: make_blank_data(),
+            Frame.G: make_blank_data(),
+            Frame.A: make_blank_data(),
+            Frame.Z: make_blank_data(),
+        },
+        Rarity.MYTHIC: {
+            Frame.W: make_blank_data(),
+            Frame.U: make_blank_data(),
+            Frame.B: make_blank_data(),
+            Frame.R: make_blank_data(),
+            Frame.G: make_blank_data(),
+            Frame.A: make_blank_data(),
+            Frame.Z: make_blank_data(),
+        },
     }
     # creature mode enables things like sizes, keywords, races, and classes
     # outside of creature mode (spell mode), these concepts don't make sense
