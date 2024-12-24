@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Iterable
 
+from demilich.creature_gen2 import creature_generator
 from demilich.restrictions import Restriction
 from demilich.skeleton_builder import Slot
 
@@ -237,10 +238,72 @@ class SkeletonBuilder():
         for rarity in Rarity:
             for frame in Frame:
                 for index in range(self._slots[rarity][frame][DataTypes.COUNT]):
-                    if index < len(self._slots[rarity][frame][DataTypes.MANA_VALUES]):
-                        yield Slot(rarity.value, frame.name, index+1, f'{self._slots[rarity][frame][DataTypes.MANA_VALUES][index]}')
+                    keywords = self._get_keywords(rarity, frame)
+                    races = self._get_races(rarity, frame)
+                    classes = self._get_classes(rarity, frame)
+                    creatures = creature_generator(
+                        self._slots[rarity][frame][DataTypes.MANA_VALUES],
+                        self._slots[rarity][frame][DataTypes.SIZES],
+                        keywords,
+                        races,
+                        classes,
+                    )
+                    try:
+                        card = next(creatures)
+                    except StopIteration:
+                        card = None
+                    if card and index < len(self._slots[rarity][frame][DataTypes.MANA_VALUES]):
+                        # TODO: select an actual mana value and generate cost
+                        mv = self._slots[rarity][frame][DataTypes.MANA_VALUES][index]
+                        cost = "TODO"
+                        yield Slot(
+                            rarity='C', color=frame.name, number=index+1,
+                            instruction=f'{mv} MV',
+                            name=card.name,
+                            cost=cost,
+                            typeline=card.typeline,
+                            text=card.text,
+                            stats=card.stats,
+                        )
+                        try:
+                            card = next(creatures)
+                        except StopIteration:
+                            card = None
                     else:
                         yield Slot(rarity.value, frame.name, index+1, 'spell')
+
+    def _get_keywords(self, rarity: Rarity, frame: Frame):
+        return self._get_list_or_default(
+            rarity, frame,
+            DataTypes.KEYWORDS, self._keywords, 0.5,
+        )
+
+    def _get_races(self, rarity: Rarity, frame: Frame):
+        return self._get_list_or_default(
+            rarity, frame,
+            DataTypes.RACES, self._races, 1,
+        )
+    
+    def _get_classes(self, rarity: Rarity, frame: Frame):
+        return self._get_list_or_default(
+            rarity, frame,
+            DataTypes.CLASSES, self._classes, 1,
+        )
+    
+    def _get_list_or_default(
+            self,
+            rarity: Rarity,
+            frame: Frame,
+            datatype: DataTypes,
+            source: dict,
+            default_value: int|float,
+    ):
+        list_ = self._slots[rarity][frame][datatype]
+        if len(list_) == 0:
+            list_ = {key: default_value for key in source}
+        if len(list_) == 0:
+            raise ValueError(f"you must give the generator some {datatype.name} to work with")
+        return list_
 
     # inspection helpers
     def __str__(self):
