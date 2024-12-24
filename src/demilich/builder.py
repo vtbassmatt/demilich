@@ -1,4 +1,5 @@
 from enum import Enum
+from random import choice
 from typing import Iterable
 
 from demilich.creature_gen2 import creature_generator
@@ -255,14 +256,19 @@ class SkeletonBuilder():
                     if card and index < len(self._slots[rarity][frame][DataTypes.MANA_VALUES]):
                         # TODO: select an actual mana value and generate cost
                         mv = self._slots[rarity][frame][DataTypes.MANA_VALUES][index]
-                        cost = "TODO"
+                        if isinstance(mv, int):
+                            cost = self._choose_cost(frame, mv)
+                        else:
+                            cost = self._choose_cost(frame, choice(mv))
+                            mv = "/".join([str(m) for m in mv])
+                        typeline = self._build_typeline(card.type_, card.subtype)
                         yield Slot(
                             rarity='C', color=frame.name, number=index+1,
                             instruction=f'{mv} MV',
-                            name=card.name,
+                            name=" ".join([n.title() for n in card.name]),
                             cost=cost,
-                            typeline=card.typeline,
-                            text=card.text,
+                            typeline=typeline,
+                            text=", ".join([self._keywords[k] for k in card.text]),
                             stats=card.stats,
                         )
                         try:
@@ -271,6 +277,18 @@ class SkeletonBuilder():
                             card = None
                     else:
                         yield Slot(rarity.value, frame.name, index+1, 'spell')
+
+    def _choose_cost(self, frame: Frame, mv: int):
+        if frame.name in "WUBRG":
+            cost = f"{{{mv-1}}}{{{frame.name}}}"
+        elif frame == Frame.Z:
+            cost = f"{{{mv-1}}}{{H}}"
+        else:
+            cost = f"{{{mv}}}"
+        return cost
+
+    def _build_typeline(self, type_: list[str], subtype: list[str]):
+        return f"{' '.join([n.title() for n in type_])} — {' '.join([n.title() for n in subtype])}"
 
     def _get_keywords(self, rarity: Rarity, frame: Frame):
         return self._get_list_or_default(

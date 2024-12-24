@@ -6,9 +6,10 @@ from demilich.data import FLYING_RACES, ADJECTIVES, KEYWORD_BOOSTS
 
 @dataclass
 class Creature:
-    name: str
-    typeline: str
-    text: str
+    name: list[str]
+    type_: list[str]
+    subtype: list[str]
+    text: list[str]
     stats: str
 
 
@@ -31,9 +32,10 @@ def creature_generator(
     
     for kw_text, types, name, stats in zip(keywords_batch, types_batch, names_batch, stats_batch, strict=True):
         yield Creature(
-            name=f"{name[0]} {name[1]}",
-            typeline=" ".join(["Creature", "—", "{0} {1}".format(types[0], types[1]).strip()]),
-            text=", ".join(kw_text),
+            name=name,
+            type_=('Creature',),
+            subtype=types,
+            text=kw_text,
             stats=f"{stats[0]}/{stats[1]}"
         )
 
