@@ -1,5 +1,9 @@
 class Restriction():
-    ...
+    def passes(self, value):
+        return True
+    
+    def fix(self, value):
+        raise NotImplementedError()
 
 
 def to_races(**kwargs: bool) -> Restriction:
@@ -8,7 +12,7 @@ def to_races(**kwargs: bool) -> Restriction:
     obey the constraint. False means they satisfy the constraint
     on the keyword, but may exist without the keyword.
     """
-    pass
+    return Restriction()
 
 
 def to_power(under: int|None = None, over: int|None = None) -> Restriction:
