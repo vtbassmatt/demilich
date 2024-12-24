@@ -238,21 +238,21 @@ class SkeletonBuilder():
 
         for rarity in Rarity:
             for frame in Frame:
+                keywords = self._get_keywords(rarity, frame)
+                races = self._get_races(rarity, frame)
+                classes = self._get_classes(rarity, frame)
+                creatures = creature_generator(
+                    self._slots[rarity][frame][DataTypes.MANA_VALUES],
+                    self._slots[rarity][frame][DataTypes.SIZES],
+                    keywords,
+                    races,
+                    classes,
+                )
+                try:
+                    card = next(creatures)
+                except StopIteration:
+                    card = None
                 for index in range(self._slots[rarity][frame][DataTypes.COUNT]):
-                    keywords = self._get_keywords(rarity, frame)
-                    races = self._get_races(rarity, frame)
-                    classes = self._get_classes(rarity, frame)
-                    creatures = creature_generator(
-                        self._slots[rarity][frame][DataTypes.MANA_VALUES],
-                        self._slots[rarity][frame][DataTypes.SIZES],
-                        keywords,
-                        races,
-                        classes,
-                    )
-                    try:
-                        card = next(creatures)
-                    except StopIteration:
-                        card = None
                     if card and index < len(self._slots[rarity][frame][DataTypes.MANA_VALUES]):
                         # TODO: select an actual mana value and generate cost
                         mv = self._slots[rarity][frame][DataTypes.MANA_VALUES][index]
