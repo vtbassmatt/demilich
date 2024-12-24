@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from random import uniform, sample, choice, choices
 
-from demilich.data import FLYING_RACES, ADJECTIVES, KEYWORD_BOOSTS
+from demilich.data import ADJECTIVES, KEYWORD_BOOSTS
+from demilich.restrictions import Restriction
 
 
 @dataclass
@@ -19,6 +20,7 @@ def creature_generator(
         keywords: dict,
         races: dict,
         classes: dict,
+        restrictions: dict[str,list],
     ):
     if len(mana_values) == 0 or len(sizes) == 0:
         return
@@ -26,7 +28,7 @@ def creature_generator(
     musts, maybes = _compute_keywords(keywords)
     keywords_batch = _generate_keywords(mana_values, musts, maybes)
 
-    types_batch = _generate_typelines(keywords_batch, races, classes)
+    types_batch = _generate_types(keywords_batch, races, classes, restrictions)
     names_batch = _generate_names(types_batch, ADJECTIVES)
     stats_batch = _generate_stats(keywords_batch, sizes)
     
@@ -59,23 +61,32 @@ def _generate_stats(keywords_batch, sizes):
 
 def _generate_names(types_batch, adjectives):
     options = [
-        choice([0, 1]) if t[1] != "" else 0
+        choice([x for x in t if x != ""])
         for t in types_batch
     ]
     names = [
-        (choice(adjectives), t[o])
+        (choice(adjectives), o)
         for t, o in zip(types_batch, options)
     ]
     return names
 
 
-def _generate_typelines(keywords_batch, races: dict, classes: dict):
-    # TODO: deal with race restrictions like Bird requires flying
-    races_batch = choices(list(races.keys()), weights=list(races.values()), k=len(keywords_batch))
+def _generate_types(keywords_batch, races: dict, classes: dict, restrictions: dict[str,list[Restriction]]):
+    races_batch = [(r,) for r in choices(list(races.keys()), weights=list(races.values()), k=len(keywords_batch))]
+
+    # handle keyword restrictions
+    for kw_slot, (index, race_slot) in zip(keywords_batch, enumerate(races_batch)):
+        for keyword, rstrs in restrictions['keyword'].items():
+            if keyword in kw_slot:
+                for restriction in rstrs:
+                    if not restriction.passes(race_slot):
+                        # print(f"** violated restriction: {kw_slot=} {race_slot=}")
+                        races_batch[index] = restriction.fix(race_slot)
+
     # TODO: sometimes, don't generate a class
     classes_batch = choices(list(classes.keys()), weights=list(classes.values()), k=len(keywords_batch))
     types_batch = [
-        (race, class_)
+        (*race, class_)
         for race, class_ in zip(races_batch, classes_batch)
     ]
     return types_batch

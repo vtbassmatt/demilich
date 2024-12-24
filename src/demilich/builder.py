@@ -32,6 +32,7 @@ class DataTypes(Enum):
     RACES = 'ra'
     CLASSES = 'cl'
     SPELLS = 'sp'
+    RESTRICTIONS = 'rs'
 
 
 def make_blank_data():
@@ -43,6 +44,7 @@ def make_blank_data():
         DataTypes.RACES: {},
         DataTypes.CLASSES: {},
         DataTypes.SPELLS: [],
+        DataTypes.RESTRICTIONS: {'keyword': {}, 'race': {}},
     }
 
 
@@ -218,9 +220,24 @@ class SkeletonBuilder():
         return self
 
     def restrict(self, **kwargs: Restriction):
-        raise NotImplementedError()
         if not self._in_creature_mode:
             raise ModeError("must be in creature mode to set up restrictions")
+
+        # check these are sensible as we add them
+        for word, restriction in kwargs.items():
+            if not isinstance(restriction, Restriction):
+                raise ValueError(f"restrictions: \"{word}\" must specify a {Restriction.__name__} subclass")
+            
+            if word in self._keywords:
+                self._current()[DataTypes.RESTRICTIONS]['keyword'].setdefault(word, [])
+                self._current()[DataTypes.RESTRICTIONS]['keyword'][word].append(restriction)
+            elif word in self._races:
+                self._current()[DataTypes.RESTRICTIONS]['race'].setdefault(word, [])
+                self._current()[DataTypes.RESTRICTIONS]['race'][word].append(restriction)
+            else:
+                raise ValueError(f"{word} is not a known keyword; define it first using .{self.create_keywords.__name__}()")
+
+
         return self
         
     # configure spell slots
@@ -247,6 +264,7 @@ class SkeletonBuilder():
                     keywords,
                     races,
                     classes,
+                    self._slots[rarity][frame][DataTypes.RESTRICTIONS],
                 )
                 try:
                     card = next(creatures)
