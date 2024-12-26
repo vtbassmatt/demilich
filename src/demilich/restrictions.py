@@ -16,7 +16,7 @@ class ToRacesRestriction(Restriction):
     def passes(self, value: str|tuple[str]):
         if isinstance(value, str) and value in self.legal_races:
             return True
-        elif isinstance(value, tuple) and any([x in self.legal_races for x in value]):
+        elif any([x in self.legal_races for x in value]):
             return True
         
         return False
@@ -24,8 +24,24 @@ class ToRacesRestriction(Restriction):
     def fix(self, value: str|tuple[str]):
         if isinstance(value, str):
             return (value, choice(self.legal_races))
-        elif isinstance(value, tuple):
+        else:
             return (*value, choice(self.legal_races))
+
+
+class HaveKeywordsRestriction(Restriction):
+    def __init__(self, keywords: list):
+        self.required_keywords = keywords
+
+    def passes(self, value: str|tuple[str]):
+        if isinstance(value, str):
+            value = (value,)
+        return all([x in value for x in self.required_keywords])
+    
+    def fix(self, value: str|tuple[str]):
+        if isinstance(value, str):
+            return list(set((value, *self.required_keywords)))
+        else:
+            return list(set((*value, *self.required_keywords)))
 
 
 def to_races(*args: str) -> Restriction:
@@ -39,7 +55,7 @@ def must_have(*args: str) -> Restriction:
     """
     if this race appears, the slot must have these keywords
     """
-    return Restriction()
+    return HaveKeywordsRestriction(args)
 
 
 def to_power(under: int|None = None, over: int|None = None) -> Restriction:

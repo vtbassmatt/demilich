@@ -75,13 +75,21 @@ def _generate_types(keywords_batch, races: dict, classes: dict, restrictions: di
     races_batch = [(r,) for r in choices(list(races.keys()), weights=list(races.values()), k=len(keywords_batch))]
 
     # handle keyword restrictions
-    for kw_slot, (index, race_slot) in zip(keywords_batch, enumerate(races_batch)):
+    for index in range(len(keywords_batch)):
         for keyword, rstrs in restrictions['keyword'].items():
-            if keyword in kw_slot:
+            if keyword in keywords_batch[index]:
                 for restriction in rstrs:
-                    if not restriction.passes(race_slot):
-                        # print(f"** violated restriction: {kw_slot=} {race_slot=}")
-                        races_batch[index] = restriction.fix(race_slot)
+                    if not restriction.passes(races_batch[index]):
+                        # print(f"** {index=} violated KEYWORD restriction: {keywords_batch[index]=} {races_batch[index]=}")
+                        races_batch[index] = restriction.fix(races_batch[index])
+                        # print(f"-- fixed: {keywords_batch[index]=} {races_batch[index]=}")
+        for race, rstrs in restrictions['race'].items():
+            if race in races_batch[index]:
+                for restriction in rstrs:
+                    if not restriction.passes(keywords_batch[index]):
+                        # print(f"** {index=} violated RACE restriction: {keywords_batch[index]=} {races_batch[index]=}")
+                        keywords_batch[index] = restriction.fix(keywords_batch[index])
+                        # print(f"-- fixed: {keywords_batch[index]=} {races_batch[index]=}")
 
     # TODO: sometimes, don't generate a class
     classes_batch = choices(list(classes.keys()), weights=list(classes.values()), k=len(keywords_batch))
