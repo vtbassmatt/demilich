@@ -312,7 +312,7 @@ class SkeletonBuilder():
                     else:
                         # spell
                         spell_index = index - len(self._slots[rarity][frame][DataTypes.MANA_VALUES])
-                        if spell_index < len(self._slots[rarity][frame][DataTypes.SPELLS]):
+                        if spell_index < len(self._slots[rarity][frame][DataTypes.SPELLS]) and len(self._slots[rarity][frame][DataTypes.SPELLS]) > 0:
                             spell = self._slots[rarity][frame][DataTypes.SPELLS][spell_index]
                             yield Slot(
                                 rarity.value, frame.name, index+1,
