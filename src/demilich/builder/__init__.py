@@ -1,11 +1,27 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from random import choice
 from typing import Iterable
 
-from demilich.creature_gen2 import creature_generator, NO_CLASS
-from demilich.restrictions import Restriction
-from demilich.skeleton_builder import Slot
+from demilich.builder.creature_gen import creature_generator, NO_CLASS
+from demilich.builder.restrictions import Restriction
+
+
+@dataclass
+class Slot:
+    rarity: str
+    color: str
+    number: int
+    instruction: str
+    id: str = field(init=False)
+    name: str = ''
+    cost: str = ''
+    typeline: str = ''
+    text: str = ''
+    stats: str | None = None
+
+    def __post_init__(self):
+        self.id = f"{self.rarity}{self.color}{self.number:02}"
 
 
 class Rarity(Enum):

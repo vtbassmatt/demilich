@@ -3,7 +3,7 @@ from dataclasses import asdict
 import sys
 
 from demilich.builder import SkeletonBuilder
-from demilich.restrictions import to_races, must_have
+from demilich.builder.restrictions import to_races, must_have
 
 sb = (
     SkeletonBuilder()

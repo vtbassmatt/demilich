@@ -1,12 +1,28 @@
 from dataclasses import dataclass
 from random import uniform, sample, choice, choices
 
-from demilich.data import ADJECTIVES, KEYWORD_BOOSTS
-from demilich.restrictions import Restriction
+from demilich.builder.restrictions import Restriction
 
 
 NO_CLASS = object()
 
+
+ADJECTIVES = [
+    'Ancient', 'Anointed', 'Brazen', 'Desperate', 'Frenzied', 'Gilded',
+    'Looming', 'Prosperous', 'Apprentice', 'Shining', 'Territorial',
+    'Ambush', 'Armored', 'Doomed', 'Elder', 'Feral', 'Grizzled',
+    'Makeshift', 'Night', 'Day', 'One-Eyed', 'Selfless', 'Selfish',
+    'Tormented', 'Unruly', 'Interloping', 'Village', 'Woodland',
+    'Undead', 'Bellowing', 'Brave', 'Frilled', 'Intrepid', 'Rough',
+    'Thieving', 'Guarded', 'Assistant', 'Tragic', 'Conscripted',
+]
+
+KEYWORD_BUFFS = {
+    'flying': (-1, -1),
+    'trample': (1, 0),
+    'defender': (-3, 0),
+    'double strike': (-1, 0),
+}
 
 @dataclass
 class Creature:
@@ -48,9 +64,9 @@ def creature_generator(
 def _pick_stats(keywords, default_size):
     size = list(default_size)
     for keyword in keywords:
-        if keyword in KEYWORD_BOOSTS:
-            size[0] = max(0, size[0] + KEYWORD_BOOSTS[keyword][0])
-            size[1] = max(1, size[1] + KEYWORD_BOOSTS[keyword][1])
+        if keyword in KEYWORD_BUFFS:
+            size[0] = max(0, size[0] + KEYWORD_BUFFS[keyword][0])
+            size[1] = max(1, size[1] + KEYWORD_BUFFS[keyword][1])
     return tuple(size)
 
 
