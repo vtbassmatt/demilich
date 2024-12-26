@@ -282,7 +282,7 @@ class SkeletonBuilder():
                             mv = "/".join([str(m) for m in mv])
                         typeline = self._build_typeline(card.type_, card.subtype)
                         yield Slot(
-                            rarity='C', color=frame.name, number=index+1,
+                            rarity=rarity.value, color=frame.name, number=index+1,
                             instruction=f'{mv} MV',
                             name=" ".join([n.title() for n in card.name]),
                             cost=cost,
