@@ -3,7 +3,7 @@ from dataclasses import asdict
 import sys
 
 from demilich.builder import SkeletonBuilder
-from demilich.restrictions import to_races, must_have, to_power, to_toughness
+from demilich.restrictions import to_races, must_have
 
 sb = (
     SkeletonBuilder()
@@ -50,7 +50,7 @@ sb = (
         .creatures()
         .restrict(flying=to_races("bird", "spirit", "dinosaur", "human", "unicorn", "avatar"))
         .restrict(bird=must_have("flying"))
-        # not implemented yet
+        # not implemented yet, and may never
         # .restrict(double_strike=to_power(under=3))
         # these are more examples, though they don't apply in white
         # .restrict(deathtouch=to_power(under=3))
