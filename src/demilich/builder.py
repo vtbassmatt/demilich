@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from enum import Enum
 from random import choice
 from typing import Iterable
@@ -46,6 +47,13 @@ def make_blank_data():
         DataTypes.SPELLS: [],
         DataTypes.RESTRICTIONS: {'keyword': {}, 'race': {}},
     }
+
+
+@dataclass
+class SpellSlot():
+    name: str|None
+    text: str|None
+    mana: str|None
 
 
 def slotcode(rarity: Rarity, frame: Frame, number: int):
@@ -246,8 +254,15 @@ class SkeletonBuilder():
         self._in_creature_mode = False
         return self
 
-    def instruction(self, text: str, mana: str|None = None): return self
-    def card(self, name: str, text: str, mana: str): return self
+    def instruction(self, text: str, mana: str|None = None):
+        self.card(None, text, mana)
+        return self
+
+    def card(self, name: str, text: str, mana: str):
+        if len(self._current()[DataTypes.SPELLS]) + len(self._current()[DataTypes.MANA_VALUES]) == self._current()[DataTypes.COUNT]:
+            raise IndexError(f"{text=} would add too many spells to {self._working_rarity.name.lower()} {self._working_frame.value}")
+        self._current()[DataTypes.SPELLS].append(SpellSlot(name, text, mana))
+        return self
 
     # build a skeleton
     def build(self) -> Iterable[Slot]:
@@ -273,7 +288,7 @@ class SkeletonBuilder():
                     card = None
                 for index in range(self._slots[rarity][frame][DataTypes.COUNT]):
                     if card and index < len(self._slots[rarity][frame][DataTypes.MANA_VALUES]):
-                        # TODO: select an actual mana value and generate cost
+                        # creature
                         mv = self._slots[rarity][frame][DataTypes.MANA_VALUES][index]
                         if isinstance(mv, int):
                             cost = self._choose_cost(frame, mv)
@@ -295,7 +310,20 @@ class SkeletonBuilder():
                         except StopIteration:
                             card = None
                     else:
-                        yield Slot(rarity.value, frame.name, index+1, 'spell')
+                        # spell
+                        spell_index = index - len(self._slots[rarity][frame][DataTypes.MANA_VALUES])
+                        if spell_index < len(self._slots[rarity][frame][DataTypes.SPELLS]):
+                            spell = self._slots[rarity][frame][DataTypes.SPELLS][spell_index]
+                            yield Slot(
+                                rarity.value, frame.name, index+1,
+                                instruction=spell.text,
+                                name=spell.name or "(Spell)",
+                                cost=spell.mana or "",
+                                typeline=choice(["Instant", "Sorcery", "Enchantment", "Enchantment — Aura"]),
+                                text=spell.text or "",
+                            )
+                        else:
+                            yield Slot(rarity.value, frame.name, index+1, 'spell')
 
     def _choose_cost(self, frame: Frame, mv: int):
         if frame.name in "WUBRG":
