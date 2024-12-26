@@ -2,7 +2,7 @@ from enum import Enum
 from random import choice
 from typing import Iterable
 
-from demilich.creature_gen2 import creature_generator
+from demilich.creature_gen2 import creature_generator, NO_CLASS
 from demilich.restrictions import Restriction
 from demilich.skeleton_builder import Slot
 
@@ -200,7 +200,7 @@ class SkeletonBuilder():
 
         return self
 
-    def from_classes(self, none=int|float, **kwargs: int|float):
+    def from_classes(self, no_class=int|float, **kwargs: int|float):
         if not self._in_creature_mode:
             raise ModeError("must be in creature mode to select classes")
         
@@ -216,6 +216,7 @@ class SkeletonBuilder():
                     raise ValueError(f"classes: {class_} must specify an int or float frequency")
 
         self._current()[DataTypes.CLASSES] = kwargs
+        self._current()[DataTypes.CLASSES].update({NO_CLASS: no_class})
 
         return self
 

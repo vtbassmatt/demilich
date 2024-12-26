@@ -70,7 +70,7 @@ sb = (
             dog=1, dinosaur=1, avatar=1, loxodon=1, giant=1,
         )
         .from_classes(
-            none=20, scout=10, knight=10, soldier=10, monk=5, nomad=5,
+            no_class=20, scout=10, knight=10, soldier=10, monk=5, nomad=5,
             cleric=1, mystic=1, samurai=1,
         )
 

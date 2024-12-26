@@ -5,6 +5,9 @@ from demilich.data import ADJECTIVES, KEYWORD_BOOSTS
 from demilich.restrictions import Restriction
 
 
+NO_CLASS = object()
+
+
 @dataclass
 class Creature:
     name: list[str]
@@ -91,10 +94,11 @@ def _generate_types(keywords_batch, races: dict, classes: dict, restrictions: di
                         keywords_batch[index] = restriction.fix(keywords_batch[index])
                         # print(f"-- fixed: {keywords_batch[index]=} {races_batch[index]=}")
 
-    # TODO: sometimes, don't generate a class
     classes_batch = choices(list(classes.keys()), weights=list(classes.values()), k=len(keywords_batch))
+
+    # class can be empty
     types_batch = [
-        (*race, class_)
+        (*race, class_) if class_ is not NO_CLASS else race
         for race, class_ in zip(races_batch, classes_batch)
     ]
     return types_batch
