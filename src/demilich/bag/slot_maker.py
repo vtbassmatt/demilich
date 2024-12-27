@@ -27,7 +27,7 @@ class TaggedWord:
 
 class Bag:
     def __init__(self, *args: list[TaggedWord]):
-        self._bag: list[TaggedWord] = args or []
+        self._bag: list[TaggedWord] = list(args) or []
 
     def add(self, word: TaggedWord):
         self._bag.append(word)
@@ -54,6 +54,10 @@ def _get_bag_parts(bag: Bag):
         result['instruction'] = f"{mv_tags[0].word} MV"
     else:
         result['instruction'] = ""
+    
+    type_tags = list(bag.words_tagged("type"))
+    typeline = " ".join([t.word for t in type_tags])
+    result['typeline'] = typeline.title()
 
     return result
 
@@ -66,7 +70,7 @@ class SlotMaker:
     def __init__(self, rarity: str, frame: str, creatures: int, spells: int):
         self._rarity = rarity
         self._frame = frame
-        self._creatures = [Bag() for _ in range(creatures)]
+        self._creatures = [Bag(TaggedWord('creature', 'type')) for _ in range(creatures)]
         self._spells = [Bag() for _ in range(spells)]
         # internal bookkeeping
         self._index = -1
