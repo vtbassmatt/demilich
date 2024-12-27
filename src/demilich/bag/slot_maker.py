@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from random import choice, uniform
+from random import choice, choices, uniform
 
 
 @dataclass
@@ -56,8 +56,12 @@ def _get_bag_parts(bag: Bag):
         result['instruction'] = ""
     
     type_tags = list(bag.words_tagged("type"))
-    typeline = " ".join([t.word for t in type_tags])
-    result['typeline'] = typeline.title()
+    type_ = " ".join([t.word for t in type_tags])
+    subtypes = list([r.word for r in bag.words_tagged('race')])
+    if subtypes:
+        result['typeline'] = f"{type_.title()} — {" ".join([s.title() for s in subtypes])}"
+    else:
+        result['typeline'] = type_.title()
 
     return result
 
@@ -111,4 +115,17 @@ class SlotMaker:
             else:
                 mv = "/".join([str(x) for x in mv])
             tag = TaggedWord(mv, "manavalue")
+            bag.add(tag)
+
+    def races(self, **kwargs: dict[str,float]):
+        if len(kwargs) == 0:
+            raise ValueError("need at least one race passed in")
+
+        races = choices(
+            list(kwargs.keys()),
+            weights=list(kwargs.values()),
+            k=len(self._creatures)
+        )
+        for race, bag in zip(races, self._creatures):
+            tag = TaggedWord(race, 'race')
             bag.add(tag)

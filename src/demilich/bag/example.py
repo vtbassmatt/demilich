@@ -16,6 +16,10 @@ if __name__ == "__main__":
         first_strike=.25, double_strike=.2,
     )
     common_white.mana_values(1, 2, 2, 2, 3, 3, 3, 4, 4, (5, 6), (6, 7))
+    common_white.races(
+        human=20, bird=5, spirit=5, cat=5, kithkin=2, unicorn=1,
+        dog=1, dinosaur=1, avatar=1, loxodon=1, giant=1,
+    )
     for slot in common_white:
         writer.writerow(asdict(slot))
 
