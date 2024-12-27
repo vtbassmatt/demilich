@@ -2,6 +2,14 @@ from dataclasses import dataclass, field
 from random import choice, choices, shuffle, uniform
 
 
+# backup names in case we try to generate from an empty list
+NAMES = [
+    'Andy', 'Becca', 'Chandru', 'Deniz', 'Ewald', 'Frankie',
+    'Gisele', 'Humberto', 'Inez', 'Jae', 'Kenny', 'Libby',
+    'Montero', 'Nick', 'Opal', 'Pru', 'Quinton', 'Ruby',
+    'Sam', 'Tierney', 'Ursula', 'Viktor', 'Wociek', 'Xavier',
+    'Yar', 'Zed',
+]
 ADJECTIVES = [
     'Ancient', 'Anointed', 'Brazen', 'Desperate', 'Frenzied', 'Gilded',
     'Looming', 'Prosperous', 'Apprentice', 'Shining', 'Territorial',
@@ -81,8 +89,12 @@ class Bag:
 
 def _generate_name(bag: Bag):
     race_class = list(bag.words_tagged('race')) + list(bag.words_tagged('class'))
+    if len(race_class) > 0:
+        name = choice(race_class).word
+    else:
+        name = choice(NAMES)
     adjective = choice(ADJECTIVES)
-    return f'{adjective} {choice(race_class).word.title()}'
+    return f'{adjective} {name.title()}'
 
 
 def _get_bag_parts(bag: Bag):
