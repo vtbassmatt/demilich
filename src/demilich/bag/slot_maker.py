@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from random import choice, choices, uniform
+from random import choice, choices, shuffle, uniform
 
 
 @dataclass
@@ -40,6 +40,9 @@ class Bag:
 
     def add(self, word: TaggedWord):
         self._bag.append(word)
+    
+    def remove(self, word: TaggedWord):
+        self._bag.remove(word)
 
     def words(self):
         yield from self._bag
@@ -48,6 +51,15 @@ class Bag:
         for word in self._bag:
             if word.tag == tag:
                 yield word
+    
+    def has(self, word: str, tag: str):
+        for x in self._bag:
+            if x.word == word and x.tag == tag:
+                return True
+        return False
+    
+    def __str__(self):
+        return ", ".join([f"<{x.tag}: {x.word}>" for x in self._bag])
 
 
 def _get_bag_parts(bag: Bag):
@@ -148,6 +160,8 @@ class SlotMaker:
         self._next_spell = 0
 
     def __iter__(self):
+        self._check_and_normalize()
+
         self._index += 1
         for bag in self._creatures:
             yield Slot(
@@ -248,3 +262,20 @@ class SlotMaker:
             for subtype in spell.subtype or []:
                 bag.add(TaggedWord(subtype, 'subtype'))
             bag.add(TaggedWord(spell.text, 'text'))
+
+    def _check_and_normalize(self):
+        nonbird_flyers: list[Bag] = []
+
+        for bag in self._creatures:
+            if bag.has('flying', 'keyword') and not bag.has('bird', 'race'):
+                nonbird_flyers.append(bag)
+
+            if bag.has('bird', 'race') and not bag.has('flying', 'keyword'):
+                flying = TaggedWord('flying', 'keyword')
+                bag.add(flying)
+                # try to remove a non-bird flyer to keep flying counts stable
+                # if we haven't yet encountered one, the list will be empty
+                # so we might make too many flyers. as a design skeleton, this
+                # is probably fine.
+                if nonbird_flyers:
+                    nonbird_flyers.pop().remove(flying)
