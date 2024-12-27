@@ -2,6 +2,17 @@ from dataclasses import dataclass, field
 from random import choice, choices, shuffle, uniform
 
 
+ADJECTIVES = [
+    'Ancient', 'Anointed', 'Brazen', 'Desperate', 'Frenzied', 'Gilded',
+    'Looming', 'Prosperous', 'Apprentice', 'Shining', 'Territorial',
+    'Ambush', 'Armored', 'Doomed', 'Elder', 'Feral', 'Grizzled',
+    'Makeshift', 'Night', 'Day', 'One-Eyed', 'Selfless', 'Selfish',
+    'Tormented', 'Unruly', 'Interloping', 'Village', 'Woodland',
+    'Undead', 'Bellowing', 'Brave', 'Frilled', 'Intrepid', 'Rough',
+    'Thieving', 'Guarded', 'Assistant', 'Tragic', 'Conscripted',
+]
+
+
 @dataclass
 class Slot:
     rarity: str
@@ -58,8 +69,20 @@ class Bag:
                 return True
         return False
     
+    def has_any(self, tag: str):
+        for x in self._bag:
+            if x.tag == tag:
+                return True
+        return False
+    
     def __str__(self):
         return ", ".join([f"<{x.tag}: {x.word}>" for x in self._bag])
+
+
+def _generate_name(bag: Bag):
+    race_class = list(bag.words_tagged('race')) + list(bag.words_tagged('class'))
+    adjective = choice(ADJECTIVES)
+    return f'{adjective} {choice(race_class).word.title()}'
 
 
 def _get_bag_parts(bag: Bag):
@@ -68,6 +91,8 @@ def _get_bag_parts(bag: Bag):
     name_tags = list(bag.words_tagged('name'))
     if name_tags:
         result['name'] = name_tags[0].word
+    elif bag.has_any('power'):
+        result['name'] = _generate_name(bag)
 
     keyword_tags = bag.words_tagged("keyword")
     # convert to a set to dedupe keywords
