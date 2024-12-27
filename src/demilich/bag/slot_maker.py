@@ -81,6 +81,7 @@ def _get_bag_parts(bag: Bag):
 def _clean_keyword(raw: str):
     return raw.replace('_', ' ')
 
+
 def _make_cost(mv: int|tuple[int], frame: str):
     if frame in 'WUBRGZ':
         if isinstance(mv, int):
@@ -139,7 +140,7 @@ class SlotMaker:
                 bag = choice(self._creatures)
                 bag.add(tag)
 
-    def mana_values(self, *args: list[int|tuple[int]]):
+    def mana_values(self, *args: int|tuple[int]):
         if len(args) != len(self._creatures):
             raise ValueError("incorrect number of mana values passed: "
                              f"expected {len(self._creatures)} "
@@ -153,13 +154,13 @@ class SlotMaker:
             bag.add(TaggedWord(mv, "manavalue"))
             bag.add(TaggedWord(cost, "cost"))
 
-    def powers(self, *args: list[int|tuple[int]]):
+    def powers(self, *args: int|tuple[int]):
         self._pt_tag('power', *args)
 
-    def toughnesses(self, *args: list[int|tuple[int]]):
+    def toughnesses(self, *args: int|tuple[int]):
         self._pt_tag('toughness', *args)
 
-    def _pt_tag(self, _tag_word: str, *args: list[int|tuple[int]]):
+    def _pt_tag(self, _tag_word: str, *args: int|tuple[int]):
         if len(args) != len(self._creatures):
             raise ValueError(f"incorrect number of {_tag_word} passed: "
                              f"expected {len(self._creatures)} "
