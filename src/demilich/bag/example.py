@@ -53,3 +53,7 @@ if __name__ == "__main__":
     common_green.mana_values(5)
     for slot in common_green:
         writer.writerow(asdict(slot))
+    common_artifact = SlotMaker('C', 'A', 1, 0)
+    common_artifact.mana_values(3)
+    for slot in common_artifact:
+        writer.writerow(asdict(slot))

@@ -55,6 +55,10 @@ def _get_bag_parts(bag: Bag):
     else:
         result['instruction'] = ""
     
+    cost_tags = list(bag.words_tagged("cost"))
+    if cost_tags:
+        result['cost'] = cost_tags[0].word
+    
     pow_tags = list(bag.words_tagged("power"))
     tou_tags = list(bag.words_tagged("toughness"))
     if pow_tags and tou_tags:
@@ -77,6 +81,22 @@ def _get_bag_parts(bag: Bag):
 def _clean_keyword(raw: str):
     return raw.replace('_', ' ')
 
+def _make_cost(mv: int|tuple[int], frame: str):
+    if frame in 'WUBRGZ':
+        if isinstance(mv, int):
+            generic = mv-1
+        else:
+            generic = choice(mv) - 1
+        
+        color = 'H' if frame == 'Z' else frame
+        if generic:
+            return f"{{{generic}}}{{{color}}}"
+        return f"{{{color}}}"
+
+    else:
+        if isinstance(mv, int):
+            return f"{{{mv}}}"
+        return f"{{{choice(mv)}}}"
 
 class SlotMaker:
     def __init__(self, rarity: str, frame: str, creatures: int, spells: int):
@@ -118,12 +138,13 @@ class SlotMaker:
                              f"expected {len(self._creatures)} "
                              f"but got {len(args)}")
         for mv, bag in zip(args, self._creatures):
+            cost = _make_cost(mv, self._frame)
             if isinstance(mv, int):
                 mv = str(mv)
             else:
                 mv = "/".join([str(x) for x in mv])
-            tag = TaggedWord(mv, "manavalue")
-            bag.add(tag)
+            bag.add(TaggedWord(mv, "manavalue"))
+            bag.add(TaggedWord(cost, "cost"))
 
     def powers(self, *args: list[int|tuple[int]]):
         self._pt_tag('power', *args)
