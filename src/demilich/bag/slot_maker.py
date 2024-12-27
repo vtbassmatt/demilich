@@ -122,6 +122,17 @@ def _make_cost(mv: int|tuple[int], frame: str):
             return f"{{{mv}}}"
         return f"{{{choice(mv)}}}"
 
+
+def _infinite_shuffle(list_of_items):
+    local_copy = list(list_of_items)
+    try:
+        while True:
+            shuffle(local_copy)
+            for element in local_copy:
+                yield element
+    finally:
+        return
+
 class SlotMaker:
     def __init__(self, rarity: str, frame: str, creatures: int, spells: int):
         self._rarity = rarity
@@ -152,17 +163,19 @@ class SlotMaker:
             self._index += 1
 
     def keywords(self, **kwargs: dict[str,float]):
+        creatures = _infinite_shuffle(self._creatures)
         for keyword, count in kwargs.items():
             keyword = _clean_keyword(keyword)
             while count > 1:
                 tag = TaggedWord(keyword, "keyword")
-                bag = choice(self._creatures)
+                bag = next(creatures)
                 bag.add(tag)
                 count -= 1
             if uniform(0.0, 1.0) < count:
                 tag = TaggedWord(keyword, "keyword")
-                bag = choice(self._creatures)
+                bag = next(creatures)
                 bag.add(tag)
+        creatures.close()
 
     def mana_values(self, *args: int|tuple[int]):
         if len(args) != len(self._creatures):
