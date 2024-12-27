@@ -301,18 +301,18 @@ class SlotMaker:
             bag.add(TaggedWord(spell.text, 'text'))
 
     def _check_and_normalize(self):
-        nonbird_flyers: list[Bag] = []
+        non_obligate_flyers: list[Bag] = []
 
         for bag in self._creatures:
-            if bag.has('flying', 'keyword') and not bag.has('bird', 'race'):
-                nonbird_flyers.append(bag)
+            if bag.has('flying', 'keyword') and not bag.has('bird', 'race') and not bag.has('bat', 'race'):
+                non_obligate_flyers.append(bag)
 
-            if bag.has('bird', 'race') and not bag.has('flying', 'keyword'):
+            if (bag.has('bird', 'race') or bag.has('bat', 'race')) and not bag.has('flying', 'keyword'):
                 flying = TaggedWord('flying', 'keyword')
                 bag.add(flying)
-                # try to remove a non-bird flyer to keep flying counts stable
+                # try to remove a non-bird/bat flyer to keep flying counts stable
                 # if we haven't yet encountered one, the list will be empty
                 # so we might make too many flyers. as a design skeleton, this
                 # is probably fine.
-                if nonbird_flyers:
-                    nonbird_flyers.pop().remove(flying)
+                if non_obligate_flyers:
+                    non_obligate_flyers.pop().remove(flying)
