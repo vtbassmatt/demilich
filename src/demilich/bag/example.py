@@ -15,7 +15,18 @@ if __name__ == "__main__":
         flying=3, vigilance=2, lifelink=1,
         first_strike=.25, double_strike=.2,
     )
-    common_white.mana_values(1, 2, 2, 2, 3, 3, 3, 4, 4, (5, 6), (6, 7))
+    common_white.mana_values(
+        1, 2, 2, 2, 3, 3,
+        3, 4, 4, (5, 6), (6, 7)
+    )
+    common_white.powers(
+        (1, 2), 2, (1, 2, 3), 2, (2, 3), (2, 3),
+        3, (3, 4), 4, (4, 5), (4, 5, 6)
+    )
+    common_white.toughnesses(
+        1, 1, (1, 2), (2, 3), 3, 3,
+        3, (3, 4), 4, (4, 5), (4, 5)
+    )
     common_white.races(
         human=20, bird=5, spirit=5, cat=5, kithkin=2, unicorn=1,
         dog=1, dinosaur=1, avatar=1, loxodon=1, giant=1, nothing=1,

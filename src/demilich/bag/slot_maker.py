@@ -55,6 +55,11 @@ def _get_bag_parts(bag: Bag):
     else:
         result['instruction'] = ""
     
+    pow_tags = list(bag.words_tagged("power"))
+    tou_tags = list(bag.words_tagged("toughness"))
+    if pow_tags and tou_tags:
+        result['stats'] = f"{pow_tags[0].word}/{tou_tags[0].word}"
+    
     type_tags = list(bag.words_tagged("type"))
     type_ = " ".join([t.word for t in type_tags])
     subtypes = (
@@ -107,7 +112,7 @@ class SlotMaker:
                 bag = choice(self._creatures)
                 bag.add(tag)
 
-    def mana_values(self, *args: int|tuple[int]):
+    def mana_values(self, *args: list[int|tuple[int]]):
         if len(args) != len(self._creatures):
             raise ValueError("incorrect number of mana values passed: "
                              f"expected {len(self._creatures)} "
@@ -118,6 +123,25 @@ class SlotMaker:
             else:
                 mv = "/".join([str(x) for x in mv])
             tag = TaggedWord(mv, "manavalue")
+            bag.add(tag)
+
+    def powers(self, *args: list[int|tuple[int]]):
+        self._pt_tag('power', *args)
+
+    def toughnesses(self, *args: list[int|tuple[int]]):
+        self._pt_tag('toughness', *args)
+
+    def _pt_tag(self, _tag_word: str, *args: list[int|tuple[int]]):
+        if len(args) != len(self._creatures):
+            raise ValueError(f"incorrect number of {_tag_word} passed: "
+                             f"expected {len(self._creatures)} "
+                             f"but got {len(args)}")
+        for pt, bag in zip(args, self._creatures):
+            if isinstance(pt, int):
+                pt = str(pt)
+            else:
+                pt = str(choice(pt))
+            tag = TaggedWord(pt, _tag_word)
             bag.add(tag)
 
     def races(self, **kwargs: dict[str,float]):
