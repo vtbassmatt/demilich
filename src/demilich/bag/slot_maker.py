@@ -57,7 +57,10 @@ def _get_bag_parts(bag: Bag):
     
     type_tags = list(bag.words_tagged("type"))
     type_ = " ".join([t.word for t in type_tags])
-    subtypes = list([r.word for r in bag.words_tagged('race')])
+    subtypes = (
+        list([r.word for r in bag.words_tagged('race')]) +
+        list([c.word for c in bag.words_tagged('class')])
+    )
     if subtypes:
         result['typeline'] = f"{type_.title()} — {" ".join([s.title() for s in subtypes])}"
     else:
@@ -118,14 +121,21 @@ class SlotMaker:
             bag.add(tag)
 
     def races(self, **kwargs: dict[str,float]):
-        if len(kwargs) == 0:
-            raise ValueError("need at least one race passed in")
+        self._choose_and_tag('race', **kwargs)
 
-        races = choices(
+    def classes(self, **kwargs: dict[str,float]):
+        self._choose_and_tag('class', **kwargs)
+
+    def _choose_and_tag(self, _tag_word: str, **kwargs: dict[str,float]):
+        if len(kwargs) == 0:
+            raise ValueError(f"need at least one {_tag_word} passed in")
+
+        distribution = choices(
             list(kwargs.keys()),
             weights=list(kwargs.values()),
             k=len(self._creatures)
         )
-        for race, bag in zip(races, self._creatures):
-            tag = TaggedWord(race, 'race')
-            bag.add(tag)
+        for ch, bag in zip(distribution, self._creatures):
+            if ch != "nothing":
+                tag = TaggedWord(ch, _tag_word)
+                bag.add(tag)
