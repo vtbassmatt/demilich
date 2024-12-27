@@ -18,3 +18,19 @@ if __name__ == "__main__":
     common_white.mana_values(1, 2, 2, 2, 3, 3, 3, 4, 4, (5, 6), (6, 7))
     for slot in common_white:
         writer.writerow(asdict(slot))
+
+    # make sure degenerate cases keep working
+    common_blue = SlotMaker('C', 'U', 1, 1)
+    for slot in common_blue:
+        writer.writerow(asdict(slot))
+    common_black = SlotMaker('C', 'B', 1, 1)
+    common_black.keywords(flying=2)
+    for slot in common_black:
+        writer.writerow(asdict(slot))
+    common_red = SlotMaker('C', 'R', 0, 1)
+    for slot in common_red:
+        writer.writerow(asdict(slot))
+    common_green = SlotMaker('C', 'G', 1, 0)
+    common_green.mana_values(5)
+    for slot in common_green:
+        writer.writerow(asdict(slot))
