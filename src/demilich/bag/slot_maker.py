@@ -42,13 +42,20 @@ class Bag:
 
 
 def _get_bag_parts(bag: Bag):
+    result = {}
+
     text_tags = bag.words_tagged("keyword")
     # convert to a set to dedupe keywords
     text = ", ".join(set([w.word for w in text_tags]))
+    result['text'] = text
 
-    return {
-        'text': text,
-    }
+    mv_tags = list(bag.words_tagged("manavalue"))
+    if mv_tags:
+        result['instruction'] = f"{mv_tags[0].word} MV"
+    else:
+        result['instruction'] = ""
+
+    return result
 
 
 def _clean_keyword(raw: str):
@@ -69,7 +76,6 @@ class SlotMaker:
         for bag in self._creatures:
             yield Slot(
                 self._rarity, self._frame, self._index + 1,
-                instruction="Creature",
                 **_get_bag_parts(bag),
             )
             self._index += 1
@@ -89,3 +95,16 @@ class SlotMaker:
                 tag = TaggedWord(keyword, "keyword")
                 bag = choice(self._creatures)
                 bag.add(tag)
+
+    def mana_values(self, *args: int|tuple[int]):
+        if len(args) != len(self._creatures):
+            raise ValueError("incorrect number of mana values passed: "
+                             f"expected {len(self._creatures)} "
+                             f"but got {len(args)}")
+        for mv, bag in zip(args, self._creatures):
+            if isinstance(mv, int):
+                mv = str(mv)
+            else:
+                mv = "/".join([str(x) for x in mv])
+            tag = TaggedWord(mv, "manavalue")
+            bag.add(tag)

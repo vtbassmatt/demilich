@@ -15,5 +15,6 @@ if __name__ == "__main__":
         flying=3, vigilance=2, lifelink=1,
         first_strike=.25, double_strike=.2,
     )
+    common_white.mana_values(1, 2, 2, 2, 3, 3, 3, 4, 4, (5, 6), (6, 7))
     for slot in common_white:
         writer.writerow(asdict(slot))
