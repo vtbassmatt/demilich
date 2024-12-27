@@ -20,13 +20,22 @@ class Slot:
 
 
 @dataclass
+class Reprint:
+    name: str
+    cost: str
+    type_: str
+    subtype: list[str]|None
+    text: str
+
+
+@dataclass
 class TaggedWord:
     word: str
     tag: str
 
 
 class Bag:
-    def __init__(self, *args: list[TaggedWord]):
+    def __init__(self, *args: TaggedWord):
         self._bag: list[TaggedWord] = list(args) or []
 
     def add(self, word: TaggedWord):
@@ -44,14 +53,27 @@ class Bag:
 def _get_bag_parts(bag: Bag):
     result = {}
 
-    text_tags = bag.words_tagged("keyword")
+    name_tags = list(bag.words_tagged('name'))
+    if name_tags:
+        result['name'] = name_tags[0].word
+
+    keyword_tags = bag.words_tagged("keyword")
     # convert to a set to dedupe keywords
-    text = ", ".join(set([w.word for w in text_tags]))
-    result['text'] = text
+    keyword_text = ", ".join(set([w.word for w in keyword_tags]))
+    text_tags = bag.words_tagged("text")
+    text = " // ".join([t.word for t in text_tags])
+    result['text'] = keyword_text
+    if keyword_text and text:
+        result['text'] += " // "
+    if text:
+        result['text'] += text
 
     mv_tags = list(bag.words_tagged("manavalue"))
+    instruction_tags = list(bag.words_tagged("instruction"))
     if mv_tags:
         result['instruction'] = f"{mv_tags[0].word} MV"
+    elif instruction_tags:
+        result['instruction'] = f"{instruction_tags[0].word}"
     else:
         result['instruction'] = ""
     
@@ -67,6 +89,7 @@ def _get_bag_parts(bag: Bag):
     type_tags = list(bag.words_tagged("type"))
     type_ = " ".join([t.word for t in type_tags])
     subtypes = (
+        list([s.word for s in bag.words_tagged('subtype')]) +
         list([r.word for r in bag.words_tagged('race')]) +
         list([c.word for c in bag.words_tagged('class')])
     )
@@ -108,9 +131,10 @@ class SlotMaker:
             self._spells = [Bag(TaggedWord('artifact', 'type')) for _ in range(spells)]
         else:
             self._creatures = [Bag(TaggedWord('creature', 'type')) for _ in range(creatures)]
-            self._spells = [Bag(TaggedWord('(spell)', 'type')) for _ in range(spells)]
+            self._spells = [Bag() for _ in range(spells)]
         # internal bookkeeping
         self._index = -1
+        self._next_spell = 0
 
     def __iter__(self):
         self._index += 1
@@ -192,3 +216,22 @@ class SlotMaker:
             if ch != "nothing":
                 tag = TaggedWord(ch, _tag_word)
                 bag.add(tag)
+
+    def add_spell(self, instruction: str, *possibilities: Reprint):
+        """Given a list of roughly equivalent reprints, choose one
+        for the next spell slot."""
+        try:
+            bag = self._spells[self._next_spell]
+        except IndexError:
+            raise IndexError("too many spells; increase the number of spell slots")
+        self._next_spell += 1
+
+        bag.add(TaggedWord(instruction, 'instruction'))
+        if len(possibilities) > 0:
+            spell = choice(possibilities)
+            bag.add(TaggedWord(spell.name, 'name'))
+            bag.add(TaggedWord(spell.cost, 'cost'))
+            bag.add(TaggedWord(spell.type_, 'type'))
+            for subtype in spell.subtype or []:
+                bag.add(TaggedWord(subtype, 'subtype'))
+            bag.add(TaggedWord(spell.text, 'text'))

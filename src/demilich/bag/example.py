@@ -2,7 +2,7 @@ import csv
 from dataclasses import asdict
 import sys
 
-from demilich.bag.slot_maker import SlotMaker
+from demilich.bag.slot_maker import SlotMaker, Reprint
 
 
 if __name__ == "__main__":
@@ -35,6 +35,16 @@ if __name__ == "__main__":
         nothing=2, scout=4, knight=4, soldier=4, monk=2, cleric=2,
         nomad=1, mystic=1, samurai=1,
     )
+    common_white.add_spell("Combat-related removal")
+    common_white.add_spell(
+        "Banishing Light",
+        Reprint("Banishing Light", "{2}{W}", "Enchantment", None, "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."),
+        Reprint("Journey to Nowhere", "{1}{W}", "Enchantment", None, "When Journey to Nowhere enters, exile target creature. // When Journey to Nowhere leaves the battlefield, return the exiled card to the battlefield under its owner's control."),
+        Reprint("Oblivion Ring", "{2}{W}", "Enchantment", None, "When Oblivion Ring enters, exile another target nonland permanent. //  When Oblivion Ring leaves the battlefield, return the exiled card to the battlefield under its owner's control."),
+        Reprint("Chains of Custody", "{2}{W}", "Enchantment", ["Aura"], "Enchant creature you control // When Chains of Custody enters, exile target nonland permanent an opponent controls until Chains of Custody leaves the battlefield. // Enchanted creature has ward {2}."),
+    )
+    common_white.add_spell("Combat trick")
+    common_white.add_spell("Disenchant/removal")
     for slot in common_white:
         writer.writerow(asdict(slot))
 
