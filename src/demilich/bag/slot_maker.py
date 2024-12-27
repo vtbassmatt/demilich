@@ -102,8 +102,12 @@ class SlotMaker:
     def __init__(self, rarity: str, frame: str, creatures: int, spells: int):
         self._rarity = rarity
         self._frame = frame
-        self._creatures = [Bag(TaggedWord('creature', 'type')) for _ in range(creatures)]
-        self._spells = [Bag() for _ in range(spells)]
+        if frame == 'A':
+            self._creatures = [Bag(TaggedWord('artifact', 'type'), TaggedWord('creature', 'type')) for _ in range(creatures)]
+            self._spells = [Bag(TaggedWord('artifact', 'type')) for _ in range(spells)]
+        else:
+            self._creatures = [Bag(TaggedWord('creature', 'type')) for _ in range(creatures)]
+            self._spells = [Bag(TaggedWord('(spell)', 'type')) for _ in range(spells)]
         # internal bookkeeping
         self._index = -1
 
@@ -115,8 +119,11 @@ class SlotMaker:
                 **_get_bag_parts(bag),
             )
             self._index += 1
-        for _ in self._spells:
-            yield Slot(self._rarity, self._frame, self._index + 1, "Spell")
+        for bag in self._spells:
+            yield Slot(
+                self._rarity, self._frame, self._index + 1,
+                **_get_bag_parts(bag),
+            )
             self._index += 1
 
     def keywords(self, **kwargs: dict[str,float]):
