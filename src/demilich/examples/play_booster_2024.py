@@ -1,15 +1,7 @@
-import csv
-from dataclasses import asdict
-import sys
-
 from demilich.slot_maker import SlotMaker, Reprint
 
 
 def pb2024():
-    fieldnames = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
-    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
-    writer.writeheader()
-
     common_white = SlotMaker('C', 'W', 11, 4)
     common_white.keywords(
         flying=3, vigilance=2, lifelink=1,
@@ -51,8 +43,7 @@ def pb2024():
         Reprint("Make Your Move", "{2}{W}", "Instant", None, "Destroy target artifact, enchantment, or creature with power 4 or greater."),
         Reprint("Destroy Evil", "{1}{W}", "Instant", None, "Choose one — // • Destroy target creature with toughness 4 or greater. // • Destroy target enchantment."),
     )
-    for slot in common_white:
-        writer.writerow(asdict(slot))
+    yield from common_white
 
     common_blue = SlotMaker('C', 'U', 8, 7)
     common_blue.keywords(
@@ -91,8 +82,7 @@ def pb2024():
     )
     common_blue.add_spell("Top or bottom")
     common_blue.add_spell("Modal spell")
-    for slot in common_blue:
-        writer.writerow(asdict(slot))
+    yield from common_blue
 
     common_black = SlotMaker('C', 'B', 9, 6)
     common_black.keywords(
@@ -129,8 +119,7 @@ def pb2024():
     )
     common_black.add_spell("Unconditional removal")
     common_black.add_spell("Slightly overcosted removal")
-    for slot in common_black:
-        writer.writerow(asdict(slot))
+    yield from common_black
 
     common_red = SlotMaker('C', 'R', 9, 6)
     common_red.keywords(
@@ -168,8 +157,7 @@ def pb2024():
     )
     common_red.add_spell("Efficient direct damage for 4")
     common_red.add_spell("Direct damage for 6 (5 mana)")
-    for slot in common_red:
-        writer.writerow(asdict(slot))
+    yield from common_red
 
     common_green = SlotMaker('C', 'G', 10, 5)
     common_green.keywords(
@@ -206,8 +194,7 @@ def pb2024():
     )
     common_green.add_spell("Mana acceleration")
     common_green.add_spell("Dig for lands and/or creatures")
-    for slot in common_green:
-        writer.writerow(asdict(slot))
+    yield from common_green
 
     common_artifact = SlotMaker('C', 'A', 3, 3)
     common_artifact.mana_values(2, 3, 4)
@@ -228,9 +215,4 @@ def pb2024():
         Reprint("Network Terminal", "{3}", "Artifact", None, "{T}: Add one mana of any color. // {1}, {T}, Tap another untapped artifact you control: Draw a card, then discard a card."),
     )
     common_artifact.add_spell("Land fixing")
-    for slot in common_artifact:
-        writer.writerow(asdict(slot))
-
-
-if __name__ == "__main__":
-    pb2024()
+    yield from common_artifact
