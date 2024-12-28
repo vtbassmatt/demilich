@@ -6,9 +6,12 @@ authors = ["Matt Cooper <vtbassmatt@gmail.com>"]
 readme = "README.md"
 packages = [{include = "demilich", from = "src"}]
 
+[tool.poetry.scripts]
+demilich = "demilich.cli:app"
+
 [tool.poetry.dependencies]
 python = "^3.12"
-
+typer = "^0.15.1"
 
 [build-system]
 requires = ["poetry-core"]
