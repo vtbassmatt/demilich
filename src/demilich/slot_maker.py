@@ -47,7 +47,7 @@ class Reprint:
     text: str
 
 
-@dataclass
+@dataclass(frozen=True)
 class TaggedWord:
     word: str
     tag: str
@@ -55,10 +55,11 @@ class TaggedWord:
 
 class Bag:
     def __init__(self, *args: TaggedWord):
-        self._bag: list[TaggedWord] = list(args) or []
+        self._bag: list[TaggedWord] = list(set(args)) or []
 
     def add(self, word: TaggedWord):
-        self._bag.append(word)
+        if not word in self._bag:
+            self._bag.append(word)
     
     def remove(self, word: TaggedWord):
         self._bag.remove(word)
@@ -187,10 +188,10 @@ class SlotMaker:
         self._rarity = rarity
         self._frame = frame
         if frame == 'A':
-            self._creatures = [Bag(TaggedWord('artifact', 'type'), TaggedWord('creature', 'type')) for _ in range(creatures)]
-            self._spells = [Bag(TaggedWord('artifact', 'type')) for _ in range(spells)]
+            self._creatures = [Bag(TaggedWord('Artifact', 'type'), TaggedWord('creature', 'type')) for _ in range(creatures)]
+            self._spells = [Bag(TaggedWord('Artifact', 'type')) for _ in range(spells)]
         else:
-            self._creatures = [Bag(TaggedWord('creature', 'type')) for _ in range(creatures)]
+            self._creatures = [Bag(TaggedWord('Creature', 'type')) for _ in range(creatures)]
             self._spells = [Bag() for _ in range(spells)]
         # internal bookkeeping
         self._index = -1
