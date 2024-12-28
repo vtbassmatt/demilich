@@ -2,7 +2,7 @@ import csv
 from dataclasses import asdict
 import sys
 
-from demilich.bag.slot_maker import SlotMaker, Reprint
+from demilich.slot_maker import SlotMaker, Reprint
 
 
 if __name__ == "__main__":
