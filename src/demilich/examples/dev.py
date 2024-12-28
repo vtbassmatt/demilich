@@ -5,7 +5,7 @@ import sys
 from demilich.slot_maker import SlotMaker, Reprint
 
 
-if __name__ == "__main__":
+def dev_skeleton():
     fieldnames = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
     writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
     writer.writeheader()
@@ -67,3 +67,7 @@ if __name__ == "__main__":
     common_artifact.mana_values(3)
     for slot in common_artifact:
         writer.writerow(asdict(slot))
+
+
+if __name__ == "__main__":
+    dev_skeleton()
