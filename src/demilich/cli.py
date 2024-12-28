@@ -3,6 +3,7 @@ from enum import Enum
 import typer
 from typing_extensions import Annotated
 
+from demilich.reader import generate_skeleton, load_from_resources
 from demilich.output import write_csv, write_table
 
 
@@ -29,7 +30,7 @@ def play_booster(
     """
     Generate a standard play booster skeleton.
     """
-    from demilich.examples.play_booster_2024 import pb2024
+    data = load_from_resources('pb2024.toml')
 
     all_fields = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
     fields = {field: True for field in all_fields}
@@ -37,12 +38,12 @@ def play_booster(
     if format == OutputFormat.csv:
         fields['instruction'] = False if include_instruction is False else True
         fields['text'] = False if include_text is False else True
-        write_csv(pb2024(), [key for key, value in fields.items() if value])
+        write_csv(generate_skeleton(data), [key for key, value in fields.items() if value])
 
     elif format == OutputFormat.table:
         fields['instruction'] = True if include_instruction is True else False
         fields['text'] = False if include_text is False else True
-        write_table(pb2024(), [key for key, value in fields.items() if value])
+        write_table(generate_skeleton(data), [key for key, value in fields.items() if value])
 
     else:
         raise NotImplementedError(format)
