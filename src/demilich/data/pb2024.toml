@@ -152,6 +152,13 @@ instruction = "Disenchant/removal"
   type = "Instant"
   text = "Choose one — // • Destroy target creature with toughness 4 or greater. // • Destroy target enchantment."
 
+[white.uncommon]
+creatures = 10
+spells = 4
+
+[white.rare]
+spells = 9
+
 
 
 [blue.common]
@@ -273,6 +280,13 @@ instruction = 'Top or bottom'
 [[blue.common.spell_slots]]
 instruction = 'Modal spell'
 
+[blue.uncommon]
+creatures = 7
+spells = 7
+
+[blue.rare]
+spells = 9
+
 
 
 [black.common]
@@ -391,6 +405,13 @@ instruction = 'Unconditional removal'
 [[black.common.spell_slots]]
 instruction = 'Slightly overcosted removal'
 
+[black.uncommon]
+creatures = 8
+spells = 7
+
+[black.rare]
+spells = 9
+
 
 
 [red.common]
@@ -506,6 +527,13 @@ instruction = 'Efficient direct damage for 4'
 
 [[red.common.spell_slots]]
 instruction = 'Direct damage for 6 (5 mana)'
+
+[red.uncommon]
+creatures = 7
+spells = 8
+
+[red.rare]
+spells = 9
 
 
 
@@ -631,6 +659,13 @@ instruction = 'Mana acceleration'
 [[green.common.spell_slots]]
 instruction = 'Dig for lands and/or creatures'
 
+[green.uncommon]
+creatures = 9
+spells = 5
+
+[green.rare]
+spells = 9
+
 
 
 [artifact.common]
@@ -693,3 +728,21 @@ instruction = 'Manalith+ ability'
 
 [[artifact.common.spell_slots]]
 instruction = 'Land fixing'
+
+[artifact.uncommon]
+creatures = 4
+spells = 3
+
+[artifact.rare]
+spells = 5
+
+
+
+[multicolor.uncommon]
+creatures = 20
+
+[multicolor.rare]
+spells = 10
+
+[multicolor.mythic]
+spells = 20
