@@ -3,6 +3,8 @@ from enum import Enum
 import typer
 from typing_extensions import Annotated
 
+from demilich.output import write_csv, write_table
+
 
 class OutputFormat(str, Enum):
     csv = "csv"
@@ -23,34 +25,10 @@ def play_booster(
     """
     from demilich.examples.play_booster_2024 import pb2024
     if format == OutputFormat.csv:
-        import csv
-        from dataclasses import asdict
-        import sys
-
-        fieldnames = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
-        writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
-        writer.writeheader()
-
-        for slot in pb2024():
-            writer.writerow(asdict(slot))
+        write_csv(pb2024(), ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats'])
 
     elif format == OutputFormat.table:
-        from dataclasses import asdict
-        from rich.console import Console
-        from rich.table import Table
-
-        fieldnames = ['name', 'cost', 'typeline', 'stats', 'text']
-        table = Table(title="Play Booster skeleton")
-        table.add_column("id", no_wrap=True)
-        for col in fieldnames:
-            table.add_column(col)
-        
-        for slot in pb2024():
-            data = asdict(slot)
-            table.add_row(data['id'], *[data[key] for key in fieldnames])
-        
-        console = Console()
-        console.print(table)
+        write_table(pb2024(), ['id', 'name', 'cost', 'typeline', 'stats', 'text'])
 
     else:
         raise NotImplementedError(format)
