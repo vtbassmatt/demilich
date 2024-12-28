@@ -1,0 +1,153 @@
+title = 'Play Booster 2024'
+
+[white.common]
+creatures = 11
+spells = 4
+
+[white.common.races]
+nothing = 1
+avatar = 1
+bird = 5
+cat = 5
+dinosaur = 1
+dog = 1
+giant = 1
+human = 20
+kithkin = 2
+loxodon = 1
+spirit = 5
+unicorn = 1
+
+[white.common.classes]
+nothing = 2
+cleric = 2
+knight = 4
+monk = 2
+mystic = 1
+nomad = 1
+samurai = 1
+scout = 4
+soldier = 4
+
+[white.common.keywords]
+flying = 3
+vigilance = 2
+lifelink = 1
+first_strike = 0.25
+double_strike = 0.2
+
+[[white.common.creature_slots]]
+mv = 1
+power = [1, 2]
+toughness = 1
+
+[[white.common.creature_slots]]
+mv = 2
+power = 2
+toughness = 1
+
+[[white.common.creature_slots]]
+mv = 2
+power = [1, 2, 3]
+toughness = [1, 2]
+
+[[white.common.creature_slots]]
+mv = 2
+power = 2
+toughness = [2, 3]
+
+[[white.common.creature_slots]]
+mv = 3
+power = [2, 3]
+toughness = 3
+
+[[white.common.creature_slots]]
+mv = 3
+power = [2, 3]
+toughness = 3
+
+[[white.common.creature_slots]]
+mv = 3
+power = 3
+toughness = 3
+
+[[white.common.creature_slots]]
+mv = 4
+power = [3, 4]
+toughness = [3, 4]
+
+[[white.common.creature_slots]]
+mv = 4
+power = 4
+toughness = 4
+
+[[white.common.creature_slots]]
+mv = [5, 6]
+power = [4, 5]
+toughness = [4, 5]
+
+[[white.common.creature_slots]]
+mv = [6, 7]
+power = [4, 5, 6]
+toughness = [4, 5]
+
+[[white.common.spell_slots]]
+instruction = "Combat-related removal"
+
+[[white.common.spell_slots]]
+instruction = "Banishing Light"
+
+  [[white.common.spell_slots.options]]
+  name = "Banishing Light"
+  cost = "{2}{W}"
+  type = "Enchantment"
+  text = "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."
+
+  [[white.common.spell_slots.options]]
+  name = "Journey to Nowhere"
+  cost = "{1}{W}"
+  type = "Enchantment"
+  text = "When Journey to Nowhere enters, exile target creature. // When Journey to Nowhere leaves the battlefield, return the exiled card to the battlefield under its owner's control."
+
+  [[white.common.spell_slots.options]]
+  name = "Oblivion Ring"
+  cost = "{2}{W}"
+  type = "Enchantment"
+  text =  "When Oblivion Ring enters, exile another target nonland permanent. //  When Oblivion Ring leaves the battlefield, return the exiled card to the battlefield under its owner's control."
+
+  [[white.common.spell_slots.options]]
+  name = "Chains of Custody"
+  cost = "{2}{W}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
+  text = "Enchant creature you control // When Chains of Custody enters, exile target nonland permanent an opponent controls until Chains of Custody leaves the battlefield. // Enchanted creature has ward {2}."
+
+[[white.common.spell_slots]]
+instruction = "Combat trick"
+
+[[white.common.spell_slots]]
+instruction = "Disenchant/removal"
+
+  [[white.common.spell_slots.options]]
+  name = "Disenchant"
+  cost = "{1}{W}"
+  type = "Instant"
+  text = "Destroy target artifact or enchantment."
+
+  [[white.common.spell_slots.options]]
+  name = "Invoke the Divine"
+  cost = "{2}{W}"
+  type = "Instant"
+  text = "Destroy targert artifact or enchantment. You gain 4 life."
+
+  [[white.common.spell_slots.options]]
+  name = "Make Your Move"
+  cost = "{2}{W}"
+  type = "Instant"
+  text = "Destroy target artifact, enchantment, or creature with power 4 or greater."
+
+  [[white.common.spell_slots.options]]
+  name = "Destroy Evil"
+  cost = "{1}{W}"
+  type = "Instant"
+  text = "Choose one — // • Destroy target creature with toughness 4 or greater. // • Destroy target enchantment."
