@@ -1,0 +1,695 @@
+title = 'Play Booster 2024'
+
+[white.common]
+creatures = 11
+spells = 4
+
+[white.common.races]
+nothing = 1
+avatar = 1
+bird = 5
+cat = 5
+dinosaur = 1
+dog = 1
+giant = 1
+human = 20
+kithkin = 2
+loxodon = 1
+spirit = 5
+unicorn = 1
+
+[white.common.classes]
+nothing = 2
+cleric = 2
+knight = 4
+monk = 2
+mystic = 1
+nomad = 1
+samurai = 1
+scout = 4
+soldier = 4
+
+[white.common.keywords]
+flying = 3
+vigilance = 2
+lifelink = 1
+first_strike = 0.25
+double_strike = 0.2
+
+[[white.common.creature_slots]]
+mv = 1
+power = [1, 2]
+toughness = 1
+
+[[white.common.creature_slots]]
+mv = 2
+power = 2
+toughness = 1
+
+[[white.common.creature_slots]]
+mv = 2
+power = [1, 2, 3]
+toughness = [1, 2]
+
+[[white.common.creature_slots]]
+mv = 2
+power = 2
+toughness = [2, 3]
+
+[[white.common.creature_slots]]
+mv = 3
+power = [2, 3]
+toughness = 3
+
+[[white.common.creature_slots]]
+mv = 3
+power = [2, 3]
+toughness = 3
+
+[[white.common.creature_slots]]
+mv = 3
+power = 3
+toughness = 3
+
+[[white.common.creature_slots]]
+mv = 4
+power = [3, 4]
+toughness = [3, 4]
+
+[[white.common.creature_slots]]
+mv = 4
+power = 4
+toughness = 4
+
+[[white.common.creature_slots]]
+mv = [5, 6]
+power = [4, 5]
+toughness = [4, 5]
+
+[[white.common.creature_slots]]
+mv = [6, 7]
+power = [4, 5, 6]
+toughness = [4, 5]
+
+[[white.common.spell_slots]]
+instruction = "Combat-related removal"
+
+[[white.common.spell_slots]]
+instruction = "Banishing Light"
+
+  [[white.common.spell_slots.options]]
+  name = "Banishing Light"
+  cost = "{2}{W}"
+  type = "Enchantment"
+  text = "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."
+
+  [[white.common.spell_slots.options]]
+  name = "Journey to Nowhere"
+  cost = "{1}{W}"
+  type = "Enchantment"
+  text = "When Journey to Nowhere enters, exile target creature. // When Journey to Nowhere leaves the battlefield, return the exiled card to the battlefield under its owner's control."
+
+  [[white.common.spell_slots.options]]
+  name = "Oblivion Ring"
+  cost = "{2}{W}"
+  type = "Enchantment"
+  text = "When Oblivion Ring enters, exile another target nonland permanent. //  When Oblivion Ring leaves the battlefield, return the exiled card to the battlefield under its owner's control."
+
+  [[white.common.spell_slots.options]]
+  name = "Chains of Custody"
+  cost = "{2}{W}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
+  text = "Enchant creature you control // When Chains of Custody enters, exile target nonland permanent an opponent controls until Chains of Custody leaves the battlefield. // Enchanted creature has ward {2}."
+
+[[white.common.spell_slots]]
+instruction = "Combat trick"
+
+[[white.common.spell_slots]]
+instruction = "Disenchant/removal"
+
+  [[white.common.spell_slots.options]]
+  name = "Disenchant"
+  cost = "{1}{W}"
+  type = "Instant"
+  text = "Destroy target artifact or enchantment."
+
+  [[white.common.spell_slots.options]]
+  name = "Invoke the Divine"
+  cost = "{2}{W}"
+  type = "Instant"
+  text = "Destroy targert artifact or enchantment. You gain 4 life."
+
+  [[white.common.spell_slots.options]]
+  name = "Make Your Move"
+  cost = "{2}{W}"
+  type = "Instant"
+  text = "Destroy target artifact, enchantment, or creature with power 4 or greater."
+
+  [[white.common.spell_slots.options]]
+  name = "Destroy Evil"
+  cost = "{1}{W}"
+  type = "Instant"
+  text = "Choose one — // • Destroy target creature with toughness 4 or greater. // • Destroy target enchantment."
+
+
+
+[blue.common]
+creatures = 8
+spells = 7
+
+[blue.common.races]
+human = 2
+merfolk = 4
+otter = 1
+bird = 3
+spirit = 2
+dog = 1
+faerie = 1
+homarid = 2
+zombie = 1
+crab = 2
+turtle = 1
+nothing = 1
+
+[blue.common.classes]
+nothing = 2
+scout = 4
+rogue = 4
+pirate = 1
+ninja = 2
+wizard = 2
+nomad = 1
+mystic = 1
+advisor = 1
+artificer = 1
+
+[blue.common.keywords]
+flying = 3
+vigilance = 1.5
+ward_N = 0.5
+defender = 0.5
+flash = 0.5
+
+[[blue.common.creature_slots]]
+mv = 2
+power = 1
+toughness = [1, 2]
+
+[[blue.common.creature_slots]]
+mv = 2
+power = [1, 2]
+toughness = 2
+
+[[blue.common.creature_slots]]
+mv = 3
+power = [2, 3]
+toughness = 3
+
+[[blue.common.creature_slots]]
+mv = 3
+power = 3
+toughness = 3
+
+[[blue.common.creature_slots]]
+mv = 3
+power = [3, 4]
+toughness = [3, 4]
+
+[[blue.common.creature_slots]]
+mv = 4
+power = 4
+toughness = 4
+
+[[blue.common.creature_slots]]
+mv = [5, 6]
+power = [4, 5]
+toughness = [5, 6]
+
+[[blue.common.creature_slots]]
+mv = [6, 7]
+power = [4, 5, 6]
+toughness = [5, 6]
+
+[[blue.common.spell_slots]]
+instruction = 'Protective instant'
+
+[[blue.common.spell_slots]]
+instruction = 'Counterspell'
+
+[[blue.common.spell_slots]]
+instruction = 'Cantrip'
+
+[[blue.common.spell_slots]]
+instruction = 'Draw 2-3'
+
+[[blue.common.spell_slots]]
+instruction = 'Witness Protection aura'
+
+  [[blue.common.spell_slots.options]]
+  name = 'Witness Protection'
+  cost = '{U}'
+  type = 'Enchantment'
+  subtypes = ['Aura']
+  text = 'Enchant creature // Enchanted creature loses all abilities and is a green and white Citizen creature with base power and toughness 1/1 named Legitimate Businessperson.'
+
+  [[blue.common.spell_slots.options]]
+  name = 'Stop Cold'
+  cost = '{3}{U}'
+  type = 'Enchantment'
+  subtypes = ['Aura']
+  text = "Flash // Enchant artifact or creature // When Stop Cold enter, tap enchanted permanent. // Enchanted permanent loses all abilities and doesn't untap during its controller's untap step."
+
+  [[blue.common.spell_slots.options]]
+  name = 'Frogify'
+  cost = '{1}{U}'
+  type = 'Enchantment'
+  subtypes = ['Aura']
+  text = 'Enchant creature // Enchanted creature loses all abilities and is a blue Frog creature with base power and toughness 1/1.'
+
+[[blue.common.spell_slots]]
+instruction = 'Top or bottom'
+
+[[blue.common.spell_slots]]
+instruction = 'Modal spell'
+
+
+
+[black.common]
+creatures = 9
+spells = 6
+
+[black.common.races]
+human = 1
+vampire = 4
+imp = 1
+horror = 2
+bat = 1
+skeleton = 2
+faerie = 1
+zombie = 1
+rat = 2
+nightmare = 1
+nothing = 1
+
+[black.common.classes]
+nothing = 4
+assassin = 3
+rogue = 3
+cleric = 1
+ninja = 2
+warlock = 2
+nomad = 1
+knight = 3
+samurai = 1
+minion = 1
+
+[black.common.keywords]
+flying = 2
+lifelink = 1
+menace = 1.5
+deathtouch = 1.25
+
+[[black.common.creature_slots]]
+mv = [1, 2]
+power = [1, 2]
+toughness = 1
+
+[[black.common.creature_slots]]
+mv = 2
+power = [1, 2]
+toughness = [1, 2]
+
+[[black.common.creature_slots]]
+mv = 2
+power = 2
+toughness = [1, 2]
+
+[[black.common.creature_slots]]
+mv = 3
+power = [2, 3]
+toughness = [2, 3]
+
+[[black.common.creature_slots]]
+mv = 3
+power = [2, 3]
+toughness = 3
+
+[[black.common.creature_slots]]
+mv = 4
+power = [3, 4]
+toughness = 4
+
+[[black.common.creature_slots]]
+mv = [4, 5]
+power = [4, 5]
+toughness = 4
+
+[[black.common.creature_slots]]
+mv = [5, 5]
+power = [4, 5]
+toughness = [3, 4]
+
+[[black.common.creature_slots]]
+mv = [6, 7]
+power = [4, 5]
+toughness = [4, 5]
+
+[[black.common.spell_slots]]
+instruction = 'Small conditional removal'
+
+[[black.common.spell_slots]]
+instruction = 'Combat trick'
+
+[[black.common.spell_slots]]
+instruction = 'Card draw with a cost'
+
+[[black.common.spell_slots]]
+instruction = 'Coercion+'
+
+  [[black.common.spell_slots.options]]
+  name = 'Coercion'
+  cost = '{2}{B}'
+  type = 'Sorcery'
+  text = 'Target opponent reveals their hand. You choose a card from it. That player discards that card.'
+
+  [[black.common.spell_slots.options]]
+  name = 'Duress'
+  cost = '{B}'
+  type = 'Sorcery'
+  text = 'Target opponent reveals their hand. You choose a noncreature, nonland card from it. That player discards that card.'
+
+  [[black.common.spell_slots.options]]
+  name = 'Pilfer'
+  cost = '{1}{B}'
+  type = 'Sorcery'
+  text = 'Target opponent reveals their hand. You choose a nonland card from it. That player discards that card.'
+
+[[black.common.spell_slots]]
+instruction = 'Unconditional removal'
+
+[[black.common.spell_slots]]
+instruction = 'Slightly overcosted removal'
+
+
+
+[red.common]
+creatures = 9
+spells = 6
+
+[red.common.races]
+goblin = 3
+devil = 1
+dwarf = 2
+giant = 1
+minotaur = 1
+orc = 2
+ogre = 1
+gremlin = 1
+
+[red.common.classes]
+nothing = 5
+knight = 2
+pirate = 2
+samurai = 1
+shaman = 4
+barbarian = 1
+warrior = 4
+artificer = 1
+berserker = 1
+
+[red.common.keywords]
+first_strike = 0.25
+double_strike = 0.2
+menace = 1.5
+trample = 1.5
+haste = 1.5
+reach = 1
+
+[[red.common.creature_slots]]
+mv = [1, 2]
+power = [1, 2]
+toughness = 1
+
+[[red.common.creature_slots]]
+mv = 2
+power = 2
+toughness = [1, 2]
+
+[[red.common.creature_slots]]
+mv = 2
+power = [2, 3]
+toughness = [1, 2]
+
+[[red.common.creature_slots]]
+mv = 3
+power = [3, 4]
+toughness = [3, 4]
+
+[[red.common.creature_slots]]
+mv = 3
+power = [3, 4]
+toughness = 3
+
+[[red.common.creature_slots]]
+mv = [3, 4]
+power = 3
+toughness = [3, 4]
+
+[[red.common.creature_slots]]
+mv = [4, 5]
+power = 4
+toughness = 4
+
+[[red.common.creature_slots]]
+mv = 5
+power = [4, 5]
+toughness = [3, 4]
+
+[[red.common.creature_slots]]
+mv = 6
+power = [4, 5]
+toughness = [3, 4]
+
+[[red.common.spell_slots]]
+instruction = 'Direct damage for 2'
+
+[[red.common.spell_slots]]
+instruction = 'Combat trick'
+
+[[red.common.spell_slots]]
+instruction = 'Rummage/impulse draw'
+
+[[red.common.spell_slots]]
+instruction = 'Modal Shatter'
+
+  [[red.common.spell_slots.options]]
+  name = 'Shatter'
+  cost = '{1}{R}'
+  type = 'Instant'
+  text = 'Destroy target artifact.'
+
+  [[red.common.spell_slots.options]]
+  name = 'Abrade'
+  cost = '{1}{R}'
+  type = 'Instant'
+  text = 'Choose one — // • Abrade deals 3 damage to target creature. // • Destroy target artifact.'
+
+  [[red.common.spell_slots.options]]
+  name = 'Shredded Sails'
+  cost = '{1}{R}'
+  type = 'Instant'
+  text = 'Choose one — // • Destroy target artifact. // • Shredded Sails deals 4 damage to target creature with flying. // Cycling {2}'
+
+[[red.common.spell_slots]]
+instruction = 'Efficient direct damage for 4'
+
+[[red.common.spell_slots]]
+instruction = 'Direct damage for 6 (5 mana)'
+
+
+
+[green.common]
+creatures = 10
+spells = 5
+
+[green.common.races]
+elf = 4
+cat = 1
+human = 2
+faerie = 1
+merfolk = 1
+rhox = 1
+treefolk = 1
+troll = 1
+loxodon = 1
+centaur = 1
+ape = 1
+bear = 1
+dinosaur = 3
+spider = 1
+
+[green.common.classes]
+nothing = 4
+archer = 1
+scout = 1
+druid = 3
+warrior = 3
+shaman = 1
+nomad = 1
+monk = 1
+ranger = 2
+
+[green.common.keywords]
+vigilance = 1.5
+ward_N = 0.5
+deathtouch = 1
+trample = 1.5
+haste = 0.2
+reach = 1.5
+
+[[green.common.creature_slots]]
+mv = [1, 2]
+power = 1
+toughness = 1
+
+[[green.common.creature_slots]]
+mv = 2
+power = 2
+toughness = 2
+
+[[green.common.creature_slots]]
+mv = 2
+power = 2
+toughness = 3
+
+[[green.common.creature_slots]]
+mv = 3
+power = [3, 4]
+toughness = 3
+
+[[green.common.creature_slots]]
+mv = 3
+power = [3, 4]
+toughness = [3, 4]
+
+[[green.common.creature_slots]]
+mv = [3, 4]
+power = [3, 4]
+toughness = [3, 4, 5]
+
+[[green.common.creature_slots]]
+mv = [4, 5]
+power = [4, 5]
+toughness = [4, 5]
+
+[[green.common.creature_slots]]
+mv = 5
+power = 5
+toughness = [5, 6]
+
+[[green.common.creature_slots]]
+mv = 6
+power = 6
+toughness = 6
+
+[[green.common.creature_slots]]
+mv = [6, 7]
+power = [6, 7]
+toughness = 6
+
+[[green.common.spell_slots]]
+instruction = 'Fight spell'
+
+[[green.common.spell_slots]]
+instruction = 'Bite spell'
+
+[[green.common.spell_slots]]
+instruction = 'Combat trick (power pump)'
+
+  [[green.common.spell_slots.options]]
+  name = 'Giant Growth'
+  cost = '{G}'
+  type = 'Instant'
+  text = 'Target creature gets +3/+3 until end of turn.'
+
+  [[green.common.spell_slots.options]]
+  name = 'Fanatical Strength'
+  cost = '{1}{G}'
+  type = 'Instant'
+  text = 'Target creature gets +3/+3 and gains trample until end of turn.'
+
+  [[green.common.spell_slots.options]]
+  name = 'For the Family'
+  cost = '{G}'
+  type = 'Instant'
+  text = 'Target creature gets +2/+2 until end of turn. If you control four or more creatures, that creature gets +4/+4 until end of turn instead.'
+
+[[green.common.spell_slots]]
+instruction = 'Mana acceleration'
+
+[[green.common.spell_slots]]
+instruction = 'Dig for lands and/or creatures'
+
+
+
+[artifact.common]
+creatures = 3
+spells = 3
+
+[artifact.common.races]
+construct = 3
+myr = 3
+golem = 3
+thopter = 1
+toy = 1
+scarecrow = 1
+gargoyle = 1
+
+[artifact.common.classes]
+nothing = 22
+drone = 1
+soldier = 1
+warrior = 1
+
+[[artifact.common.creature_slots]]
+mv = 2
+power = 1
+toughness = 1
+
+[[artifact.common.creature_slots]]
+mv = 3
+power = 2
+toughness = 2
+
+[[artifact.common.creature_slots]]
+mv = 4
+power = 3
+toughness = 3
+
+[[artifact.common.spell_slots]]
+instruction = 'Removal'
+
+[[artifact.common.spell_slots]]
+instruction = 'Manalith+ ability'
+
+  [[artifact.common.spell_slots.options]]
+  name = 'Manalith'
+  cost = '{3}'
+  type = 'Artifact'
+  text = '{T}: Add one mana of any color.'
+
+  [[artifact.common.spell_slots.options]]
+  name = 'Letter of Acceptance'
+  cost = '{3}'
+  type = 'Artifact'
+  text = '{T}: Add one mana of any color. // {2}, {T}, Sacrifice Letter of Acceptance: Draw a card.'
+
+  [[artifact.common.spell_slots.options]]
+  name = 'Network Terminal'
+  cost = '{3}'
+  type = 'Artifact'
+  text = '{T}: Add one mana of any color. // {1}, {T}, Tap another untapped artifact you control: Draw a card, then discard a card.'
+
+[[artifact.common.spell_slots]]
+instruction = 'Land fixing'

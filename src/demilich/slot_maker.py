@@ -42,9 +42,9 @@ class Slot:
 class Reprint:
     name: str
     cost: str
-    type_: str
-    subtype: list[str]|None
-    text: str
+    type: str
+    subtypes: list[str]|None = None
+    text: str|None = None
 
 
 @dataclass(frozen=True)
@@ -296,8 +296,8 @@ class SlotMaker:
             spell = choice(possibilities)
             bag.add(TaggedWord(spell.name, 'name'))
             bag.add(TaggedWord(spell.cost, 'cost'))
-            bag.add(TaggedWord(spell.type_, 'type'))
-            for subtype in spell.subtype or []:
+            bag.add(TaggedWord(spell.type, 'type'))
+            for subtype in spell.subtypes or []:
                 bag.add(TaggedWord(subtype, 'subtype'))
             bag.add(TaggedWord(spell.text, 'text'))
 

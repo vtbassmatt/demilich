@@ -1,15 +1,11 @@
-import csv
-from dataclasses import asdict
-import sys
-
+"""
+This file exercises some of the SlotMaker API. See the `dev` subcommand
+of demilich to run it.
+"""
 from demilich.slot_maker import SlotMaker, Reprint
 
 
 def dev_skeleton():
-    fieldnames = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
-    writer = csv.DictWriter(sys.stdout, fieldnames=fieldnames, extrasaction='ignore')
-    writer.writeheader()
-
     common_white = SlotMaker('C', 'W', 11, 4)
     common_white.keywords(
         flying=3, vigilance=2, lifelink=1,
@@ -45,29 +41,23 @@ def dev_skeleton():
     )
     common_white.add_spell("Combat trick")
     common_white.add_spell("Disenchant/removal")
-    for slot in common_white:
-        writer.writerow(asdict(slot))
+    yield from common_white
 
     # make sure degenerate cases keep working
     common_blue = SlotMaker('C', 'U', 1, 1)
-    for slot in common_blue:
-        writer.writerow(asdict(slot))
+    yield from common_blue
+
     common_black = SlotMaker('C', 'B', 1, 1)
     common_black.keywords(flying=2)
-    for slot in common_black:
-        writer.writerow(asdict(slot))
+    yield from common_black
+
     common_red = SlotMaker('C', 'R', 0, 1)
-    for slot in common_red:
-        writer.writerow(asdict(slot))
+    yield from common_red
+
     common_green = SlotMaker('C', 'G', 1, 0)
     common_green.mana_values(5)
-    for slot in common_green:
-        writer.writerow(asdict(slot))
+    yield from common_green
+
     common_artifact = SlotMaker('C', 'A', 1, 1)
     common_artifact.mana_values(3)
-    for slot in common_artifact:
-        writer.writerow(asdict(slot))
-
-
-if __name__ == "__main__":
-    dev_skeleton()
+    yield from common_artifact

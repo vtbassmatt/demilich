@@ -1,3 +1,8 @@
+"""
+This file exercises most of the SlotMaker API. However, this isn't
+the implementation used to generate a real skeleton. See data/pb2024.toml
+and the contents of demilich.reader for that.
+"""
 from demilich.slot_maker import SlotMaker, Reprint
 
 
