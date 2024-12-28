@@ -113,7 +113,7 @@ instruction = "Banishing Light"
   name = "Oblivion Ring"
   cost = "{2}{W}"
   type = "Enchantment"
-  text =  "When Oblivion Ring enters, exile another target nonland permanent. //  When Oblivion Ring leaves the battlefield, return the exiled card to the battlefield under its owner's control."
+  text = "When Oblivion Ring enters, exile another target nonland permanent. //  When Oblivion Ring leaves the battlefield, return the exiled card to the battlefield under its owner's control."
 
   [[white.common.spell_slots.options]]
   name = "Chains of Custody"
