@@ -55,4 +55,4 @@ def dev():
     Generate a partial skeleton, exercising a few features.
     """
     from demilich.examples.dev import dev_skeleton
-    dev_skeleton()
+    write_csv(dev_skeleton(), ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats'])
