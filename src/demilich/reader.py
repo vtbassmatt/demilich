@@ -48,7 +48,7 @@ def _configure_slots(data: dict, slot_maker: SlotMaker):
 
     if 'creature_slots' in data:
         mv, power, toughness = zip(
-            *[(x['mv'], x['power'], x['toughness'])
+            *[(x.get('mv', 0), x.get('power', 0), x.get('toughness', 0))
               for x in data['creature_slots']]
         )
         slot_maker.mana_values(*mv)
@@ -72,8 +72,8 @@ def generate_skeleton(data: dict):
                 continue
 
             f_r_data = frame_data[rarity_name]
-            creature_count = f_r_data['creatures']
-            spell_count = f_r_data['spells']
+            creature_count = f_r_data.get('creatures', 0)
+            spell_count = f_r_data.get('spells', 0)
             slot_maker = SlotMaker(rarity_code, frame_code, creature_count, spell_count)
             _configure_slots(f_r_data, slot_maker)
             yield from slot_maker
