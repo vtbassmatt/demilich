@@ -77,7 +77,7 @@ if __name__ == "__main__":
     )
     common_blue.classes(
         nothing=2, scout=4, rogue=4, pirate=1, ninja=2, wizard=2,
-        nomad=1, mystic=1,
+        nomad=1, mystic=1, advisor=1, artificer=1,
     )
     common_blue.add_spell("Protective instant")
     common_blue.add_spell("Counterspell")
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     )
     common_black.classes(
         nothing=4, assassin=3, rogue=3, cleric=1, ninja=2, warlock=2,
-        nomad=1, knight=3, samurai=1,
+        nomad=1, knight=3, samurai=1, minion=1,
     )
     common_black.add_spell("Small conditional removal")
     common_black.add_spell("Combat trick")
@@ -155,7 +155,7 @@ if __name__ == "__main__":
     )
     common_red.classes(
         nothing=5, knight=2, pirate=2, samurai=1, shaman=4,
-        barbarian=1, warrior=4,
+        barbarian=1, warrior=4, artificer=1, berserker=1,
     )
     common_red.add_spell("Direct damage for 2")
     common_red.add_spell("Combat trick")
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     )
     common_green.classes(
         nothing=4, archer=1, scout=1, druid=3, warrior=3,
-        shaman=1, nomad=1,
+        shaman=1, nomad=1, monk=1, ranger=2,
     )
     common_green.add_spell("Fight spell")
     common_green.add_spell("Bite spell")
