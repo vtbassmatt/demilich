@@ -785,20 +785,68 @@ toughness = [3, 4]
 [[red.common.spell_slots]]
 instruction = 'Direct damage for 2'
 
+  [[red.common.spell_slots.options]]
+  name = "Burst Lightning"
+  cost = "{R}"
+  type = "Instant"
+  text = "Kicker {4} // Burst Lightning deals 2 damage to any target. If this spell was kicked, it deals 4 damage instead."
+
+  [[red.common.spell_slots.options]]
+  name = "Shock"
+  cost = "{R}"
+  type = "Instant"
+  text = "Shock deals 2 damage to any target."
+
 [[red.common.spell_slots]]
 instruction = 'Combat trick'
 
+  [[red.common.spell_slots.options]]
+  name = "Ancestor's Aid"
+  cost = "{1}{R}"
+  type = "Instant"
+  text = "Target creature gets +2/+0 and gains first strike until end of turn. // Create a Treasure token."
+
+  [[red.common.spell_slots.options]]
+  name = "Sure Strike"
+  cost = "{1}{R}"
+  type = "Instant"
+  text = "Target creature gets +3/+0 and gains first strike until end of turn."
+
+  [[red.common.spell_slots.options]]
+  name = "Kindled Heroism"
+  cost = "{R}"
+  type = "Instant"
+  text = "Target creature gets +1/+0 and gains first strike until end of turn. Scry 1."
+
 [[red.common.spell_slots]]
 instruction = 'Rummage/impulse draw'
+
+  [[red.common.spell_slots.options]]
+  name = "Grab the Prize"
+  cost = "{1}{R}"
+  type = "Sorcery"
+  text = "As an additional cost to cast this spell, discard a card. // Draw two cards. If the discarded card wasn't a land card, Grab the Prize deals 2 damage to each opponent."
+
+  [[red.common.spell_slots.options]]
+  name = "Demand Answers"
+  cost = "{1}{R}"
+  type = "Instant"
+  text = "As an additional cost to cast this spell, sacrifice an artifact or discard a card. // Draw two cards."
+
+  [[red.common.spell_slots.options]]
+  name = "Thrill of Possibility"
+  cost = "{1}{R}"
+  type = "Instant"
+  text = "As an additional cost to cast this spell, discard a card. // Draw two cards."
 
 [[red.common.spell_slots]]
 instruction = 'Modal Shatter'
 
   [[red.common.spell_slots.options]]
-  name = 'Shatter'
-  cost = '{1}{R}'
-  type = 'Instant'
-  text = 'Destroy target artifact.'
+  name = 'Agate Assault'
+  cost = '{2}{R}'
+  type = 'Sorcery'
+  text = 'Choose one — // • Agate Assault deals 4 damage to target creature. If that creature would die this turn, exile it instead. // • Exile target artifact.'
 
   [[red.common.spell_slots.options]]
   name = 'Abrade'
@@ -815,8 +863,50 @@ instruction = 'Modal Shatter'
 [[red.common.spell_slots]]
 instruction = 'Efficient direct damage for 4'
 
+  [[red.common.spell_slots.options]]
+  name = "Flame Lash"
+  cost = "{3}{R}"
+  type = "Instant"
+  text = "Flame Lash deals 4 damage to any target."
+
+  [[red.common.spell_slots.options]]
+  name = "Cut In"
+  cost = "{3}{R}"
+  type = "Sorcery"
+  text = "Cut In deals 4 damage to target creature. // Create a Young Hero Role token attached to up to one target creature you control."
+
+  [[red.common.spell_slots.options]]
+  name = "Explosive Derailment"
+  cost = "{R}"
+  type = "Instant"
+  text = "Spree // + {2} — Explosive Derailment deals 4 damage to target creature. // + {2} — Destroy target artifact."
+
 [[red.common.spell_slots]]
 instruction = 'Direct damage for 6 (5 mana)'
+
+  [[red.common.spell_slots.options]]
+  name = "Conduct Electricity"
+  cost = "{4}{R}"
+  type = "Instant"
+  text = "Conduct Electricity deals 6 damage to target creature and 2 damage to up to one target creature token."
+
+  [[red.common.spell_slots.options]]
+  name = "Trick Shot"
+  cost = "{4}{R}"
+  type = "Instant"
+  text = "Trick Shot deals 6 damage to target creature and 2 damage to up to one other target creature token."
+
+  [[red.common.spell_slots.options]]
+  name = "Impossible Inferno"
+  cost = "{4}{R}"
+  type = "Instant"
+  text = "Impossible Inferno deals 6 damage to target creature. // Delirium — If there are four or more card types among cards in your graveyard, exile the top card of your library. You may play it until the end of your next turn."
+
+  [[red.common.spell_slots.options]]
+  name = "Incinerating Blast"
+  cost = "{4}{R}"
+  type = "Sorcery"
+  text = "Incinerating Blast deals 6 damage to target creature. // You may discard a card. If you do, draw a card."
 
 [red.uncommon]
 creatures = 7
