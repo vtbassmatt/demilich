@@ -1,5 +1,6 @@
 from dataclasses import dataclass, field
 from random import choice, choices, shuffle, uniform
+from typing import Literal
 
 
 # backup names in case we try to generate from an empty list
@@ -19,12 +20,14 @@ ADJECTIVES = [
     'Undead', 'Bellowing', 'Brave', 'Frilled', 'Intrepid', 'Rough',
     'Thieving', 'Guarded', 'Assistant', 'Tragic', 'Conscripted',
 ]
+FRAME_CODE = Literal['W', 'U', 'B', 'R', 'G', 'A', 'Z']
+RARITY_CODE = Literal['C', 'U', 'R', 'M']
 
 
 @dataclass
 class Slot:
-    rarity: str
-    color: str
+    rarity: RARITY_CODE
+    color: FRAME_CODE
     number: int
     instruction: str
     id: str = field(init=False)
@@ -156,7 +159,7 @@ def _clean_keyword(raw: str):
     return raw.replace('_', ' ')
 
 
-def _make_cost(mv: int|tuple[int], frame: str):
+def _make_cost(mv: int|tuple[int], frame: FRAME_CODE):
     if frame in 'WUBRGZ':
         if isinstance(mv, int):
             generic = mv-1
@@ -185,7 +188,13 @@ def _infinite_shuffle(list_of_items):
         return
 
 class SkeletonGenerator:
-    def __init__(self, rarity: str, frame: str, creatures: int, spells: int):
+    def __init__(
+            self,
+            rarity: RARITY_CODE,
+            frame: FRAME_CODE,
+            creatures: int,
+            spells: int,
+    ):
         """
         Generate a skeleton for a given rarity and frame code with the
         given number of creature and spell slots.
