@@ -1,4 +1,4 @@
-title = 'Play Booster 2024'
+title = "Play Booster 2024"
 
 [white.common]
 creatures = 11
@@ -288,7 +288,7 @@ power = [4, 5, 6]
 toughness = [5, 6]
 
 [[blue.common.spell_slots]]
-instruction = 'Protective instant'
+instruction = "Protective instant"
 
   [[blue.common.spell_slots.options]]
   name = "Dive Down"
@@ -309,7 +309,7 @@ instruction = 'Protective instant'
   text = "Until end of turn, target creature you control has base power and toughness 4/4 and gains flying and hexproof."
 
 [[blue.common.spell_slots]]
-instruction = 'Counterspell'
+instruction = "Counterspell"
 
   [[blue.common.spell_slots.options]]
   name = "Out of Air"
@@ -342,7 +342,7 @@ instruction = 'Counterspell'
   text = "Counter target spell. Draw a card, then discard a card."
 
 [[blue.common.spell_slots]]
-instruction = 'Cantrip'
+instruction = "Cantrip"
 
   [[blue.common.spell_slots.options]]
   name = "Zhalfirin Shapecraft"
@@ -363,7 +363,7 @@ instruction = 'Cantrip'
   text = "Scry 1. // Draw a card."
 
 [[blue.common.spell_slots]]
-instruction = 'Draw 2-3'
+instruction = "Draw 2-3"
 
   [[blue.common.spell_slots.options]]
   name = "Quick Study"
@@ -384,38 +384,38 @@ instruction = 'Draw 2-3'
   text = "Draw three cards. Creature a 1/1 blue Faerie creature token with flying and \"This creature can block only creatures with flying.\""
 
 [[blue.common.spell_slots]]
-instruction = 'Witness Protection aura'
+instruction = "Witness Protection aura"
 
   [[blue.common.spell_slots.options]]
-  name = 'Witness Protection'
-  cost = '{U}'
-  type = 'Enchantment'
-  subtypes = ['Aura']
-  text = 'Enchant creature // Enchanted creature loses all abilities and is a green and white Citizen creature with base power and toughness 1/1 named Legitimate Businessperson.'
+  name = "Witness Protection"
+  cost = "{U}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
+  text = "Enchant creature // Enchanted creature loses all abilities and is a green and white Citizen creature with base power and toughness 1/1 named Legitimate Businessperson."
 
   [[blue.common.spell_slots.options]]
-  name = 'Stop Cold'
-  cost = '{3}{U}'
-  type = 'Enchantment'
-  subtypes = ['Aura']
+  name = "Stop Cold"
+  cost = "{3}{U}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
   text = "Flash // Enchant artifact or creature // When Stop Cold enter, tap enchanted permanent. // Enchanted permanent loses all abilities and doesn't untap during its controller's untap step."
 
   [[blue.common.spell_slots.options]]
-  name = 'Frogify'
-  cost = '{1}{U}'
-  type = 'Enchantment'
-  subtypes = ['Aura']
-  text = 'Enchant creature // Enchanted creature loses all abilities and is a blue Frog creature with base power and toughness 1/1.'
+  name = "Frogify"
+  cost = "{1}{U}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
+  text = "Enchant creature // Enchanted creature loses all abilities and is a blue Frog creature with base power and toughness 1/1."
 
   [[blue.common.spell_slots.options]]
-  name = 'Stasis Field'
-  cost = '{1}{U}'
-  type = 'Enchantment'
-  subtypes = ['Aura']
-  text = 'Enchant creature // Enchanted creature has base power and toughness 0/2, has defender, and loses all other abilities.'
+  name = "Stasis Field"
+  cost = "{1}{U}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
+  text = "Enchant creature // Enchanted creature has base power and toughness 0/2, has defender, and loses all other abilities."
 
 [[blue.common.spell_slots]]
-instruction = 'Top or bottom'
+instruction = "Top or bottom"
 
   [[blue.common.spell_slots.options]]
   name = "Dire Downdraft"
@@ -442,7 +442,7 @@ instruction = 'Top or bottom'
   text = "Target artifact or creature's owner puts it on their choice of the top or bottom of their library."
 
 [[blue.common.spell_slots]]
-instruction = 'Modal spell'
+instruction = "Modal spell"
 
   [[blue.common.spell_slots.options]]
   name = "Twist Reality"
@@ -552,7 +552,7 @@ power = [4, 5]
 toughness = [4, 5]
 
 [[black.common.spell_slots]]
-instruction = 'Small conditional removal'
+instruction = "Small conditional removal"
 
   [[black.common.spell_slots.options]]
   name = "Cracked Skull"
@@ -574,7 +574,7 @@ instruction = 'Small conditional removal'
   text = "Destroy target creature with power 3 or less."
 
 [[black.common.spell_slots]]
-instruction = 'Combat trick'
+instruction = "Combat trick"
 
   [[black.common.spell_slots.options]]
   name = "Bladed Battle-Fan"
@@ -612,7 +612,7 @@ instruction = 'Combat trick'
   # stats = [2, 2]
 
 [[black.common.spell_slots]]
-instruction = 'Card draw with a cost'
+instruction = "Card draw with a cost"
 
   [[black.common.spell_slots.options]]
   name = "Corrupted Conviction"
@@ -633,28 +633,28 @@ instruction = 'Card draw with a cost'
   text = "As an additional cost to cast this spell, sacrifice an artifact or creature. // Draw two cards and create a Map token."
 
 [[black.common.spell_slots]]
-instruction = 'Coercion+'
+instruction = "Coercion+"
 
   [[black.common.spell_slots.options]]
-  name = 'Coercion'
-  cost = '{2}{B}'
-  type = 'Sorcery'
-  text = 'Target opponent reveals their hand. You choose a card from it. That player discards that card.'
+  name = "Coercion"
+  cost = "{2}{B}"
+  type = "Sorcery"
+  text = "Target opponent reveals their hand. You choose a card from it. That player discards that card."
 
   [[black.common.spell_slots.options]]
-  name = 'Duress'
-  cost = '{B}'
-  type = 'Sorcery'
-  text = 'Target opponent reveals their hand. You choose a noncreature, nonland card from it. That player discards that card.'
+  name = "Duress"
+  cost = "{B}"
+  type = "Sorcery"
+  text = "Target opponent reveals their hand. You choose a noncreature, nonland card from it. That player discards that card."
 
   [[black.common.spell_slots.options]]
-  name = 'Pilfer'
-  cost = '{1}{B}'
-  type = 'Sorcery'
-  text = 'Target opponent reveals their hand. You choose a nonland card from it. That player discards that card.'
+  name = "Pilfer"
+  cost = "{1}{B}"
+  type = "Sorcery"
+  text = "Target opponent reveals their hand. You choose a nonland card from it. That player discards that card."
 
 [[black.common.spell_slots]]
-instruction = 'Unconditional removal'
+instruction = "Unconditional removal"
 
   [[black.common.spell_slots.options]]
   name = "Annihilating Glare"
@@ -675,7 +675,7 @@ instruction = 'Unconditional removal'
   text = "Destroy target creature."
 
 [[black.common.spell_slots]]
-instruction = 'Slightly overcosted removal'
+instruction = "Slightly overcosted removal"
 
   [[black.common.spell_slots.options]]
   name = "Extinguish the Light"
@@ -783,7 +783,7 @@ power = [4, 5]
 toughness = [3, 4]
 
 [[red.common.spell_slots]]
-instruction = 'Direct damage for 2'
+instruction = "Direct damage for 2"
 
   [[red.common.spell_slots.options]]
   name = "Burst Lightning"
@@ -798,7 +798,7 @@ instruction = 'Direct damage for 2'
   text = "Shock deals 2 damage to any target."
 
 [[red.common.spell_slots]]
-instruction = 'Combat trick'
+instruction = "Combat trick"
 
   [[red.common.spell_slots.options]]
   name = "Ancestor's Aid"
@@ -819,7 +819,7 @@ instruction = 'Combat trick'
   text = "Target creature gets +1/+0 and gains first strike until end of turn. Scry 1."
 
 [[red.common.spell_slots]]
-instruction = 'Rummage/impulse draw'
+instruction = "Rummage/impulse draw"
 
   [[red.common.spell_slots.options]]
   name = "Grab the Prize"
@@ -840,28 +840,28 @@ instruction = 'Rummage/impulse draw'
   text = "As an additional cost to cast this spell, discard a card. // Draw two cards."
 
 [[red.common.spell_slots]]
-instruction = 'Modal Shatter'
+instruction = "Modal Shatter"
 
   [[red.common.spell_slots.options]]
-  name = 'Agate Assault'
-  cost = '{2}{R}'
-  type = 'Sorcery'
-  text = 'Choose one — // • Agate Assault deals 4 damage to target creature. If that creature would die this turn, exile it instead. // • Exile target artifact.'
+  name = "Agate Assault"
+  cost = "{2}{R}"
+  type = "Sorcery"
+  text = "Choose one — // • Agate Assault deals 4 damage to target creature. If that creature would die this turn, exile it instead. // • Exile target artifact."
 
   [[red.common.spell_slots.options]]
-  name = 'Abrade'
-  cost = '{1}{R}'
-  type = 'Instant'
-  text = 'Choose one — // • Abrade deals 3 damage to target creature. // • Destroy target artifact.'
+  name = "Abrade"
+  cost = "{1}{R}"
+  type = "Instant"
+  text = "Choose one — // • Abrade deals 3 damage to target creature. // • Destroy target artifact."
 
   [[red.common.spell_slots.options]]
-  name = 'Shredded Sails'
-  cost = '{1}{R}'
-  type = 'Instant'
-  text = 'Choose one — // • Destroy target artifact. // • Shredded Sails deals 4 damage to target creature with flying. // Cycling {2}'
+  name = "Shredded Sails"
+  cost = "{1}{R}"
+  type = "Instant"
+  text = "Choose one — // • Destroy target artifact. // • Shredded Sails deals 4 damage to target creature with flying. // Cycling {2}"
 
 [[red.common.spell_slots]]
-instruction = 'Efficient direct damage for 4'
+instruction = "Efficient direct damage for 4"
 
   [[red.common.spell_slots.options]]
   name = "Flame Lash"
@@ -882,7 +882,7 @@ instruction = 'Efficient direct damage for 4'
   text = "Spree // + {2} — Explosive Derailment deals 4 damage to target creature. // + {2} — Destroy target artifact."
 
 [[red.common.spell_slots]]
-instruction = 'Direct damage for 6 (5 mana)'
+instruction = "Direct damage for 6 (5 mana)"
 
   [[red.common.spell_slots.options]]
   name = "Conduct Electricity"
@@ -1007,7 +1007,7 @@ power = [6, 7]
 toughness = 6
 
 [[green.common.spell_slots]]
-instruction = 'Fight spell'
+instruction = "Fight spell"
 
   [[green.common.spell_slots.options]]
   name = "Epic Confrontation"
@@ -1028,7 +1028,7 @@ instruction = 'Fight spell'
   text = "Target creature you control fights target creature you don't control."
 
 [[green.common.spell_slots]]
-instruction = 'Bite spell'
+instruction = "Bite spell"
 
   [[green.common.spell_slots.options]]
   name = "Bite Down"
@@ -1049,28 +1049,28 @@ instruction = 'Bite spell'
   text = "As an additional cost to cast this spell, choose a creature you control or reveal a creature card from your hand. // Monstrous Emergence deals damage equal to the power of the creature you chose or the card you revealed to target creature."
 
 [[green.common.spell_slots]]
-instruction = 'Combat trick (power pump)'
+instruction = "Combat trick (power pump)"
 
   [[green.common.spell_slots.options]]
-  name = 'Giant Growth'
-  cost = '{G}'
-  type = 'Instant'
-  text = 'Target creature gets +3/+3 until end of turn.'
+  name = "Giant Growth"
+  cost = "{G}"
+  type = "Instant"
+  text = "Target creature gets +3/+3 until end of turn."
 
   [[green.common.spell_slots.options]]
-  name = 'Fanatical Strength'
-  cost = '{1}{G}'
-  type = 'Instant'
-  text = 'Target creature gets +3/+3 and gains trample until end of turn.'
+  name = "Fanatical Strength"
+  cost = "{1}{G}"
+  type = "Instant"
+  text = "Target creature gets +3/+3 and gains trample until end of turn."
 
   [[green.common.spell_slots.options]]
-  name = 'For the Family'
-  cost = '{G}'
-  type = 'Instant'
-  text = 'Target creature gets +2/+2 until end of turn. If you control four or more creatures, that creature gets +4/+4 until end of turn instead.'
+  name = "For the Family"
+  cost = "{G}"
+  type = "Instant"
+  text = "Target creature gets +2/+2 until end of turn. If you control four or more creatures, that creature gets +4/+4 until end of turn instead."
 
 [[green.common.spell_slots]]
-instruction = 'Mana acceleration'
+instruction = "Mana acceleration"
 
   [[green.common.spell_slots.options]]
   name = "New Horizons"
@@ -1093,7 +1093,7 @@ instruction = 'Mana acceleration'
   text = "Choose two — // • Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. // • Create a 1/1 white Human creature token. // • Create a Food token."
 
 [[green.common.spell_slots]]
-instruction = 'Dig for lands and/or creatures'
+instruction = "Dig for lands and/or creatures"
 
   [[green.common.spell_slots.options]]
   name = "Bushwhack"
@@ -1157,7 +1157,7 @@ power = 3
 toughness = 3
 
 [[artifact.common.spell_slots]]
-instruction = 'Removal'
+instruction = "Removal"
 
   [[artifact.common.spell_slots.options]]
   name = "Bear Trap"
@@ -1178,28 +1178,28 @@ instruction = 'Removal'
   text = "Flash // When Runaway Boulder enters, it deals 6 damage to target creature an opponent controls. // Cycling {2}"
 
 [[artifact.common.spell_slots]]
-instruction = 'Manalith+ ability'
+instruction = "Manalith+ ability"
 
   [[artifact.common.spell_slots.options]]
-  name = 'Manalith'
-  cost = '{3}'
-  type = 'Artifact'
-  text = '{T}: Add one mana of any color.'
+  name = "Manalith"
+  cost = "{3}"
+  type = "Artifact"
+  text = "{T}: Add one mana of any color."
 
   [[artifact.common.spell_slots.options]]
-  name = 'Letter of Acceptance'
-  cost = '{3}'
-  type = 'Artifact'
-  text = '{T}: Add one mana of any color. // {2}, {T}, Sacrifice Letter of Acceptance: Draw a card.'
+  name = "Letter of Acceptance"
+  cost = "{3}"
+  type = "Artifact"
+  text = "{T}: Add one mana of any color. // {2}, {T}, Sacrifice Letter of Acceptance: Draw a card."
 
   [[artifact.common.spell_slots.options]]
-  name = 'Network Terminal'
-  cost = '{3}'
-  type = 'Artifact'
-  text = '{T}: Add one mana of any color. // {1}, {T}, Tap another untapped artifact you control: Draw a card, then discard a card.'
+  name = "Network Terminal"
+  cost = "{3}"
+  type = "Artifact"
+  text = "{T}: Add one mana of any color. // {1}, {T}, Tap another untapped artifact you control: Draw a card, then discard a card."
 
 [[artifact.common.spell_slots]]
-instruction = 'Land fixing'
+instruction = "Land fixing"
 
   [[artifact.common.spell_slots.options]]
   name = "Energy Refractor"
