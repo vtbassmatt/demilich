@@ -202,6 +202,17 @@
         "mythic": {"$ref": "#/definitions/SlotTable"}    
       },
       "title": "Artifact frame slots"
+    },
+    "land": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "common": {"$ref": "#/definitions/SlotTable"},
+        "uncommon": {"$ref": "#/definitions/SlotTable"},
+        "rare": {"$ref": "#/definitions/SlotTable"},
+        "mythic": {"$ref": "#/definitions/SlotTable"}    
+      },
+      "title": "Land frame slots"
     }
   }
 }
