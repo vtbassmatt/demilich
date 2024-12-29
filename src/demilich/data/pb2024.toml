@@ -1009,8 +1009,44 @@ toughness = 6
 [[green.common.spell_slots]]
 instruction = 'Fight spell'
 
+  [[green.common.spell_slots.options]]
+  name = "Epic Confrontation"
+  cost = "{1}{G}"
+  type = "Sorcery"
+  text = "Target creature you control gets +1/+2 until end of turn. It fights target creature you don't control."
+
+  [[green.common.spell_slots.options]]
+  name = "Ruthless Predation"
+  cost = "{1}{G}"
+  type = "Sorcery"
+  text = "Target creature you control gets +1/+2 until end of turn. It fights target creature you don't control."
+
+  [[green.common.spell_slots.options]]
+  name = "Prey Upon"
+  cost = "{G}"
+  type = "Sorcery"
+  text = "Target creature you control fights target creature you don't control."
+
 [[green.common.spell_slots]]
 instruction = 'Bite spell'
+
+  [[green.common.spell_slots.options]]
+  name = "Bite Down"
+  cost = "{1}{G}"
+  type = "Instant"
+  text = "Target creature you control deals damage equal to its power to target creature or planeswalker you don't control."
+
+  [[green.common.spell_slots.options]]
+  name = "Rabid Bite"
+  cost = "{1}{G}"
+  type = "Sorcery"
+  text = "Target creature you control deals damage equal to its power to target creature or planeswalker you don't control."
+
+  [[green.common.spell_slots.options]]
+  name = "Monstrous Emergence"
+  cost = "{1}{G}"
+  type = "Sorcery"
+  text = "As an additional cost to cast this spell, choose a creature you control or reveal a creature card from your hand. // Monstrous Emergence deals damage equal to the power of the creature you chose or the card you revealed to target creature."
 
 [[green.common.spell_slots]]
 instruction = 'Combat trick (power pump)'
@@ -1036,8 +1072,46 @@ instruction = 'Combat trick (power pump)'
 [[green.common.spell_slots]]
 instruction = 'Mana acceleration'
 
+  [[green.common.spell_slots.options]]
+  name = "New Horizons"
+  cost = "{2}{G}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
+  text = "Enchant land // When this Aura enters, put a +1/+1 counter on target creature you control. // Enchanted land has \"{T}: Add two mana of any one color.\""
+
+  [[green.common.spell_slots.options]]
+  name = "Heaped Harvest"
+  cost = "{2}{G}"
+  type = "Artifact"
+  subtypes = ["Food"]
+  text = "When Heaped Harvest enters and when you sacrifice it, you may search your library for a basic land card, put it onto the battlefield tapped, then shuffle. // {2}, {T}, Sacrifice Heaped Harvest: You gain 3 life."
+
+  [[green.common.spell_slots.options]]
+  name = "Return from the Wilds"
+  cost = "{2}{G}"
+  type = "Sorcery"
+  text = "Choose two — // • Search your library for a basic land card, put it onto the battlefield tapped, then shuffle. // • Create a 1/1 white Human creature token. // • Create a Food token."
+
 [[green.common.spell_slots]]
 instruction = 'Dig for lands and/or creatures'
+
+  [[green.common.spell_slots.options]]
+  name = "Bushwhack"
+  cost = "{G}"
+  type = "Sorcery"
+  text = "Choose one — // • Search your library for a basic land card, reveal it, put it into your hand, then shuffle. // • Target creature you control fights target creature you don't control."
+
+  [[green.common.spell_slots.options]]
+  name = "Commune with Nature"
+  cost = "{G}"
+  type = "Sorcery"
+  text = "Look at the top five cards of your library. You may reveal a creature card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+
+  [[green.common.spell_slots.options]]
+  name = "In the Presence of Ages"
+  cost = "{2}{G}"
+  type = "Instant"
+  text = "Reveal the top four cards of your library. You may put a creature card and/or a land card from among them into your hand. Put the rest into your graveyard."
 
 [green.uncommon]
 creatures = 9
