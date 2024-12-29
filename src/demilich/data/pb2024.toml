@@ -290,14 +290,98 @@ toughness = [5, 6]
 [[blue.common.spell_slots]]
 instruction = 'Protective instant'
 
+  [[blue.common.spell_slots.options]]
+  name = "Dive Down"
+  cost = "{U}"
+  type = "Instant"
+  text = "Target creature you control gets +0/+3 and gains hexproof until end of turn."
+
+  [[blue.common.spell_slots.options]]
+  name = "Shore Up"
+  cost = "{U}"
+  type = "Instant"
+  text = "Target creature you control gets +1/+1 and gains hexproof until end of turn. Untap it."
+
+  [[blue.common.spell_slots.options]]
+  name = "Water Wings"
+  cost = "{1}{U}"
+  type = "Instant"
+  text = "Until end of turn, target creature you control has base power and toughness 4/4 and gains flying and hexproof."
+
 [[blue.common.spell_slots]]
 instruction = 'Counterspell'
+
+  [[blue.common.spell_slots.options]]
+  name = "Out of Air"
+  cost = "{2}{U}{U}"
+  type = "Instant"
+  text = "This spell costs {2} less to cast if it targets a creature spell. // Counter target spell."
+
+  [[blue.common.spell_slots.options]]
+  name = "Cancel"
+  cost = "{1}{U}{U}"
+  type = "Instant"
+  text = "Counter target spell."
+
+  [[blue.common.spell_slots.options]]
+  name = "Disdainful Stroke"
+  cost = "{1}{U}"
+  type = "Instant"
+  text = "Counter target spell with mana value 4 or greater."
+
+  [[blue.common.spell_slots.options]]
+  name = "Negate"
+  cost = "{1}{U}"
+  type = "Instant"
+  text = "Counter target noncreature spell."
+
+  [[blue.common.spell_slots.options]]
+  name = "Refute"
+  cost = "{1}{U}{U}"
+  type = "Instant"
+  text = "Counter target spell. Draw a card, then discard a card."
 
 [[blue.common.spell_slots]]
 instruction = 'Cantrip'
 
+  [[blue.common.spell_slots.options]]
+  name = "Zhalfirin Shapecraft"
+  cost = "{1}{U}"
+  type = "Instant"
+  text = "Target creature has base power and toughness 4/3 until end of turn. // Draw a card."
+
+  [[blue.common.spell_slots.options]]
+  name = "Enter the Enigma"
+  cost = "{U}"
+  type = "Sorcery"
+  text = "Target creature can't be blocked this turn. // Draw a card."
+
+  [[blue.common.spell_slots.options]]
+  name = "Opt"
+  cost = "{U}"
+  type = "Instant"
+  text = "Scry 1. // Draw a card."
+
 [[blue.common.spell_slots]]
 instruction = 'Draw 2-3'
+
+  [[blue.common.spell_slots.options]]
+  name = "Quick Study"
+  cost = "{2}{U}"
+  type = "Instant"
+  text = "Draw two cards."
+
+  [[blue.common.spell_slots.options]]
+  name = "Ancestral Reminiscence"
+  cost = "{3}{U}"
+  type = "Sorcery"
+  text = "Draw three cards, then discard a card."
+
+  [[blue.common.spell_slots.options]]
+  name = "Into the Fae Court"
+  cost = "{3}{U}{U}"
+  type = "Sorcery"
+  text = "Draw three cards. Creature a 1/1 blue Faerie creature token with flying and \"This creature can block only creatures with flying.\""
 
 [[blue.common.spell_slots]]
 instruction = 'Witness Protection aura'
@@ -323,11 +407,60 @@ instruction = 'Witness Protection aura'
   subtypes = ['Aura']
   text = 'Enchant creature // Enchanted creature loses all abilities and is a blue Frog creature with base power and toughness 1/1.'
 
+  [[blue.common.spell_slots.options]]
+  name = 'Stasis Field'
+  cost = '{1}{U}'
+  type = 'Enchantment'
+  subtypes = ['Aura']
+  text = 'Enchant creature // Enchanted creature has base power and toughness 0/2, has defender, and loses all other abilities.'
+
 [[blue.common.spell_slots]]
 instruction = 'Top or bottom'
 
+  [[blue.common.spell_slots.options]]
+  name = "Dire Downdraft"
+  cost = "{3}{U}"
+  type = "Instant"
+  text = "This spell costs {1} less to cast if it targets an attacking or tapped creature. // Target creature's owner puts it on their choice of the top or bottom of their library."
+
+  [[blue.common.spell_slots.options]]
+  name = "Desynchronize"
+  cost = "{4}{U}"
+  type = "Instant"
+  text = "Target nonland permanent's owner puts it on their choice of the top or bottom of their library. Scry 2."
+
+  [[blue.common.spell_slots.options]]
+  name = "Misleading Motes"
+  cost = "{3}{U}"
+  type = "Instant"
+  text = "Target creature's owner puts it on their choice of the top or bottom of their library."
+
+  [[blue.common.spell_slots.options]]
+  name = "Unlucky Drop"
+  cost = "{3}{U}"
+  type = "Instant"
+  text = "Target artifact or creature's owner puts it on their choice of the top or bottom of their library."
+
 [[blue.common.spell_slots]]
 instruction = 'Modal spell'
+
+  [[blue.common.spell_slots.options]]
+  name = "Twist Reality"
+  cost = "{1}{U}{U}"
+  type = "Instant"
+  text = "Choose one — // • Counter target spell. // • Manifest dread."
+
+  [[blue.common.spell_slots.options]]
+  name = "Urza's Rebuff"
+  cost = "{1}{U}{U}"
+  type = "Instant"
+  text = "Choose one — // • Counter target spell. // • Tap up to two target creatures."
+
+  [[blue.common.spell_slots.options]]
+  name = "Jailbreak Scheme"
+  cost = "{U}"
+  type = "Sorcery"
+  text = "Spree // + {3} — Put a +1/+1 counter on target creature. It can't be blocked this turn. // + {2} — Target artifact or creature's owner puts it on the top of bottom of their library."
 
 [blue.uncommon]
 creatures = 7
