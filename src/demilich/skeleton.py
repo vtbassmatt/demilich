@@ -1,3 +1,4 @@
+import copy
 from dataclasses import dataclass, field
 from random import choice, choices, shuffle, uniform
 from typing import Literal
@@ -92,73 +93,6 @@ class Bag:
         return ", ".join([f"<{x.tag}: {x.word}>" for x in self._bag])
 
 
-def _generate_name(bag: Bag):
-    race_class = list(bag.words_tagged('race')) + list(bag.words_tagged('class'))
-    if len(race_class) > 0:
-        name = choice(race_class).word
-    else:
-        name = choice(NAMES)
-    adjective = choice(ADJECTIVES)
-    return f'{adjective} {name.title()}'
-
-
-def _get_bag_parts(bag: Bag):
-    result = {}
-
-    name_tags = list(bag.words_tagged('name'))
-    if name_tags:
-        result['name'] = name_tags[0].word
-    elif bag.has_any('power'):
-        result['name'] = _generate_name(bag)
-
-    keyword_tags = bag.words_tagged("keyword")
-    # convert to a set to dedupe keywords
-    keyword_text = ", ".join(set([w.word for w in keyword_tags]))
-    text_tags = bag.words_tagged("text")
-    text = " // ".join([t.word for t in text_tags])
-    result['text'] = keyword_text
-    if keyword_text and text:
-        result['text'] += " // "
-    if text:
-        result['text'] += text
-
-    mv_tags = list(bag.words_tagged("manavalue"))
-    instruction_tags = list(bag.words_tagged("instruction"))
-    if mv_tags:
-        result['instruction'] = f"{mv_tags[0].word} MV"
-    elif instruction_tags:
-        result['instruction'] = f"{instruction_tags[0].word}"
-    else:
-        result['instruction'] = ""
-    
-    cost_tags = list(bag.words_tagged("cost"))
-    if cost_tags:
-        result['cost'] = cost_tags[0].word
-    
-    pow_tags = list(bag.words_tagged("power"))
-    tou_tags = list(bag.words_tagged("toughness"))
-    if pow_tags and tou_tags:
-        result['stats'] = f"{pow_tags[0].word}/{tou_tags[0].word}"
-    
-    type_tags = list(bag.words_tagged("type"))
-    type_ = " ".join([t.word for t in type_tags])
-    subtypes = (
-        list([s.word for s in bag.words_tagged('subtype')]) +
-        list([r.word for r in bag.words_tagged('race')]) +
-        list([c.word for c in bag.words_tagged('class')])
-    )
-    if subtypes:
-        result['typeline'] = f"{type_.title()} — {" ".join([s.title() for s in subtypes])}"
-    else:
-        result['typeline'] = type_.title()
-
-    return result
-
-
-def _clean_keyword(raw: str):
-    return raw.replace('_', ' ')
-
-
 def _make_cost(mv: int|tuple[int], frame: FRAME_CODE):
     if frame in 'WUBRGZ':
         if isinstance(mv, int):
@@ -186,6 +120,93 @@ def _infinite_shuffle(list_of_items):
                 yield element
     finally:
         return
+
+
+class _SkeletonIterator:
+    def __init__(self, rarity, frame, creatures, spells):
+        self._rarity = copy.copy(rarity)
+        self._frame = copy.copy(frame)
+        self._creatures = copy.deepcopy(creatures)
+        self._spells = copy.deepcopy(spells)
+        self._index = -1
+
+    def __iter__(self):
+        self._index += 1
+        for bag in self._creatures:
+            yield Slot(
+                self._rarity, self._frame, self._index + 1,
+                **self._get_bag_parts(bag),
+            )
+            self._index += 1
+        for bag in self._spells:
+            yield Slot(
+                self._rarity, self._frame, self._index + 1,
+                **self._get_bag_parts(bag),
+            )
+            self._index += 1
+    
+    def _get_bag_parts(self, bag: Bag):
+        result = {}
+
+        name_tags = list(bag.words_tagged('name'))
+        if name_tags:
+            result['name'] = name_tags[0].word
+        elif bag.has_any('power'):
+            result['name'] = self._generate_name(bag)
+
+        keyword_tags = bag.words_tagged("keyword")
+        # convert to a set to dedupe keywords
+        keyword_text = ", ".join(set([w.word for w in keyword_tags]))
+        text_tags = bag.words_tagged("text")
+        text = " // ".join([t.word for t in text_tags])
+        result['text'] = keyword_text
+        if keyword_text and text:
+            result['text'] += " // "
+        if text:
+            result['text'] += text
+
+        mv_tags = list(bag.words_tagged("manavalue"))
+        instruction_tags = list(bag.words_tagged("instruction"))
+        if mv_tags:
+            result['instruction'] = f"{mv_tags[0].word} MV"
+        elif instruction_tags:
+            result['instruction'] = f"{instruction_tags[0].word}"
+        else:
+            result['instruction'] = ""
+        
+        cost_tags = list(bag.words_tagged("cost"))
+        if cost_tags:
+            result['cost'] = cost_tags[0].word
+        
+        pow_tags = list(bag.words_tagged("power"))
+        tou_tags = list(bag.words_tagged("toughness"))
+        if pow_tags and tou_tags:
+            result['stats'] = f"{pow_tags[0].word}/{tou_tags[0].word}"
+        
+        type_tags = list(bag.words_tagged("type"))
+        type_ = " ".join([t.word for t in type_tags])
+        subtypes = (
+            list([s.word for s in bag.words_tagged('subtype')]) +
+            list([r.word for r in bag.words_tagged('race')]) +
+            list([c.word for c in bag.words_tagged('class')])
+        )
+        if subtypes:
+            result['typeline'] = f"{type_.title()} — {" ".join([s.title() for s in subtypes])}"
+        else:
+            result['typeline'] = type_.title()
+
+        return result
+
+    def _generate_name(self, bag: Bag):
+        race_class = list(bag.words_tagged('race')) + \
+                     list(bag.words_tagged('class'))
+        if len(race_class) > 0:
+            name = choice(race_class).word
+        else:
+            name = choice(NAMES)
+        adjective = choice(ADJECTIVES)
+        return f'{adjective} {name.title()}'
+
 
 class SkeletonGenerator:
     def __init__(
@@ -217,19 +238,12 @@ class SkeletonGenerator:
     def __iter__(self):
         self._check_and_normalize()
 
-        self._index += 1
-        for bag in self._creatures:
-            yield Slot(
-                self._rarity, self._frame, self._index + 1,
-                **_get_bag_parts(bag),
-            )
-            self._index += 1
-        for bag in self._spells:
-            yield Slot(
-                self._rarity, self._frame, self._index + 1,
-                **_get_bag_parts(bag),
-            )
-            self._index += 1
+        yield from _SkeletonIterator(
+            self._rarity,
+            self._frame,
+            self._creatures,
+            self._spells,
+        )
 
     def keywords(self, **kwargs: float):
         """
@@ -245,7 +259,7 @@ class SkeletonGenerator:
         """
         creatures = _infinite_shuffle(self._creatures)
         for keyword, count in kwargs.items():
-            keyword = _clean_keyword(keyword)
+            keyword = keyword.replace('_', ' ')
             while count > 1:
                 tag = TaggedWord(keyword, "keyword")
                 bag = next(creatures)
