@@ -45,6 +45,7 @@ class Reprint:
     type: str
     subtypes: list[str]|None = None
     text: str|None = None
+    stats: tuple[int,int]|None = None
 
 
 @dataclass(frozen=True)
@@ -300,6 +301,9 @@ class SlotMaker:
             for subtype in spell.subtypes or []:
                 bag.add(TaggedWord(subtype, 'subtype'))
             bag.add(TaggedWord(spell.text, 'text'))
+            if spell.stats:
+                bag.add(TaggedWord(spell.stats[0], 'power'))
+                bag.add(TaggedWord(spell.stats[1], 'toughness'))
 
     def _check_and_normalize(self):
         non_obligate_flyers: list[Bag] = []

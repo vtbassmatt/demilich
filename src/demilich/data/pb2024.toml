@@ -554,11 +554,83 @@ toughness = [4, 5]
 [[black.common.spell_slots]]
 instruction = 'Small conditional removal'
 
+  [[black.common.spell_slots.options]]
+  name = "Cracked Skull"
+  cost = "{2}{B}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
+  text = "Enchant creature // When Cracked Skull enters, look at target player's hand. You may choose a nonland card from it. That player discards that card. // When enchanted creature is dealt damage, destroy it."
+
+  [[black.common.spell_slots.options]]
+  name = "Mirrodin Avenged"
+  cost = "{B}"
+  type = "Instant"
+  text = "Destroy target creature that was dealt damage this turn. // Draw a card."
+
+  [[black.common.spell_slots.options]]
+  name = "Vanquish the Weak"
+  cost = "{2}{B}"
+  type = "Instant"
+  text = "Destroy target creature with power 3 or less."
+
 [[black.common.spell_slots]]
 instruction = 'Combat trick'
 
+  [[black.common.spell_slots.options]]
+  name = "Bladed Battle-Fan"
+  cost = "{1}{B}"
+  type = "Artifact"
+  subtypes = ["Equipment"]
+  text = "Flash // When Bladed Battle-Fan enters, attach it to target creature you control. That creature gains indestructible until end of turn. // Equipped creature gets +1/+0. // Equip {1}"
+
+  [[black.common.spell_slots.options]]
+  name = "Moment of Defiance"
+  cost = "{2}{B}"
+  type = "Instant"
+  text = "Target creature gets +2/+1 and gains lifelink until end of turn. // Draw a card."
+
+  [[black.common.spell_slots.options]]
+  name = "Skulduggery"
+  cost = "{B}"
+  type = "Instant"
+  text = "Until end of turn, target creature you control gets +1/+1 and target creature an opponent controls gets -1/-1."
+
+  [[black.common.spell_slots.options]]
+  name = "Undying Malice"
+  cost = "{B}"
+  type = "Instant"
+  text = "Until end of turn, target creature gains \"When this creature dies, return it to the battlefield under its owner's control with a +1/+1 counter on it.\""
+
+  # It's questionable whether this counts as a combat trick.
+  # Leaving it here for future consideration and because it demos `stats`.
+  # [[black.common.spell_slots.options]]
+  # name = "Rooftop Assassin"
+  # cost = "{3}{B}"
+  # type = "Creature"
+  # subtypes = ["Vampire", "Assassin"]
+  # text = "Flash // Flying, lifelink // When Rooftop Assassin enters, destroy target creature an opponent controls that was dealt damage this turn."
+  # stats = [2, 2]
+
 [[black.common.spell_slots]]
 instruction = 'Card draw with a cost'
+
+  [[black.common.spell_slots.options]]
+  name = "Corrupted Conviction"
+  cost = "{B}"
+  type = "Instant"
+  text = "As an additional cost to cast this spell, sacrifice a creature. // Draw two cards."
+
+  [[black.common.spell_slots.options]]
+  name = "Diresight"
+  cost = "{2}{B}"
+  type = "Sorcery"
+  text = "Surveil 2, then draw two cards. You lose 2 life."
+
+  [[black.common.spell_slots.options]]
+  name = "Fanatical Offering"
+  cost = "{1}{B}"
+  type = "Instant"
+  text = "As an additional cost to cast this spell, sacrifice an artifact or creature. // Draw two cards and create a Map token."
 
 [[black.common.spell_slots]]
 instruction = 'Coercion+'
@@ -584,8 +656,44 @@ instruction = 'Coercion+'
 [[black.common.spell_slots]]
 instruction = 'Unconditional removal'
 
+  [[black.common.spell_slots.options]]
+  name = "Annihilating Glare"
+  cost = "{B}"
+  type = "Sorcery"
+  text = "As an additional cost to cast this spell, pay {4} or sacrifice an artifact or creature. // Destroy target creature or planeswalker."
+
+  [[black.common.spell_slots.options]]
+  name = "Bone Splinters"
+  cost = "{B}"
+  type = "Sorcery"
+  text = "As an additional cost to cast this spell, sacrifice a creature. // Destroy target creature."
+
+  [[black.common.spell_slots.options]]
+  name = "Murder"
+  cost = "{1}{B}{B}"
+  type = "Instant"
+  text = "Destroy target creature."
+
 [[black.common.spell_slots]]
 instruction = 'Slightly overcosted removal'
+
+  [[black.common.spell_slots.options]]
+  name = "Extinguish the Light"
+  cost = "{2}{B}{B}"
+  type = "Instant"
+  text = "Destroy target creature or planeswalker. If its mana value was 3 or less, you gain 3 life."
+
+  [[black.common.spell_slots.options]]
+  name = "Overwhelming Remorse"
+  cost = "{4}{B}"
+  type = "Instant"
+  text = "This spell costs {1} less to cast for each creature card in your graveyard. // Exile target creature or planeswalker."
+
+  [[black.common.spell_slots.options]]
+  name = "Shatter the Oath"
+  cost = "{3}{B}{B}"
+  type = "Sorcery"
+  text = "Destroy target creature or enchantment. Create a Wicked Role token attached to up to one target creature you control."
 
 [black.uncommon]
 creatures = 8
