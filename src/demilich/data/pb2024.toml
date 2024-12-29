@@ -1159,6 +1159,24 @@ toughness = 3
 [[artifact.common.spell_slots]]
 instruction = 'Removal'
 
+  [[artifact.common.spell_slots.options]]
+  name = "Bear Trap"
+  cost = "{1}"
+  type = "Artifact"
+  text = "Flash // {3}, {T}, Sacrifice Bear Trap: It deals 3 damage to target creature."
+
+  [[artifact.common.spell_slots.options]]
+  name = "Meteorite"
+  cost = "{2}"
+  type = "Artifact"
+  text = "When Meteorite enters, it deals 2 damage to any target. // {T}: Add one mana of any color."
+
+  [[artifact.common.spell_slots.options]]
+  name = "Runaway Boulder"
+  cost = "{6}"
+  type = "Artifact"
+  text = "Flash // When Runaway Boulder enters, it deals 6 damage to target creature an opponent controls. // Cycling {2}"
+
 [[artifact.common.spell_slots]]
 instruction = 'Manalith+ ability'
 
@@ -1182,6 +1200,24 @@ instruction = 'Manalith+ ability'
 
 [[artifact.common.spell_slots]]
 instruction = 'Land fixing'
+
+  [[artifact.common.spell_slots.options]]
+  name = "Energy Refractor"
+  cost = "{2}"
+  type = "Artifact"
+  text = "When Energy Refractor enters, draw a card. // {2}: Add one mana of any color."
+
+  [[artifact.common.spell_slots.options]]
+  name = "Prophetic Prism"
+  cost = "{2}"
+  type = "Artifact"
+  text = "When Prophetic Prism enters, draw a card. // {1}, {T}: Add one mana of any color."
+
+  [[artifact.common.spell_slots.options]]
+  name = "Urn of Godfire"
+  cost = "{1}"
+  type = "Artifact"
+  text = "{2}: Add one mana of any color. // {6}, {T}, Sacrifice Urn of Godfire: Destroy target creature or enchantment."
 
 [artifact.uncommon]
 creatures = 4
