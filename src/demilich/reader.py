@@ -30,6 +30,7 @@ FRAMES = [
     ('G', 'green'),
     ('Z', 'multicolor'),
     ('A', 'artifact'),
+    ('L', 'land'),
 ]
 
 RARITIES = [

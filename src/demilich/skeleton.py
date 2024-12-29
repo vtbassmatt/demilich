@@ -21,7 +21,7 @@ ADJECTIVES = [
     'Undead', 'Bellowing', 'Brave', 'Frilled', 'Intrepid', 'Rough',
     'Thieving', 'Guarded', 'Assistant', 'Tragic', 'Conscripted',
 ]
-FRAME_CODE = Literal['W', 'U', 'B', 'R', 'G', 'A', 'Z']
+FRAME_CODE = Literal['W', 'U', 'B', 'R', 'G', 'A', 'Z', 'L']
 RARITY_CODE = Literal['C', 'U', 'R', 'M']
 
 
@@ -45,8 +45,8 @@ class Slot:
 @dataclass
 class Card:
     name: str
-    cost: str
-    type: str
+    cost: str|None = None
+    type: str = ""
     subtypes: list[str]|None = None
     text: str|None = None
     stats: tuple[int,int]|None = None
@@ -94,7 +94,9 @@ class Bag:
 
 
 def _make_cost(mv: int|tuple[int], frame: FRAME_CODE):
-    if frame in 'WUBRGZ':
+    if frame == 'L':
+        return None
+    elif frame in 'WUBRGZ':
         if isinstance(mv, int):
             generic = mv-1
         else:
@@ -221,13 +223,16 @@ class SkeletonGenerator:
         given number of creature and spell slots.
         
         Valid rarities are: C,U,R,M
-        Valid frame codes are: W,U,B,R,G,A,Z
+        Valid frame codes are: W,U,B,R,G,A,Z,L
         """
         self._rarity = rarity
         self._frame = frame
         if frame == 'A':
-            self._creatures = [Bag(TaggedWord('Artifact', 'type'), TaggedWord('creature', 'type')) for _ in range(creatures)]
+            self._creatures = [Bag(TaggedWord('Artifact', 'type'), TaggedWord('Creature', 'type')) for _ in range(creatures)]
             self._spells = [Bag(TaggedWord('Artifact', 'type')) for _ in range(spells)]
+        elif frame == 'L':
+            self._creatures = [Bag(TaggedWord('Land', 'type'), TaggedWord('Creature', 'type')) for _ in range(creatures)]
+            self._spells = [Bag(TaggedWord('Land', 'type')) for _ in range(spells)]
         else:
             self._creatures = [Bag(TaggedWord('Creature', 'type')) for _ in range(creatures)]
             self._spells = [Bag() for _ in range(spells)]

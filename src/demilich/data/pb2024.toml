@@ -1237,3 +1237,8 @@ spells = 10
 
 [multicolor.mythic]
 spells = 20
+
+
+
+[land.rare]
+spells = 10
