@@ -39,7 +39,7 @@ class Slot:
 
 
 @dataclass
-class Reprint:
+class Card:
     name: str
     cost: str
     type: str
@@ -184,8 +184,15 @@ def _infinite_shuffle(list_of_items):
     finally:
         return
 
-class SlotMaker:
+class SkeletonGenerator:
     def __init__(self, rarity: str, frame: str, creatures: int, spells: int):
+        """
+        Generate a skeleton for a given rarity and frame code with the
+        given number of creature and spell slots.
+        
+        Valid rarities are: C,U,R,M
+        Valid frame codes are: W,U,B,R,G,A,Z
+        """
         self._rarity = rarity
         self._frame = frame
         if frame == 'A':
@@ -215,7 +222,18 @@ class SlotMaker:
             )
             self._index += 1
 
-    def keywords(self, **kwargs: dict[str,float]):
+    def keywords(self, **kwargs: float):
+        """
+        Keywords and the approximate number of times they should appear.
+
+        For example:
+          generator.keywords(flying=2, vigilance=1.5, haste=0.5)
+        
+        This example will attempt to put flying on two creatures and
+        vigilance on one. Then, about half the time, it will put
+        vigilance on another. Finally, also about half the time, it will
+        put haste on one creature.
+        """
         creatures = _infinite_shuffle(self._creatures)
         for keyword, count in kwargs.items():
             keyword = _clean_keyword(keyword)
@@ -231,6 +249,15 @@ class SlotMaker:
         creatures.close()
 
     def mana_values(self, *args: int|tuple[int]):
+        """
+        The exact mana value or range of mana values to use for each creature slot.
+        
+        Example:
+          generator.mana_values((1, 2), 2, (2, 3))
+
+        This example will generate a creature with MV 1 or 2, another with
+        MV 2, and then a third with MV either 2 or 3.
+        """
         if len(args) != len(self._creatures):
             raise ValueError("incorrect number of mana values passed: "
                              f"expected {len(self._creatures)} "
@@ -245,9 +272,27 @@ class SlotMaker:
             bag.add(TaggedWord(cost, "cost"))
 
     def powers(self, *args: int|tuple[int]):
+        """
+        The exact power or range of powers to use for each creature slot.
+        
+        Example:
+          generator.powers(1, 2, (2, 3))
+
+        This example will generate a creature with power 1, another with
+        power 2, and then a third creature with power either 2 or 3.
+        """
         self._pt_tag('power', *args)
 
     def toughnesses(self, *args: int|tuple[int]):
+        """
+        The exact toughness or range of toughnesses to use for each creature slot.
+        
+        Example:
+          generator.toughnesses(1, 1, (1, 2, 3))
+
+        This example will generate two creatures with toughness 1 and
+         a third creature with toughness somewhere between 1 and 3.
+        """
         self._pt_tag('toughness', *args)
 
     def _pt_tag(self, _tag_word: str, *args: int|tuple[int]):
@@ -263,13 +308,33 @@ class SlotMaker:
             tag = TaggedWord(pt, _tag_word)
             bag.add(tag)
 
-    def races(self, **kwargs: dict[str,float]):
+    def races(self, **kwargs: float):
+        """
+        Races and the relative frequency with which they should appear.
+
+        For example:
+          generator.races(bear=2, mouse=1)
+        
+        This example will generate approximately 2 Bears for every
+        1 Mouse. As a special case, "nothing" can be used to stand for
+        a creature with no race.
+        """
         self._choose_and_tag('race', **kwargs)
 
-    def classes(self, **kwargs: dict[str,float]):
+    def classes(self, **kwargs: float):
+        """
+        Classes and the relative frequency with which they should appear.
+
+        For example:
+          generator.classes(soldier=5, cleric=2)
+        
+        This example will generate approximately 5 Soldiers for every
+        2 Clerics. As a special case, "nothing" can be used to occasionally
+        (or always!) make creatures classless.
+        """
         self._choose_and_tag('class', **kwargs)
 
-    def _choose_and_tag(self, _tag_word: str, **kwargs: dict[str,float]):
+    def _choose_and_tag(self, _tag_word: str, **kwargs: float):
         if len(kwargs) == 0:
             raise ValueError(f"need at least one {_tag_word} passed in")
 
@@ -283,9 +348,11 @@ class SlotMaker:
                 tag = TaggedWord(ch, _tag_word)
                 bag.add(tag)
 
-    def add_spell(self, instruction: str, *possibilities: Reprint):
-        """Given a list of roughly equivalent reprints, choose one
-        for the next spell slot."""
+    def add_spell(self, instruction: str, *possibilities: Card):
+        """
+        Given an (optional) list of roughly equivalent reprints, choose
+        one for the next spell slot.
+        """
         try:
             bag = self._spells[self._next_spell]
         except IndexError:

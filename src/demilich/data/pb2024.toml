@@ -1,3 +1,4 @@
+#:schema ./demilich.schema.json
 title = "Play Booster 2024"
 
 [white.common]

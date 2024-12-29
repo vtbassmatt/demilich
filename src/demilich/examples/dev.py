@@ -1,12 +1,12 @@
 """
-This file exercises some of the SlotMaker API. See the `dev` subcommand
-of demilich to run it.
+This file exercises some of the SkeletonGenerator API. See the
+`dev` subcommand of demilich to run it.
 """
-from demilich.slot_maker import SlotMaker, Reprint
+from demilich.skeleton import SkeletonGenerator, Card
 
 
 def dev_skeleton():
-    common_white = SlotMaker('C', 'W', 11, 4)
+    common_white = SkeletonGenerator('C', 'W', 11, 4)
     common_white.keywords(
         flying=3, vigilance=2, lifelink=1,
         first_strike=.25, double_strike=.2,
@@ -34,30 +34,30 @@ def dev_skeleton():
     common_white.add_spell("Combat-related removal")
     common_white.add_spell(
         "Banishing Light",
-        Reprint("Banishing Light", "{2}{W}", "Enchantment", None, "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."),
-        Reprint("Journey to Nowhere", "{1}{W}", "Enchantment", None, "When Journey to Nowhere enters, exile target creature. // When Journey to Nowhere leaves the battlefield, return the exiled card to the battlefield under its owner's control."),
-        Reprint("Oblivion Ring", "{2}{W}", "Enchantment", None, "When Oblivion Ring enters, exile another target nonland permanent. //  When Oblivion Ring leaves the battlefield, return the exiled card to the battlefield under its owner's control."),
-        Reprint("Chains of Custody", "{2}{W}", "Enchantment", ["Aura"], "Enchant creature you control // When Chains of Custody enters, exile target nonland permanent an opponent controls until Chains of Custody leaves the battlefield. // Enchanted creature has ward {2}."),
+        Card("Banishing Light", "{2}{W}", "Enchantment", None, "When this enchantment enters, exile target nonland permanent an opponent controls until this enchantment leaves the battlefield."),
+        Card("Journey to Nowhere", "{1}{W}", "Enchantment", None, "When Journey to Nowhere enters, exile target creature. // When Journey to Nowhere leaves the battlefield, return the exiled card to the battlefield under its owner's control."),
+        Card("Oblivion Ring", "{2}{W}", "Enchantment", None, "When Oblivion Ring enters, exile another target nonland permanent. //  When Oblivion Ring leaves the battlefield, return the exiled card to the battlefield under its owner's control."),
+        Card("Chains of Custody", "{2}{W}", "Enchantment", ["Aura"], "Enchant creature you control // When Chains of Custody enters, exile target nonland permanent an opponent controls until Chains of Custody leaves the battlefield. // Enchanted creature has ward {2}."),
     )
     common_white.add_spell("Combat trick")
     common_white.add_spell("Disenchant/removal")
     yield from common_white
 
     # make sure degenerate cases keep working
-    common_blue = SlotMaker('C', 'U', 1, 1)
+    common_blue = SkeletonGenerator('C', 'U', 1, 1)
     yield from common_blue
 
-    common_black = SlotMaker('C', 'B', 1, 1)
+    common_black = SkeletonGenerator('C', 'B', 1, 1)
     common_black.keywords(flying=2)
     yield from common_black
 
-    common_red = SlotMaker('C', 'R', 0, 1)
+    common_red = SkeletonGenerator('C', 'R', 0, 1)
     yield from common_red
 
-    common_green = SlotMaker('C', 'G', 1, 0)
+    common_green = SkeletonGenerator('C', 'G', 1, 0)
     common_green.mana_values(5)
     yield from common_green
 
-    common_artifact = SlotMaker('C', 'A', 1, 1)
+    common_artifact = SkeletonGenerator('C', 'A', 1, 1)
     common_artifact.mana_values(3)
     yield from common_artifact
