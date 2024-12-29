@@ -23,7 +23,7 @@ app = typer.Typer(no_args_is_help=True)
 @app.command()
 def play_booster(
     format: Annotated[
-        OutputFormat, typer.Argument()
+        OutputFormat, typer.Option()
     ] = OutputFormat.csv,
     include_instruction: Annotated[
         bool|None, typer.Option(help="Include skeleton instruction")
@@ -45,7 +45,7 @@ def custom_skeleton(
         Path, typer.Argument()
     ],
     format: Annotated[
-        OutputFormat, typer.Argument()
+        OutputFormat, typer.Option()
     ] = OutputFormat.csv,
     include_instruction: Annotated[
         bool|None, typer.Option(help="Include skeleton instruction")

@@ -29,12 +29,12 @@ Once you have your `my-custom-skeleton.toml` ready to go, run:
 ## Output formats
 
 By default, `demilich` generates a CSV.
-You can ask for a pretty-printed table by adding "table" to your command.
+You can ask for a pretty-printed table instead with the `--format` option.
 
 ```shell
-% demilich play-booster table
+% demilich play-booster --format=table
 # or
-% demilich custom-skeleton my-custom-skeleton.toml table
+% demilich custom-skeleton my-custom-skeleton.toml --format=table
 ```
 
 ## Suppressing or including big columns
@@ -46,13 +46,13 @@ You can bring it back with `--include-instruction`.
 (You'll want a pretty wide terminal for this to make sense.)
 
 ```shell
-% demilich play-booster table --include-instruction
+% demilich play-booster --format=table --include-instruction
 ```
 
 You can additionally suppress card text with `--no-include-text`:
 
 ```shell
-% demilich play-booster table --no-include-text
+% demilich play-booster --format=table --no-include-text
 ```
 
 ## Programmatically building a skeleton
