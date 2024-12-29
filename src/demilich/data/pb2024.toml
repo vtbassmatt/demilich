@@ -94,6 +94,30 @@ toughness = [4, 5]
 [[white.common.spell_slots]]
 instruction = "Combat-related removal"
 
+  [[white.common.spell_slots.options]]
+  name = "Divine Verdict"
+  cost = "{3}{W}"
+  type = "Instant"
+  text = "Destroy target attacking or blocking creature."
+
+  [[white.common.spell_slots.options]]
+  name = "Eriette's Lullaby"
+  cost = "{1}{W}"
+  type = "Sorcery"
+  text = "Destroy target tapped creature. You gain 2 life."
+
+  [[white.common.spell_slots.options]]
+  name = "Luminous Rebuke"
+  cost = "{4}{W}"
+  type = "Instant"
+  text = "This spell costs {3} less to cast if it targets a tapped creature. // Destroy target creature."
+
+  [[white.common.spell_slots.options]]
+  name = "Seized from Slumber"
+  cost = "{4}{W}"
+  type = "Instant"
+  text = "This spell costs {3} less to cast if it targets a tapped creature. // Destroy target creature."
+
 [[white.common.spell_slots]]
 instruction = "Banishing Light"
 
@@ -124,6 +148,31 @@ instruction = "Banishing Light"
 
 [[white.common.spell_slots]]
 instruction = "Combat trick"
+
+  [[white.common.spell_slots.options]]
+  name = "Adamant Will"
+  cost = "{1}{W}"
+  type = "Instant"
+  text = "Target creature gets +2/+2 and gains indestructible until end of turn."
+
+  [[white.common.spell_slots.options]]
+  name = "Fleeting Flight"
+  cost = "{W}"
+  type = "Instant"
+  text = "Put a +1/+1 counter on target creature. It gains flying until end of turn. Prevent all combat damage that would be dealt to it this turn."
+
+  [[white.common.spell_slots.options]]
+  name = "Military Discipline"
+  cost = "{W}"
+  type = "Enchantment"
+  subtypes = ["Aura"]
+  text = "Flash // Enchant creature // When Military Discipline enters, enchanted creature gains first strike until end of turn. // Enchanted creature gets +1/+0."
+
+  [[white.common.spell_slots.options]]
+  name = "Take Up the Shield"
+  cost = "{1}{W}"
+  type = "Instant"
+  text = "Put a +1/+1 counter on target creature. It gains lifelink and indestructible until end of turn."
 
 [[white.common.spell_slots]]
 instruction = "Disenchant/removal"
