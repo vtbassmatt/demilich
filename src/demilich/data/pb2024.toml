@@ -30,11 +30,11 @@ scout = 4
 soldier = 4
 
 [white.common.keywords]
-flying = 3
-vigilance = 2
-lifelink = 1
-first_strike = 0.25
 double_strike = 0.2
+first_strike = 0.25
+flying = 3
+lifelink = 1
+vigilance = 2
 
 [[white.common.creature_slots]]
 mv = 1
@@ -215,37 +215,37 @@ creatures = 8
 spells = 7
 
 [blue.common.races]
-human = 2
-merfolk = 4
-otter = 1
+nothing = 1
 bird = 3
-spirit = 2
+crab = 2
 dog = 1
 faerie = 1
 homarid = 2
-zombie = 1
-crab = 2
+human = 2
+merfolk = 4
+otter = 1
+spirit = 2
 turtle = 1
-nothing = 1
+zombie = 1
 
 [blue.common.classes]
 nothing = 2
-scout = 4
-rogue = 4
-pirate = 1
-ninja = 2
-wizard = 2
-nomad = 1
-mystic = 1
 advisor = 1
 artificer = 1
+mystic = 1
+ninja = 2
+nomad = 1
+pirate = 1
+rogue = 4
+scout = 4
+wizard = 2
 
 [blue.common.keywords]
+defender = 0.5
+flash = 0.5
 flying = 3
 vigilance = 1.5
 ward_N = 0.5
-defender = 0.5
-flash = 0.5
 
 [[blue.common.creature_slots]]
 mv = 2
@@ -476,35 +476,35 @@ creatures = 9
 spells = 6
 
 [black.common.races]
-human = 1
-vampire = 4
-imp = 1
-horror = 2
-bat = 1
-skeleton = 2
-faerie = 1
-zombie = 1
-rat = 2
-nightmare = 1
 nothing = 1
+bat = 1
+faerie = 1
+horror = 2
+human = 1
+imp = 1
+nightmare = 1
+rat = 2
+skeleton = 2
+vampire = 4
+zombie = 1
 
 [black.common.classes]
 nothing = 4
 assassin = 3
-rogue = 3
 cleric = 1
-ninja = 2
-warlock = 2
-nomad = 1
 knight = 3
-samurai = 1
 minion = 1
+ninja = 2
+nomad = 1
+rogue = 3
+samurai = 1
+warlock = 2
 
 [black.common.keywords]
+deathtouch = 1.25
 flying = 2
 lifelink = 1
 menace = 1.5
-deathtouch = 1.25
 
 [[black.common.creature_slots]]
 mv = [1, 2]
@@ -709,33 +709,33 @@ creatures = 9
 spells = 6
 
 [red.common.races]
-goblin = 3
 devil = 1
 dwarf = 2
 giant = 1
-minotaur = 1
-orc = 2
-ogre = 1
+goblin = 3
 gremlin = 1
+minotaur = 1
+ogre = 1
+orc = 2
 
 [red.common.classes]
 nothing = 5
+artificer = 1
+barbarian = 1
+berserker = 1
 knight = 2
 pirate = 2
 samurai = 1
 shaman = 4
-barbarian = 1
 warrior = 4
-artificer = 1
-berserker = 1
 
 [red.common.keywords]
-first_strike = 0.25
 double_strike = 0.2
-menace = 1.5
-trample = 1.5
+first_strike = 0.25
 haste = 1.5
+menace = 1.5
 reach = 1
+trample = 1.5
 
 [[red.common.creature_slots]]
 mv = [1, 2]
@@ -922,39 +922,39 @@ creatures = 10
 spells = 5
 
 [green.common.races]
-elf = 4
-cat = 1
-human = 2
-faerie = 1
-merfolk = 1
-rhox = 1
-treefolk = 1
-troll = 1
-loxodon = 1
-centaur = 1
 ape = 1
 bear = 1
+cat = 1
+centaur = 1
 dinosaur = 3
+elf = 4
+faerie = 1
+human = 2
+loxodon = 1
+merfolk = 1
+rhox = 1
 spider = 1
+treefolk = 1
+troll = 1
 
 [green.common.classes]
 nothing = 4
 archer = 1
-scout = 1
 druid = 3
-warrior = 3
-shaman = 1
-nomad = 1
 monk = 1
+nomad = 1
 ranger = 2
+scout = 1
+shaman = 1
+warrior = 3
 
 [green.common.keywords]
-vigilance = 1.5
-ward_N = 0.5
 deathtouch = 1
-trample = 1.5
 haste = 0.2
 reach = 1.5
+trample = 1.5
+vigilance = 1.5
+ward_N = 0.5
 
 [[green.common.creature_slots]]
 mv = [1, 2]
@@ -1128,12 +1128,12 @@ spells = 3
 
 [artifact.common.races]
 construct = 3
-myr = 3
+gargoyle = 1
 golem = 3
+myr = 3
+scarecrow = 1
 thopter = 1
 toy = 1
-scarecrow = 1
-gargoyle = 1
 
 [artifact.common.classes]
 nothing = 22
