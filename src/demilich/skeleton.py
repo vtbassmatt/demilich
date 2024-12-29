@@ -39,7 +39,7 @@ class Slot:
 
 
 @dataclass
-class Reprint:
+class Card:
     name: str
     cost: str
     type: str
@@ -184,7 +184,7 @@ def _infinite_shuffle(list_of_items):
     finally:
         return
 
-class SlotMaker:
+class SkeletonGenerator:
     def __init__(self, rarity: str, frame: str, creatures: int, spells: int):
         self._rarity = rarity
         self._frame = frame
@@ -283,7 +283,7 @@ class SlotMaker:
                 tag = TaggedWord(ch, _tag_word)
                 bag.add(tag)
 
-    def add_spell(self, instruction: str, *possibilities: Reprint):
+    def add_spell(self, instruction: str, *possibilities: Card):
         """Given a list of roughly equivalent reprints, choose one
         for the next spell slot."""
         try:

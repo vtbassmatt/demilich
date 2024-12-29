@@ -1,7 +1,7 @@
 from io import BufferedReader
 import tomllib
 
-from demilich.slot_maker import SlotMaker, Reprint
+from demilich.skeleton import SkeletonGenerator, Card
 
 
 def load_from_resources(filename: str):
@@ -40,7 +40,7 @@ RARITIES = [
 ]
 
 
-def _configure_slots(data: dict, slot_maker: SlotMaker):
+def _configure_slots(data: dict, slot_maker: SkeletonGenerator):
     for key in ['keywords', 'races', 'classes']:
         if key in data:
             method = slot_maker.__getattribute__(key)
@@ -57,7 +57,7 @@ def _configure_slots(data: dict, slot_maker: SlotMaker):
     
     if 'spell_slots' in data:
         for spell in data['spell_slots']:
-            options = [Reprint(**x) for x in spell.get('options', [])]
+            options = [Card(**x) for x in spell.get('options', [])]
             slot_maker.add_spell(spell.get('instruction', ''), *options)
 
 
@@ -74,7 +74,7 @@ def generate_skeleton(data: dict):
             f_r_data = frame_data[rarity_name]
             creature_count = f_r_data.get('creatures', 0)
             spell_count = f_r_data.get('spells', 0)
-            slot_maker = SlotMaker(rarity_code, frame_code, creature_count, spell_count)
+            slot_maker = SkeletonGenerator(rarity_code, frame_code, creature_count, spell_count)
             _configure_slots(f_r_data, slot_maker)
             yield from slot_maker
 

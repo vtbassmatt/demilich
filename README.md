@@ -21,5 +21,5 @@ Then open `skeleton.csv` in the editor of your choice.
 `TODO`: Eventually, this will sprout an ability to read skeleton definitions from custom TOML files.
 (For now, you can hack up `data/pb2024.toml` if you want.)
 
-`TODO`: Also eventually, the API for `SlotMaker` will be documented so you can generate skeletons programmatically.
+`TODO`: Also eventually, the API for `SkeletonGenerator` will be documented so you can generate skeletons programmatically.
 For now, see the examples in `examples/` for how to do it.
