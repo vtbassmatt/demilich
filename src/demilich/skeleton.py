@@ -125,11 +125,12 @@ def _infinite_shuffle(list_of_items):
 
 
 class _SkeletonIterator:
-    def __init__(self, rarity, frame, creatures, spells):
+    def __init__(self, rarity, frame, creatures, spells, adjectives):
         self._rarity = copy.copy(rarity)
         self._frame = copy.copy(frame)
         self._creatures = copy.deepcopy(creatures)
         self._spells = copy.deepcopy(spells)
+        self._adjectives = copy.copy(adjectives)
         self._index = -1
 
     def __iter__(self):
@@ -207,7 +208,7 @@ class _SkeletonIterator:
             name = choice(race_class).word
         else:
             name = choice(FALLBACK_NAMES)
-        adjective = choice(FALLBACK_ADJECTIVES)
+        adjective = choice(self._adjectives) if self._adjectives else choice(FALLBACK_ADJECTIVES)
         return f'{adjective} {name.title()}'
 
 
@@ -237,6 +238,7 @@ class SkeletonGenerator:
         else:
             self._creatures = [Bag(TaggedWord('Creature', 'type')) for _ in range(creatures)]
             self._spells = [Bag() for _ in range(spells)]
+        self._adjectives: list[str] = []
         # internal bookkeeping
         self._next_spell = 0
 
@@ -248,6 +250,7 @@ class SkeletonGenerator:
             self._frame,
             self._creatures,
             self._spells,
+            self._adjectives,
         )
 
     def keywords(self, **kwargs: float):
@@ -375,6 +378,18 @@ class SkeletonGenerator:
             if ch != "nothing":
                 tag = TaggedWord(ch, _tag_word)
                 bag.add(tag)
+
+    def adjectives(self, *args: str):
+        """
+        Adjectives to be applied when naming creatures.
+
+        For example:
+          generator.adjectives('dark', 'light', 'purple')
+        
+        This example will generate names like "Dark Angel",
+        "Light Scout", and "Purple Archer".
+        """
+        self._adjectives = list(args)
 
     def add_spell(self, instruction: str, *possibilities: Card):
         """

@@ -4,6 +4,34 @@ title = "Play Booster 2024"
 [white.common]
 creatures = 11
 spells = 4
+adjectives = [
+  "Anointed",
+  "Apprentice",
+  "Armored",
+  "Assistant",
+  "Brave",
+  "Brazen",
+  "Conscripted",
+  "Desperate",
+  "Doomed",
+  "Frenzied",
+  "Gilded",
+  "Guarded",
+  "Interloping",
+  "Intrepid",
+  "Looming",
+  "Makeshift",
+  "One-Eyed",
+  "Prosperous",
+  "Refined",
+  "Rough",
+  "Selfless",
+  "Shining",
+  "Thieving",
+  "Tormented",
+  "Tragic",
+  "Village",
+]
 
 [white.common.races]
 nothing = 1
@@ -205,6 +233,34 @@ instruction = "Disenchant/removal"
 [white.uncommon]
 creatures = 10
 spells = 4
+adjectives = [
+  "Ambush",
+  "Ancient",
+  "Anointed",
+  "Armored",
+  "Assistant",
+  "Brave",
+  "Brazen",
+  "Day",
+  "Elder",
+  "Frilled",
+  "Gilded",
+  "Grizzled",
+  "Guarded",
+  "Heroic",
+  "Holy",
+  "Interloping",
+  "Intrepid",
+  "Looming",
+  "Makeshift",
+  "One-Eyed",
+  "Prosperous",
+  "Selfless",
+  "Shining",
+  "Tragic",
+  "Undead",
+  "Village",
+]
 
 [white.uncommon.races]
 angel = 2
@@ -235,6 +291,28 @@ spells = 9
 [blue.common]
 creatures = 8
 spells = 7
+adjectives = [
+  "Apprentice",
+  "Assistant",
+  "Brazen",
+  "Careful",
+  "Eloquent",
+  "Expansive",
+  "Gilded",
+  "Guarded",
+  "Ingenious",
+  "Interloping",
+  "Intrepid",
+  "Looming",
+  "Makeshift",
+  "Prosperous",
+  "Shining",
+  "Thieving",
+  "Tormented",
+  "Tragic",
+  "Undead",
+  "Village",
+]
 
 [blue.common.races]
 nothing = 1
@@ -487,6 +565,37 @@ instruction = "Modal spell"
 [blue.uncommon]
 creatures = 7
 spells = 7
+adjectives = [
+  "Ancient",
+  "Anointed",
+  "Apprentice",
+  "Assistant",
+  "Bellowing",
+  "Brave",
+  "Brazen",
+  "Careful",
+  "Desperate",
+  "Eloquent",
+  "Expansive",
+  "Frenzied",
+  "Gilded",
+  "Guarded",
+  "Ingenious",
+  "Interloping",
+  "Intrepid",
+  "Looming",
+  "Makeshift",
+  "One-Eyed",
+  "Prosperous",
+  "Shining",
+  "Territorial",
+  "Thieving",
+  "Tormented",
+  "Town",
+  "Tragic",
+  "Undead",
+  "Village",
+]
 
 [blue.uncommon.races]
 bird = 3
@@ -519,6 +628,45 @@ spells = 9
 [black.common]
 creatures = 9
 spells = 6
+adjectives = [
+  "Ambush",
+  "Ancient",
+  "Anointed",
+  "Apprentice",
+  "Assistant",
+  "Bellowing",
+  "Brave",
+  "Brazen",
+  "Conscripted",
+  "Day",
+  "Dark",
+  "Demonic",
+  "Desperate",
+  "Doomed",
+  "Feral",
+  "Frenzied",
+  "Frilled",
+  "Gilded",
+  "Grizzled",
+  "Guarded",
+  "Interloping",
+  "Intrepid",
+  "Looming",
+  "Makeshift",
+  "Night",
+  "Prosperous",
+  "Rough",
+  "Selfish",
+  "Shining",
+  "Territorial",
+  "Thieving",
+  "Tormented",
+  "Tragic",
+  "Undead",
+  "Unholy",
+  "Unruly",
+  "Village",
+]
 
 [black.common.races]
 nothing = 1
@@ -743,6 +891,42 @@ instruction = "Slightly overcosted removal"
 [black.uncommon]
 creatures = 8
 spells = 7
+adjectives = [
+  "Ambush",
+  "Ancient",
+  "Anointed",
+  "Apprentice",
+  "Assistant",
+  "Bellowing",
+  "Brave",
+  "Brazen",
+  "Conscripted",
+  "Day",
+  "Demonic",
+  "Desperate",
+  "Doomed",
+  "Elder",
+  "Frenzied",
+  "Gilded",
+  "Guarded",
+  "Interloping",
+  "Intrepid",
+  "Looming",
+  "Menacing",
+  "Night",
+  "Prosperous",
+  "Rough",
+  "Selfish",
+  "Shining",
+  "Territorial",
+  "Thieving",
+  "Tormented",
+  "Tragic",
+  "Undead",
+  "Unholy",
+  "Unruly",
+  "Village",
+]
 
 [black.uncommon.races]
 bat = 1
@@ -774,6 +958,36 @@ spells = 9
 [red.common]
 creatures = 9
 spells = 6
+adjectives = [
+  "Ambush",
+  "Ancient",
+  "Apprentice",
+  "Armored",
+  "Bellowing",
+  "Brave",
+  "Brazen",
+  "Careless",
+  "Day",
+  "Desperate",
+  "Fearless",
+  "Fearsome",
+  "Feral",
+  "Frenzied",
+  "Frilled",
+  "Gilded",
+  "Grizzled",
+  "Intrepid",
+  "Looming",
+  "Makeshift",
+  "Night",
+  "One-Eyed",
+  "Rough",
+  "Selfish",
+  "Territorial",
+  "Thieving",
+  "Unruly",
+  "Woodland",
+]
 
 [red.common.races]
 devil = 1
@@ -978,6 +1192,35 @@ instruction = "Direct damage for 6 (5 mana)"
 [red.uncommon]
 creatures = 7
 spells = 8
+adjectives = [
+  "Ambush",
+  "Ancient",
+  "Apprentice",
+  "Armored",
+  "Bellowing",
+  "Brave",
+  "Brazen",
+  "Careless",
+  "Day",
+  "Elder",
+  "Fearless",
+  "Fearsome",
+  "Feral",
+  "Frenzied",
+  "Frilled",
+  "Gilded",
+  "Grizzled",
+  "Intrepid",
+  "Looming",
+  "Makeshift",
+  "Night",
+  "One-Eyed",
+  "Rough",
+  "Selfish",
+  "Territorial",
+  "Thieving",
+  "Unruly",
+]
 
 [red.uncommon.races]
 cyclops = 1
@@ -1011,6 +1254,32 @@ spells = 9
 [green.common]
 creatures = 10
 spells = 5
+adjectives = [
+  "Ambush",
+  "Ancient",
+  "Armored",
+  "Bellowing",
+  "Brave",
+  "Brazen",
+  "Feral",
+  "Frenzied",
+  "Frilled",
+  "Grizzled",
+  "Guarded",
+  "Interloping",
+  "Intrepid",
+  "Looming",
+  "Rough",
+  "Shining",
+  "Territorial",
+  "Thieving",
+  "Unerring",
+  "Unruly",
+  "Wild",
+  "Woodland",
+  # "Doomed",
+  # "Elder",
+]
 
 [green.common.races]
 ape = 1
@@ -1207,6 +1476,30 @@ instruction = "Dig for lands and/or creatures"
 [green.uncommon]
 creatures = 9
 spells = 5
+adjectives = [
+  "Ambush",
+  "Ancient",
+  "Armored",
+  "Bellowing",
+  "Brave",
+  "Brazen",
+  "Doomed",
+  "Elder",
+  "Feral",
+  "Frenzied",
+  "Frilled",
+  "Grizzled",
+  "Interloping",
+  "Intrepid",
+  "Looming",
+  "Shining",
+  "Territorial",
+  "Thieving",
+  "Unerring",
+  "Unruly",
+  "Wild",
+  "Woodland",
+]
 
 [green.uncommon.races]
 bear = 2
@@ -1243,6 +1536,33 @@ spells = 9
 [artifact.common]
 creatures = 3
 spells = 3
+adjectives = [
+  "Ambush",
+  "Armored",
+  "Brass",
+  "Brazen",
+  "Clockwork",
+  "Cobbled",
+  "Cogwork",
+  "Conscripted",
+  "Copper",
+  "Dusty",
+  "Gilded",
+  "Guarded",
+  "Haphazard",
+  "Iron",
+  "Makeshift",
+  "Metal",
+  "Mindless",
+  "Rough",
+  "Shining",
+  "Steel",
+  "Stone",
+  "Thieving",
+  "Toy",
+  "Wind-Up",
+  "Wooden",
+]
 
 [artifact.common.races]
 construct = 3
@@ -1340,6 +1660,28 @@ instruction = "Land fixing"
 [artifact.uncommon]
 creatures = 4
 spells = 3
+adjectives = [
+  "Ambush",
+  "Ancient",
+  "Anointed",
+  "Armored",
+  "Brass",
+  "Brazen",
+  "Clockwork",
+  "Cogwork",
+  "Copper",
+  "Gilded",
+  "Guarded",
+  "Haphazard",
+  "Iron",
+  "Makeshift",
+  "Metal",
+  "Shining",
+  "Steel",
+  "Stone",
+  "Thieving",
+  "Wooden",
+]
 
 [artifact.rare]
 spells = 5
