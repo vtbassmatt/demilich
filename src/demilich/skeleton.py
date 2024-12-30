@@ -5,14 +5,14 @@ from typing import Literal
 
 
 # backup names in case we try to generate from an empty list
-NAMES = [
+FALLBACK_NAMES = [
     'Andy', 'Becca', 'Chandru', 'Deniz', 'Ewald', 'Frankie',
     'Gisele', 'Humberto', 'Inez', 'Jae', 'Kenny', 'Libby',
     'Montero', 'Nick', 'Opal', 'Pru', 'Quinton', 'Ruby',
     'Sam', 'Tierney', 'Ursula', 'Viktor', 'Wociek', 'Xavier',
     'Yar', 'Zed',
 ]
-ADJECTIVES = [
+FALLBACK_ADJECTIVES = [
     'Ancient', 'Anointed', 'Brazen', 'Desperate', 'Frenzied', 'Gilded',
     'Looming', 'Prosperous', 'Apprentice', 'Shining', 'Territorial',
     'Ambush', 'Armored', 'Doomed', 'Elder', 'Feral', 'Grizzled',
@@ -206,8 +206,8 @@ class _SkeletonIterator:
         if len(race_class) > 0:
             name = choice(race_class).word
         else:
-            name = choice(NAMES)
-        adjective = choice(ADJECTIVES)
+            name = choice(FALLBACK_NAMES)
+        adjective = choice(FALLBACK_ADJECTIVES)
         return f'{adjective} {name.title()}'
 
 
