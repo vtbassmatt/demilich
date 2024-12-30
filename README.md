@@ -2,9 +2,29 @@
 
 A tool for quickly scaffolding a custom MTG set.
 
+For designers of custom Magic: the Gathering sets, the designers of canon Magic suggest starting from a [design skeleton](https://magic.wizards.com/en/news/making-magic/nuts-and-bolts-16-play-boosters).
+This is a set of "slots" which have some standard creatures, keywords, and spells to make the limited game work, at least at a base level.
+I've found that the act of mechanically filling out a design skeleton (15 commons per color, 14 uncommons per color, plus artifacts and signposts) is draining.
+In fact, I've never successfully completed a design skeleton by hand.
+
+Enter `demilich`.
+Demilich encodes the suggested distributions of things and generates a randomized set of initial slots.
+This takes the drudgery and thinking out of the process and makes it a simple, mechanical starting point.
+From there, you can start assigning your own mechanics and creative to your new set!
+
 ## Installation
 
+The fastest way to simply generate a basic skeleton is to run `demilich` using `pipx`.
+1. Install [`pipx`](https://pipx.pypa.io/latest/)
+2. Run `demilich`: `pipx run demilich play-booster > skeleton.csv`
+
+If you intend to use more of its features (like [generating a skeleton programmatically](#programmatically-building-a-skeleton)), you can also install the package.
+
 ```shell
+# first make a virtualenv however you normally do
+% python -m venv env
+% . env/bin/activate
+# then install demilich
 % pip install demilich
 ```
 
