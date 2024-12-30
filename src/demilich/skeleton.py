@@ -130,7 +130,10 @@ class _SkeletonIterator:
         self._frame = copy.copy(frame)
         self._creatures = copy.deepcopy(creatures)
         self._spells = copy.deepcopy(spells)
-        self._adjectives = copy.copy(adjectives)
+        if adjectives:
+            self._adjectives = _infinite_shuffle(adjectives)
+        else:
+            self._adjectives = _infinite_shuffle(FALLBACK_ADJECTIVES)
         self._index = -1
 
     def __iter__(self):
@@ -208,7 +211,7 @@ class _SkeletonIterator:
             name = choice(race_class).word
         else:
             name = choice(FALLBACK_NAMES)
-        adjective = choice(self._adjectives) if self._adjectives else choice(FALLBACK_ADJECTIVES)
+        adjective = next(self._adjectives)
         return f'{adjective} {name.title()}'
 
 
