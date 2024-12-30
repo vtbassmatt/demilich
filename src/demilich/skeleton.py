@@ -153,7 +153,8 @@ class _SkeletonIterator:
         name_tags = list(bag.words_tagged('name'))
         if name_tags:
             result['name'] = name_tags[0].word
-        elif bag.has_any('power'):
+        elif any([bag.has_any('power'), bag.has_any('toughness'),
+                  bag.has_any('race'), bag.has_any('class')]):
             result['name'] = self._generate_name(bag)
 
         keyword_tags = bag.words_tagged("keyword")

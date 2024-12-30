@@ -206,6 +206,27 @@ instruction = "Disenchant/removal"
 creatures = 10
 spells = 4
 
+[white.uncommon.races]
+angel = 2
+bird = 1
+dinosaur = 1
+giant = 1
+human = 4
+kithkin = 2
+pegasus = 1
+spirit = 3
+unicorn = 1
+vampire = 1
+
+[white.uncommon.classes]
+nothing = 3
+archer = 1
+cleric = 2
+knight = 2
+monk = 1
+samurai = 2
+soldier = 2
+
 [white.rare]
 spells = 9
 
@@ -467,6 +488,29 @@ instruction = "Modal spell"
 creatures = 7
 spells = 7
 
+[blue.uncommon.races]
+bird = 3
+crab = 1
+faerie = 2
+homarid = 2
+human = 2
+kraken = 1
+merfolk = 4
+sphinx = 3
+spirit = 2
+weird = 1
+zombie = 1
+
+[blue.uncommon.classes]
+nothing = 2
+artificer = 2
+mystic = 1
+ninja = 1
+pirate = 2
+rogue = 3
+scout = 2
+wizard = 3
+
 [blue.rare]
 spells = 9
 
@@ -700,6 +744,28 @@ instruction = "Slightly overcosted removal"
 creatures = 8
 spells = 7
 
+[black.uncommon.races]
+bat = 1
+demon = 3
+faerie = 2
+horror = 2
+human = 2
+nightmare = 1
+scorpion = 1
+skeleton = 2
+vampire = 3
+zombie = 2
+
+[black.uncommon.classes]
+nothing = 2
+assassin = 2
+cleric = 2
+knight = 1
+mercenary = 1
+ninja = 1
+rogue = 3
+warlock = 3
+
 [black.rare]
 spells = 9
 
@@ -913,6 +979,30 @@ instruction = "Direct damage for 6 (5 mana)"
 creatures = 7
 spells = 8
 
+[red.uncommon.races]
+cyclops = 1
+devil = 2
+dinosaur = 1
+dragon = 3
+dwarf = 1
+giant = 2
+goblin = 3
+minotaur = 1
+ogre = 2
+orc = 1
+weird = 1
+
+[red.uncommon.classes]
+nothing = 5
+artificer = 1
+barbarian = 2
+berserker = 2
+knight = 2
+pirate = 2
+samurai = 1
+shaman = 4
+warrior = 2
+
 [red.rare]
 spells = 9
 
@@ -1117,6 +1207,33 @@ instruction = "Dig for lands and/or creatures"
 [green.uncommon]
 creatures = 9
 spells = 5
+
+[green.uncommon.races]
+bear = 2
+centaur = 1
+dinosaur = 1
+elf = 4
+human = 2
+hydra = 3
+insect = 1
+loxodon = 1
+merfolk = 1
+ooze = 1
+rhox = 1
+spider = 2
+treefolk = 2
+troll = 1
+wurm = 1
+
+[green.uncommon.classes]
+nothing = 1
+archer = 2
+druid = 3
+monk = 1
+ranger = 2
+scout = 1
+shaman = 2
+warrior = 2
 
 [green.rare]
 spells = 9
