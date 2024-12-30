@@ -1,4 +1,4 @@
-# WIP
+# 1.1
 2024-12-30
 
 - Allow skeletons to specify adjectives for use in naming creatures
