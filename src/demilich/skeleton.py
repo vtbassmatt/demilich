@@ -237,7 +237,6 @@ class SkeletonGenerator:
             self._creatures = [Bag(TaggedWord('Creature', 'type')) for _ in range(creatures)]
             self._spells = [Bag() for _ in range(spells)]
         # internal bookkeeping
-        self._index = -1
         self._next_spell = 0
 
     def __iter__(self):
