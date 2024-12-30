@@ -37,6 +37,13 @@
           },
           "title": "Distribution of keywords"
         },
+        "adjectives": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "title": "Adjectives to draw from for creature naming"
+        },
         "creature_slots": {
           "type": "array",
           "items": {

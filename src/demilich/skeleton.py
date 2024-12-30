@@ -5,14 +5,14 @@ from typing import Literal
 
 
 # backup names in case we try to generate from an empty list
-NAMES = [
+FALLBACK_NAMES = [
     'Andy', 'Becca', 'Chandru', 'Deniz', 'Ewald', 'Frankie',
     'Gisele', 'Humberto', 'Inez', 'Jae', 'Kenny', 'Libby',
     'Montero', 'Nick', 'Opal', 'Pru', 'Quinton', 'Ruby',
     'Sam', 'Tierney', 'Ursula', 'Viktor', 'Wociek', 'Xavier',
     'Yar', 'Zed',
 ]
-ADJECTIVES = [
+FALLBACK_ADJECTIVES = [
     'Ancient', 'Anointed', 'Brazen', 'Desperate', 'Frenzied', 'Gilded',
     'Looming', 'Prosperous', 'Apprentice', 'Shining', 'Territorial',
     'Ambush', 'Armored', 'Doomed', 'Elder', 'Feral', 'Grizzled',
@@ -125,11 +125,15 @@ def _infinite_shuffle(list_of_items):
 
 
 class _SkeletonIterator:
-    def __init__(self, rarity, frame, creatures, spells):
+    def __init__(self, rarity, frame, creatures, spells, adjectives):
         self._rarity = copy.copy(rarity)
         self._frame = copy.copy(frame)
         self._creatures = copy.deepcopy(creatures)
         self._spells = copy.deepcopy(spells)
+        if adjectives:
+            self._adjectives = _infinite_shuffle(adjectives)
+        else:
+            self._adjectives = _infinite_shuffle(FALLBACK_ADJECTIVES)
         self._index = -1
 
     def __iter__(self):
@@ -206,8 +210,8 @@ class _SkeletonIterator:
         if len(race_class) > 0:
             name = choice(race_class).word
         else:
-            name = choice(NAMES)
-        adjective = choice(ADJECTIVES)
+            name = choice(FALLBACK_NAMES)
+        adjective = next(self._adjectives)
         return f'{adjective} {name.title()}'
 
 
@@ -237,6 +241,7 @@ class SkeletonGenerator:
         else:
             self._creatures = [Bag(TaggedWord('Creature', 'type')) for _ in range(creatures)]
             self._spells = [Bag() for _ in range(spells)]
+        self._adjectives: list[str] = []
         # internal bookkeeping
         self._next_spell = 0
 
@@ -248,6 +253,7 @@ class SkeletonGenerator:
             self._frame,
             self._creatures,
             self._spells,
+            self._adjectives,
         )
 
     def keywords(self, **kwargs: float):
@@ -375,6 +381,18 @@ class SkeletonGenerator:
             if ch != "nothing":
                 tag = TaggedWord(ch, _tag_word)
                 bag.add(tag)
+
+    def adjectives(self, *args: str):
+        """
+        Adjectives to be applied when naming creatures.
+
+        For example:
+          generator.adjectives('dark', 'light', 'purple')
+        
+        This example will generate names like "Dark Angel",
+        "Light Scout", and "Purple Archer".
+        """
+        self._adjectives = list(args)
 
     def add_spell(self, instruction: str, *possibilities: Card):
         """

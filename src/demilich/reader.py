@@ -42,10 +42,15 @@ RARITIES = [
 
 
 def _configure_slots(data: dict, slot_maker: SkeletonGenerator):
-    for key in ['keywords', 'races', 'classes']:
+    for key in ['keywords', 'races', 'classes',]:
         if key in data:
             method = slot_maker.__getattribute__(key)
             method(**data[key])
+
+    for key in ['adjectives',]:
+        if key in data:
+            method = slot_maker.__getattribute__(key)
+            method(*data[key])
 
     if 'creature_slots' in data:
         mv, power, toughness = zip(
