@@ -4,7 +4,17 @@ A tool for quickly scaffolding a custom MTG set.
 
 ## Installation
 
+The fastest way to simply generate a basic skeleton is to run `demilich` using `pipx`.
+1. Install [`pipx`](https://pipx.pypa.io/latest/)
+2. Run `demilich`: `pipx run demilich play-booster > skeleton.csv`
+
+If you intend to use more of its features (like [generating a skeleton programmatically](#programmatically-building-a-skeleton)), you can also install the package.
+
 ```shell
+# first make a virtualenv however you normally do
+% python -m venv env
+% . env/bin/activate
+# then install demilich
 % pip install demilich
 ```
 
