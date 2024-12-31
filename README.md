@@ -82,7 +82,7 @@ See the examples in `examples/` for ideas on how to do it.
 
 Each `SkeletonGenerator` is only responsible for a single section of a full skeleton.
 It keeps a fixed rarity and frame code, which simplifies the implementation quite a bit.
-If you need something much fancier, like redistribution keywords that didn't make it into one rarity into another rarity, you can probably achieve that using the programmatic interface.
+If you need something much fancier, like redistributing keywords that didn't make it into one rarity into another rarity, you can probably achieve that using the programmatic interface.
 
 ## Fan content policy
 
