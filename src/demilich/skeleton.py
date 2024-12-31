@@ -125,7 +125,7 @@ def _infinite_shuffle(list_of_items):
 
 
 class _SkeletonIterator:
-    def __init__(self, rarity, frame, creatures, spells, adjectives):
+    def __init__(self, rarity, frame, creatures, spells, adjectives, occupations):
         self._rarity = copy.copy(rarity)
         self._frame = copy.copy(frame)
         self._creatures = copy.deepcopy(creatures)
@@ -134,6 +134,7 @@ class _SkeletonIterator:
             self._adjectives = _infinite_shuffle(adjectives)
         else:
             self._adjectives = _infinite_shuffle(FALLBACK_ADJECTIVES)
+        self._occupations = occupations
         self._index = -1
 
     def __iter__(self):
@@ -207,8 +208,14 @@ class _SkeletonIterator:
     def _generate_name(self, bag: Bag):
         race_class = list(bag.words_tagged('race')) + \
                      list(bag.words_tagged('class'))
-        if len(race_class) > 0:
+        if len(race_class) > 0 and (
+            len(self._occupations) == 0 or uniform(0.0, 1.0) < .8
+        ):
+            # 80% of the time, choose race/class word
             name = choice(race_class).word
+        elif len(self._occupations) > 0:
+            # the other 20% of the time, choose an occupation
+            name = choice(self._occupations)
         else:
             name = choice(FALLBACK_NAMES)
         adjective = next(self._adjectives)
@@ -242,6 +249,7 @@ class SkeletonGenerator:
             self._creatures = [Bag(TaggedWord('Creature', 'type')) for _ in range(creatures)]
             self._spells = [Bag() for _ in range(spells)]
         self._adjectives: list[str] = []
+        self._occupations: list[str] = []
         # internal bookkeeping
         self._next_spell = 0
 
@@ -254,6 +262,7 @@ class SkeletonGenerator:
             self._creatures,
             self._spells,
             self._adjectives,
+            self._occupations,
         )
 
     def keywords(self, **kwargs: float):
@@ -393,6 +402,20 @@ class SkeletonGenerator:
         "Light Scout", and "Purple Archer".
         """
         self._adjectives = list(args)
+
+    def occupations(self, *args: str):
+        """
+        Occupations to be applied when naming creatures.
+
+        For example:
+          generator.occupations('governor', 'captain', 'brute')
+        
+        Sometimes, instead of a race or class, a name will be
+        generated with one of these occupations instead. Instead of
+        "Grizzled Goblin" or "Revered Elf", once in a while you'd get
+        "Grizzled Brute" or "Revered Governor" instead.
+        """
+        self._occupations = list(args)
 
     def add_spell(self, instruction: str, *possibilities: Card):
         """
