@@ -32,6 +32,24 @@ adjectives = [
   "Tragic",
   "Village",
 ]
+occupations = [
+  "Acolyte",
+  "Cavalry",
+  "Chaplain",
+  "Commando",
+  "Disciple",
+  "Enforcer",
+  "Guard",
+  "Guide",
+  "Initiate",
+  "Lawkeeper",
+  "Paladin",
+  "Pilgrim",
+  "Squire",
+  "Tactician",
+  "Tracker",
+  "Veteran",
+]
 
 [white.common.races]
 nothing = 1
@@ -261,6 +279,25 @@ adjectives = [
   "Undead",
   "Village",
 ]
+occupations = [
+  "Acolyte",
+  "Captain",
+  "Cavalry",
+  "Chaplain",
+  "Commando",
+  "Disciple",
+  "Enforcer",
+  "Guard",
+  "Guide",
+  "Initiate",
+  "Lawkeeper",
+  "Paladin",
+  "Pilgrim",
+  "Priest",
+  "Tactician",
+  "Tracker",
+  "Veteran",
+]
 
 [white.uncommon.races]
 angel = 2
@@ -312,6 +349,26 @@ adjectives = [
   "Tragic",
   "Undead",
   "Village",
+]
+occupations = [
+  "Adept",
+  "Alchemist",
+  "Analyst",
+  "Conjurer",
+  "Guide",
+  "Initiate",
+  "Instructor",
+  "Journeymage",
+  "Lookout",
+  "Marshal",
+  "Navigator",
+  "Prodigy",
+  "Professor",
+  "Pupil",
+  "Seer",
+  "Smuggler",
+  "Sneak",
+  "Tinkerer",
 ]
 
 [blue.common.races]
@@ -596,6 +653,26 @@ adjectives = [
   "Undead",
   "Village",
 ]
+occupations = [
+  "Adept",
+  "Alchemist",
+  "Analyst",
+  "Conjurer",
+  "Guide",
+  "Initiate",
+  "Instructor",
+  "Journeymage",
+  "Lookout",
+  "Marshal",
+  "Navigator",
+  "Prodigy",
+  "Professor",
+  "Pupil",
+  "Seer",
+  "Smuggler",
+  "Sneak",
+  "Tinkerer",
+]
 
 [blue.uncommon.races]
 bird = 3
@@ -666,6 +743,31 @@ adjectives = [
   "Unholy",
   "Unruly",
   "Village",
+]
+occupations = [
+  "Assailant",
+  "Burglar",
+  "Coroner",
+  "Desecrator",
+  "Disciple",
+  "Gladiator",
+  "Guard",
+  "Infiltrator",
+  "Marauder",
+  "Necromancer",
+  "Outlaw",
+  "Priest",
+  "Sage",
+  "Scavenger",
+  "Scourge",
+  "Skulker",
+  "Stalker",
+  "Strangler",
+  "Thief",
+  "Thrall",
+  "Tyrant",
+  "Vanguard",
+  "Zealot",
 ]
 
 [black.common.races]
@@ -927,6 +1029,28 @@ adjectives = [
   "Unruly",
   "Village",
 ]
+occupations = [
+  "Assailant",
+  "Coroner",
+  "Desecrator",
+  "Disciple",
+  "Gladiator",
+  "Guard",
+  "Infiltrator",
+  "Marauder",
+  "Necromancer",
+  "Outlaw",
+  "Priest",
+  "Sage",
+  "Scourge",
+  "Stalker",
+  "Strangler",
+  "Thief",
+  "Thrall",
+  "Tyrant",
+  "Vanguard",
+  "Zealot",
+]
 
 [black.uncommon.races]
 bat = 1
@@ -987,6 +1111,20 @@ adjectives = [
   "Thieving",
   "Unruly",
   "Woodland",
+]
+occupations = [
+  "Arsonist",
+  "Cavalry",
+  "Champion",
+  "Chaser",
+  "Invader",
+  "Lumberjack",
+  "Prophet",
+  "Raider",
+  "Scrounger",
+  "Smuggler",
+  "Tracker",
+  "Vandal",
 ]
 
 [red.common.races]
@@ -1221,6 +1359,20 @@ adjectives = [
   "Thieving",
   "Unruly",
 ]
+occupations = [
+  "Arsonist",
+  "Captain",
+  "Cavalry",
+  "Champion",
+  "Chaser",
+  "Devastator",
+  "Invader",
+  "Lumberjack",
+  "Prophet",
+  "Raider",
+  "Smuggler",
+  "Tracker",
+]
 
 [red.uncommon.races]
 cyclops = 1
@@ -1277,6 +1429,27 @@ adjectives = [
   "Unruly",
   "Wild",
   "Woodland",
+]
+occupations = [
+  "Courier",
+  "Crusher",
+  "Empath",
+  "Farmer",
+  "Guardian",
+  "Guide",
+  "Hunter",
+  "Initiate",
+  "Marauder",
+  "Opportunist",
+  "Protector",
+  "Prowler",
+  "Ranger",
+  "Scrounger",
+  "Sentry",
+  "Stalwart",
+  "Stomper",
+  "Survivor",
+  "Visionary",
 ]
 
 [green.common.races]
@@ -1498,6 +1671,27 @@ adjectives = [
   "Wild",
   "Woodland",
 ]
+occupations = [
+  "Courier",
+  "Crusher",
+  "Empath",
+  "Farmer",
+  "Guardian",
+  "Guide",
+  "Hunter",
+  "Initiate",
+  "Marauder",
+  "Opportunist",
+  "Protector",
+  "Prowler",
+  "Ranger",
+  "Scrounger",
+  "Sentry",
+  "Stalwart",
+  "Stomper",
+  "Survivor",
+  "Visionary",
+]
 
 [green.uncommon.races]
 bear = 2
@@ -1561,9 +1755,24 @@ adjectives = [
   "Wind-Up",
   "Wooden",
 ]
+occupations = [
+  "Automaton",
+  "Companion",
+  "Courier",
+  "Enforcer",
+  "Engine",
+  "Guide",
+  "Harvester",
+  "Inspector",
+  "Librarian",
+  "Puppet",
+  "Servitor",
+  "Worker",
+]
 
 [artifact.common.races]
 construct = 3
+drone = 1
 gargoyle = 1
 golem = 3
 myr = 3
@@ -1679,6 +1888,20 @@ adjectives = [
   "Stone",
   "Thieving",
   "Wooden",
+]
+occupations = [
+  "Automaton",
+  "Companion",
+  "Courier",
+  "Enforcer",
+  "Engine",
+  "Guide",
+  "Harvester",
+  "Inspector",
+  "Librarian",
+  "Puppet",
+  "Servitor",
+  "Worker",
 ]
 
 [artifact.rare]

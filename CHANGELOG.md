@@ -1,3 +1,7 @@
+# Next
+2025-??-??
+- Introduce occupations, an alternative / additional set of words to use when generating creature names.
+
 # 1.1
 2024-12-30
 
