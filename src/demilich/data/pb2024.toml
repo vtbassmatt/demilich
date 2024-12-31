@@ -1277,8 +1277,6 @@ adjectives = [
   "Unruly",
   "Wild",
   "Woodland",
-  # "Doomed",
-  # "Elder",
 ]
 
 [green.common.races]
