@@ -47,7 +47,7 @@ def _configure_slots(data: dict, slot_maker: SkeletonGenerator):
             method = slot_maker.__getattribute__(key)
             method(**data[key])
 
-    for key in ['adjectives',]:
+    for key in ['adjectives', 'occupations',]:
         if key in data:
             method = slot_maker.__getattribute__(key)
             method(*data[key])
