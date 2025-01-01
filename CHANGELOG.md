@@ -1,4 +1,4 @@
-# Next
+# 1.2
 2025-01-01
 - Allow for changing the output: choosing fields and their order, choosing chunks of the skeleton to generate
 - Introduce occupations, an alternative / additional set of words to use when generating creature names.
