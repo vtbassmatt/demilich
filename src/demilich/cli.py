@@ -62,7 +62,7 @@ def custom_skeleton(
 
 
 def _generate(data, format, include_instruction, include_text):
-    all_fields = ['id', 'instruction', 'name', 'cost', 'typeline', 'text', 'stats']
+    all_fields = ['id', 'instruction', 'name', 'cost', 'typeline', 'stats', 'text']
     fields = {field: True for field in all_fields}
 
     if format == OutputFormat.csv:
