@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "demilich"
-version = "1.1.0"
+version = "1.2.0"
 description = "Demilich, the MTG skeleton wizard"
 authors = ["Matt Cooper <vtbassmatt@gmail.com>"]
 readme = "README.md"
