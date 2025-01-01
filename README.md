@@ -57,23 +57,49 @@ You can ask for a pretty-printed table instead with the `--format` option.
 % demilich custom-skeleton my-custom-skeleton.toml --format=table
 ```
 
-## Suppressing or including big columns
+## Choosing fields
 
-CSV mode includes all columns by default.
-
-Table mode suppresses the "instruction" column by default.
-You can bring it back with `--include-instruction`.
-(You'll want a pretty wide terminal for this to make sense.)
+CSV mode includes all fields by default.
+Table mode omits the "instruction" field by default.
+But you have full control about which fields appear and in what order.
 
 ```shell
-% demilich play-booster --format=table --include-instruction
+% demilich play-booster --format=table --fields=id,name,stats,text
 ```
 
-You can additionally suppress card text with `--no-include-text`:
+This will generate a 4-column output (regardless of format) which only includes ID, name, stats, and card text fields.
+
+The valid fields are:
+- `id`
+- `instruction`
+- `name`
+- `cost`
+- `typeline`
+- `stats`
+- `text`
+
+## Limiting to certain chunks of the skeleton
+
+By default, `demilich` will generate every skeleton chunk in the definition file.
+But for a particular run, you may want to only generate a subset of rarities and/or a subset of frames.
+There are options for this:
 
 ```shell
-% demilich play-booster --format=table --no-include-text
+# produce only the white commons
+% demilich play-booster --rarities C --frames W
+
+# produce artifact uncommons and rares
+% demilich play-booster --rarities UR --frames A
+
+# produce blue and black rares
+% demilich play-booster --rarities R --frames UB
+
+# produce red and green commons and uncommons
+% demilich play-booster --rarities CU --frames RG
 ```
+
+When you specify both `--rarities` and `--frames`, you'll get output which includes every combination.
+There isn't a way to ask for "blue commons and red uncommons"; just split that into two separate invocations (`demilich play-booster --rarities C --frames U` and `demilich play-booster --rarities U --frames R`).
 
 ## Programmatically building a skeleton
 

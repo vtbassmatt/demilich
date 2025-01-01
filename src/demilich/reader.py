@@ -67,14 +67,14 @@ def _configure_slots(data: dict, slot_maker: SkeletonGenerator):
             slot_maker.add_spell(spell.get('instruction', ''), *options)
 
 
-def generate_skeleton(data: dict):
+def generate_skeleton(data: dict, rarities: str, frames: str):
     for frame_code, frame_name in FRAMES:
-        if frame_name not in data:
+        if frame_name not in data or frame_code not in frames:
             continue
 
         frame_data = data[frame_name]
         for rarity_code, rarity_name in RARITIES:
-            if rarity_name not in frame_data:
+            if rarity_name not in frame_data or rarity_code not in rarities:
                 continue
 
             f_r_data = frame_data[rarity_name]
