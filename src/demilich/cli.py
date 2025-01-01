@@ -12,6 +12,9 @@ from demilich.reader import (
 from demilich.output import write_csv, write_table
 
 
+ALL_FIELDS = ['id', 'instruction', 'name', 'cost', 'typeline', 'stats', 'text']
+FIELDS_HELP = f"Comma-separated fields to include in the output from among: {','.join(ALL_FIELDS)}"
+
 class OutputFormat(str, Enum):
     csv = "csv"
     table = "table"
@@ -25,18 +28,16 @@ def play_booster(
     format: Annotated[
         OutputFormat, typer.Option()
     ] = OutputFormat.csv,
-    include_instruction: Annotated[
-        bool|None, typer.Option(help="Include skeleton instruction")
-    ] = None,
-    include_text: Annotated[
-        bool|None, typer.Option(help="Include card text")
-    ] = None,
+    fields: Annotated[
+        str, typer.Option(help=FIELDS_HELP, metavar="field_list")
+    ] = "",
 ):
     """
     Generate a standard play booster skeleton.
     """
+    fields = _get_fields(fields, format)
     data = load_from_resources('pb2024.toml')
-    _generate(data, format, include_instruction, include_text)
+    _generate(data, format, fields)
 
 
 @app.command()
@@ -47,33 +48,41 @@ def custom_skeleton(
     format: Annotated[
         OutputFormat, typer.Option()
     ] = OutputFormat.csv,
-    include_instruction: Annotated[
-        bool|None, typer.Option(help="Include skeleton instruction")
-    ] = None,
-    include_text: Annotated[
-        bool|None, typer.Option(help="Include card text")
-    ] = None,
+    fields: Annotated[
+        str, typer.Option(help=FIELDS_HELP, metavar="field_list")
+    ] = "",
 ):
     """
     Generate a skeleton from a TOML file.
     """
+    fields = _get_fields(fields, format)
     data = load_from_file(filename)
-    _generate(data, format, include_instruction, include_text)
+    _generate(data, format, fields)
 
 
-def _generate(data, format, include_instruction, include_text):
-    all_fields = ['id', 'instruction', 'name', 'cost', 'typeline', 'stats', 'text']
-    fields = {field: True for field in all_fields}
+def _get_fields(field_str: str|None, format: OutputFormat):
+    if not field_str:
+        if format == OutputFormat.table:
+            return [f for f in ALL_FIELDS if f != 'instruction']
+        return ALL_FIELDS
 
+    requested_fields = [f.lower() for f in field_str.split(',')]
+    shown_fields = []
+    for field in requested_fields:
+        if field in ALL_FIELDS:
+            shown_fields.append(field)
+        else:
+            raise ValueError(f"unknown field {field} requested; "
+                             f"valid options are {ALL_FIELDS}")
+    return shown_fields
+
+
+def _generate(data, format, fields):
     if format == OutputFormat.csv:
-        fields['instruction'] = False if include_instruction is False else True
-        fields['text'] = False if include_text is False else True
-        write_csv(generate_skeleton(data), [key for key, value in fields.items() if value])
+        write_csv(generate_skeleton(data), fields)
 
     elif format == OutputFormat.table:
-        fields['instruction'] = True if include_instruction is True else False
-        fields['text'] = False if include_text is False else True
-        write_table(generate_skeleton(data), [key for key, value in fields.items() if value])
+        write_table(generate_skeleton(data), fields)
 
     else:
         raise NotImplementedError(format)
