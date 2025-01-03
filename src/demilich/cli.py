@@ -73,7 +73,7 @@ def custom_skeleton(
     """
     Generate a skeleton from a TOML file.
     """
-    data_loader = load_from_file(filename)
+    data_loader = lambda: load_from_file(filename)
     _generate(data_loader, format, fields, rarities, frames)
 
 
