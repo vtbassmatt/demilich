@@ -1,5 +1,5 @@
-# Next
-2025-??-??
+# 1.2.1
+2025-01-03
 
 - Try a little harder to make Birds and Bats always fly
 - Bugfix: custom skeleton generation was broken in the last release 🙁
