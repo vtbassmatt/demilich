@@ -2,6 +2,7 @@
 2025-??-??
 
 - Try a little harder to make Birds and Bats always fly
+- Bugfix: custom skeleton generation was broken in the last release 🙁
 
 # 1.2
 2025-01-01
