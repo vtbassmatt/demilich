@@ -442,18 +442,22 @@ class SkeletonGenerator:
                 bag.add(TaggedWord(spell.stats[1], 'toughness'))
 
     def _check_and_normalize(self):
-        non_obligate_flyers: list[Bag] = []
+        can_lose_flying: list[Bag] = []
+        needs_flying: list[Bag] = []
 
         for bag in self._creatures:
             if bag.has('flying', 'keyword') and not bag.has('bird', 'race') and not bag.has('bat', 'race'):
-                non_obligate_flyers.append(bag)
+                can_lose_flying.append(bag)
 
             if (bag.has('bird', 'race') or bag.has('bat', 'race')) and not bag.has('flying', 'keyword'):
-                flying = TaggedWord('flying', 'keyword')
-                bag.add(flying)
-                # try to remove a non-bird/bat flyer to keep flying counts stable
-                # if we haven't yet encountered one, the list will be empty
-                # so we might make too many flyers. as a design skeleton, this
-                # is probably fine.
-                if non_obligate_flyers:
-                    non_obligate_flyers.pop().remove(flying)
+                needs_flying.append(bag)
+        
+        # we use zip() without strict=True so that we only swap as
+        # many as we can. if there are more un-flying Birds/Bats than
+        # flying slots available, those will remain flightless.
+        # TODO: when we have a warning system available, flag this
+        # condition.
+        for has, wants in zip(can_lose_flying, needs_flying):
+            flying = TaggedWord('flying', 'keyword')
+            has.remove(flying)
+            wants.add(flying)
