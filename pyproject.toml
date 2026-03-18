@@ -1,25 +1,42 @@
-[tool.poetry]
+[project]
 name = "demilich"
 version = "1.2.1"
 description = "Demilich, the MTG skeleton wizard"
-authors = ["Matt Cooper <vtbassmatt@gmail.com>"]
+authors = [{ name = "Matt Cooper", email = "vtbassmatt@gmail.com" }]
+requires-python = ">=3.12,<4"
 readme = "README.md"
-homepage = "https://github.com/vtbassmatt/demilich"
-repository = "https://github.com/vtbassmatt/demilich"
-documentation = "https://github.com/vtbassmatt/demilich"
-keywords = ["game", "tcg", "mtg", "magic"]
-packages = [{include = "demilich", from = "src"}]
+keywords = [
+    "game",
+    "tcg",
+    "mtg",
+    "magic",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = ["typer>=0.15.1,<0.16"]
 
-[tool.poetry.urls]
+[project.urls]
+Homepage = "https://github.com/vtbassmatt/demilich"
+Repository = "https://github.com/vtbassmatt/demilich"
+Documentation = "https://github.com/vtbassmatt/demilich"
 "Bug Tracker" = "https://github.com/vtbassmatt/demilich/issues"
 
-[tool.poetry.scripts]
+[project.scripts]
 demilich = "demilich.cli:app"
 
-[tool.poetry.dependencies]
-python = "^3.12"
-typer = "^0.15.1"
+[tool.hatch.build.targets.sdist]
+include = ["src/demilich"]
+
+[tool.hatch.build.targets.wheel]
+include = ["src/demilich"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/demilich" = "demilich"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
